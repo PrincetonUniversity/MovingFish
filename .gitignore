@@ -1,4 +1,18 @@
 # History files
-.Rhistory
+*.Rhistory
+*.RData
+*.Rproj.user/
+*.Rapp.history
 
+# Tex files
+*.aux
+*.bbl
+*.blg
+*.log
+*.synctex.gz
 
+# old stuff
+**/Old_stuff/
+
+# other stuff
+*.DS_Store
