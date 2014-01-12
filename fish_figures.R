@@ -114,7 +114,7 @@ for(i in 1:L){
 toplot_ebm=ebm
 
 #breaks and colors
-lower=min(ebm)
+lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
 # s=5
 # maxgray=length(cuts)-2+s-1
@@ -174,7 +174,7 @@ for(i in 1:L){
 
 toplot_ebm=ebm
 #breaks and colors
-lower=min(ebm)
+lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
 # s=5
 # maxgray=length(cuts)-2+s-1
@@ -297,7 +297,7 @@ for(i in 1:L){
 toplot_ebm=ebm
 
 #breaks and colors
-lower=min(ebm)
+lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
 # s=5
 # maxgray=length(cuts)-2+s-1
@@ -346,7 +346,7 @@ cvals=matrix(seq(0,1,by=0.01),nrow=1)
 
 nr=3
 ns=2
-rvals=c(rep(3,ns),rep(7,ns),rep(10,ns))
+rvals=c(rep(3,ns),rep(5,ns),rep(10,ns))
 rcols=c(rep('black',ns),rep('red',ns),rep('blue',ns))
 xvals=c(.1,.25)
 sigvals=rep((xvals*sqrt(2*pi))^2,nr)
