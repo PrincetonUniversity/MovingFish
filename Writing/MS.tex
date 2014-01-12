@@ -20,17 +20,17 @@
 
 \section{Abstract}
 
-When the climate changes, the area in which organisms can survive and reproduce will move through space. 
-This change does not occur in isolation but rather appears on a background of other disturbances. We use an 
+When the climate changes, the area in which organisms can survive and reproduce moves through space. 
+This change does not occur in isolation but rather appears on a background of other disturbances. We used an 
 integrodifference model explicitly accounting for dispersal, reproduction, a shifting environment, and 
 harvesting to examine how two disturbances, range shift and harvesting, interact and govern population 
-persistence. We found the harvesting rate and the rate of environmental shift that are needed to allow the 
+persistence. We found threshold rates of harvesting and of environmental shift that are needed to allow the 
 population to persist, studied how these critical parameters depend on the growth rate and dispersal behavior 
-of the population, and measured the interactions between the stressors. In particular, we found positive 
+of the population, and measured the interactions between the stressors. In particular, we found low but positive 
 synergy between the two stressors: harvesting aggravates the population's sensitivity to a shifting range. 
 Finally, we introduced two conservation techniques into simulations of the population model -- threshold 
-population levels below which harvesting is not allowed and marine protected areas (MPAs) -- and found that 
-the robustness of the population to the two stressors improved.
+harvest rules and marine protected areas (MPAs) -- and found that 
+these approaches could mitigate the negative interaction of the two stressors.  
 
 \section{Introduction}
 
@@ -81,12 +81,12 @@ habitat shift with which a species can keep up.
 
 \section{Methods}
 
-We studied the dynamics of a fish population constrained to a single one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in the patch can be harvested.  Given the reproductive rate and average dispersal distance, we determined the climate velocity and harvesting rate that would drive the population extinct.  We implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to 
+We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  Given the reproductive rate and average dispersal distance, first we determined the climate velocity and harvesting rate that would drive the population extinct.  We then implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to 
 determine how these management strategies affect population persistence.
 
 \subsection{The Model }
 
-In our model, the adults from the current year produce offspring according to a recruitment function and these 
+In our model, the adults from the current year produce offspring according to a recruitment function, and these 
 offspring disperse across the one-dimensional world according to a dispersal kernel to become the next 
 generation's adults. The adults are subjected to harvesting before they produce offspring so that only a 
 proportion of the fish survive to reproduce. We incorporated these processes-- recruitment, harvesting, and 
@@ -98,17 +98,17 @@ n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{
 \end{equation}
 
 \noindent where $h$ is the proportion of adults harvested, $f(n)$ is the recruitment function giving the number of 
-offspring produced by a population of size $n$, $k(x-y)$ is the dispersal kernel giving the probability of the 
-larvae traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it 
-shifts across space. We provide a list of variables and functions in Table 1. The functional form of the 
+offspring produced by a population of size $n$ (accounting for density dependence), $k(x-y)$ is the dispersal kernel giving the probability of a 
+larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it 
+shifts across space. We provide a list of variables and functions in Table 1.  As we explain below, the functional form of the 
 recruitment function only affects persistence through how quickly recruitment increases when the population 
-increases from $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$. We therefore do not specify a 
+size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$. We therefore do not specify a 
 recruitment function here. Similarly, the population's ability to persist only depends on how quickly harvesting 
 increases when a small number of fish are introduced where they were previously absent, $h'(0)$. We 
-therefore only considered a proportional harvesting function.
+therefore only considered a proportional harvesting function initially.
 
 If a population of fish is going to persist in the face of a shifting environment, it must move along with the patch 
-of environment in which it can reproduce. At equilibrium, the population will be described by a traveling wave, 
+ in which it can reproduce. At equilibrium, the population will be described by a traveling wave, 
 where the density of fish at a given point in space will change but the density of fish at a location relative to the 
 shifting  patch will not. We therefore seek to describe how the population is distributed over the viable 
 patch as it shifts through the world. We write this as $n^*(\bar{x})$, the density of fish at each point $\bar{x}$ in 
@@ -129,7 +129,32 @@ pulse is stable, the system will return to the trivial pulse even after a pertur
 of a small population. If a population is to persist, even when it is small it must be able to avoid extinction and 
 grow. For this to be the case, the trivial pulse must be unstable to small perturbations.  
 
-For the separable Gaussian kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy
+We would like to know the rate of environmental shift and the harvesting rate such that as long as the 
+environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. 
+We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
+We can find these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability in this kind of model is in 
+general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
+source of larvae and its dependence on the destination of the larvae,
+i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$.  In our analyses, we used one such separable kernel, the Gaussian kernel given by
+
+\[k(x-y)=\frac{1}{\sqrt{2\sigma^2\pi}}e^{\frac{-(x-y)^2}{2\sigma^2}}\]
+
+\noindent To make stability easier to analyze, we approximated this kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
+simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
+
+
+For each kernel, the population's ability to persist depends on properties of the population itself: the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment: the 
+length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
+$). If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than 
+the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
+$$R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.$$
+A similar expression for a sinusoidal kernel is derived in the appendix.  For both kernels, the critical harvesting proportion can be approximated by a function that looks like 
+\begin{equation}
+h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
+\end{equation}
+where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
+
+\citet{ZhouKot2011} only consider whether a shifting environment will drive a population extinct or not.  To quantify the effects of both a shifting environment and harvesting pressure, we find the total biomass in the equilibrium traveling wave. As in \citet{Latore:1998fk}, for a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy
 
 \begin{equation}
 n^*(x)=\sum^\infty_{i=1}
@@ -144,46 +169,21 @@ dy. \label{recursive_m}
 \end{equation}
 
 \noindent Equation \ref{recursive_m} allowed us to find the values of $m_i$ numerically. We then found the total biomass in the 
-equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.
+equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.  Whereas population persistence does not depend on the functional form of recruitment, $f$, equilibrium biomass does depend on what recruitment function we use.  We chose to use a Beverton-Holt recruitment function,
 
-In general, we would like to know the rate of environmental shift and the harvesting rate such that if the 
-environment moves more quickly or we harvest more severely then the population will not be able to persist. 
-We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
-We can find these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability is in 
-general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
-source of larvae and its dependence on the destination of the larvae,
-i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$. We used 
-simulations to analyze dispersal kernels that are not amenable to this method.
-
-In our analyses, we used a Gaussian kernel,
-
-\[k(x-y)=\frac{1}{\sqrt{2\sigma^2\pi}}e^{\frac{-(x-y)^2}{2\sigma^2}}\]
-
-\noindent To make stability easier to analyze, we approximated this kernel, as described in the Appendix. In our 
-simulations, we used an analytically intractable Laplace kernel,
-
-\[k(x-y)=\frac{1}{2}be^{-b\vert x-y\vert}\]
-
-\noindent For each kernel, we can find the expected distance an offspring will travel, $\langle d \rangle$, which we will use to compare the two kernels.  For each kernel, the population's ability to persist depends on properties of the population itself: how far larvae 
-tend to disperse ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment: the 
-length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
-$). If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than 
-the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
-$$R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.$$
-A similar expression for a sinusoidal kernel is derived in the appendix.  For both kernels, the critical harvesting proportion can be approximated by a function that looks like 
-\begin{equation}
-h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
-\end{equation}
-where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
+\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
 
 
 \subsection{Simulations }
 
 We used simulations to extend the basic integrodifference model in two ways that make it analytically 
-intractable. First, we examined the sensitivity of the model to choice of dispersal kernel by using a Laplace 
-dispersal kernel. Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas the 
-analytical results do not depend on the functional form of recruitment $f$, to perform simulations we must 
-specify a recruitment function. We chose to use a Beverton-Holt model,
+intractable. First, we examined the sensitivity of the model to choice of dispersal kernel by using the Laplace 
+dispersal kernel, 
+
+\[ k(x-y)=\frac{1}{2}be^{-b|x-y|}\]
+
+\noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, to perform simulations we must 
+specify a recruitment function.  We chose to use a Beverton-Holt function,
 
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
 
@@ -239,40 +239,36 @@ there is no interaction and no synergy.
 \subsection{Interactions Between Stressors }
 
 The equilibrium biomass of the population decreases as either the harvesting pressure 
-increases or the environmental shifts more quickly (Figure \ref{eqbiomass}). If the equilibrium biomass is $0$, this 
+increases or the environmental shifts more quickly (Figure \ref{baseline}). If the equilibrium biomass is $0$, this 
 indicates that the harvesting pressure has exceeded the critical harvesting rate $h^*$ and the environmental 
 is shifting more quickly than the critical rate of environmental shift $c^*$. As the harvesting rate $h$ increases, 
 the critical rate of environmental shift $c^*$ decreases: the environment must move more slowly to 
-accommodate the population growing more slowly (Figure \ref{critical}). Conversely, as the rate of 
-environmental shift $c$ increases, the critical harvesting rate $h^*$ decreases (Figure  \ref{critical}). This 
+accommodate the population growing more slowly (Figure \ref{baseline}). Conversely, as the rate of 
+environmental shift $c$ increases, the critical harvesting rate $h^*$ decreases (Figure  \ref{baseline}). This 
 means that a harvesting rate that is sustainable in the absence of environmental shift may no longer be sustainable if 
 the environment starts shifting. The simulations replicate the analytical results with the critical speed $c^*$ 
 declining as the critical harvest rate $h^*$ increases and vice versa.
 
 \begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=.5\textwidth]{plots/eqbiomass.pdf}
-\caption{The equilibrium biomass of the population decreases as either the harvesting rate or rate of environmental shift increases.  If either harvesting rate or rate of environmental shift are too high the population is driven to extinction. The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the equilibrium biomass.   These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.}
-\label{eqbiomass}
-\end{center}
+\begin{subfigure}{3in}
+\subcaption{\label{biomass}}
+\includegraphics[width=\textwidth]{plots/eqbiomass.pdf}
+\end{subfigure}
+\begin{subfigure}{3in}
+\subcaption{\label{rates}}
+\includegraphics[width=\textwidth]{plots/critical_rates.pdf}
+\end{subfigure}
+\caption{(a) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.  (b) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.}
+\label{baseline}
 \end{figure}
 
 It is always the case that increasing the intrinsic growth rate, $R_0$, of the population increases the critical 
 speed $c^*$ and the critical harvesting rate $h^*$, since a population that grows more quickly can recover 
 more quickly from losses caused by these disturbances. However, whether or not dispersing farther is better 
-depends on how quickly the environment is shifting (Figure \ref{critical}). When the environment is shifting 
+depends on how quickly the environment is shifting (Figure \ref{baseline}). When the environment is shifting 
 slowly, dispersing farther is detrimental since many larvae will disperse too far away from the viable patch. 
 When the environment is shifting quickly, on the other hand, dispersing farther can help the population persist 
-because some larvae will disperse into the space that will become viable shortly in the future.
-
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=.5\textwidth]{plots/critical_rates.pdf}
-\caption{As the rate of environmental shift $c$ increases, the critical harvesting rate $h^*$ decreases.  In other words, less harvesting pressure is required to drive the population extinct.  Increasing the growth rate always increases the critical harvesting rate.  On the other hand, increasing average dispersal distance increases the critical harvesting rate depends on how quickly the environment is shifting: it is more advantageous to disperse farther when the environment is shifting more quickly.  The rate of environmental shift is plotted on the x-axis and the critical harvesting rate is plotted on the y-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from a Gaussian dispersal kernel with $L=1$.}
-\label{critical}
-\end{center}
-\end{figure}
-
+because some larvae will disperse into the space that will become viable shortly in the future.  This affects the critical harvesting rate: at a low rate of environmental shift, populations that disperse less can be harvested more severely than those that disperse further, whereas at a high rate of environmental shift, populations that disperse further can be harvested more severely.
 
 We found positive synergy between the two stressors in our analysis of the Gaussian kernel (Figure \ref
 {Synergy}).  In other words, a doubly stressed population loses more biomass than would be predicted from either stressor individually.  The stressors interact most strongly when they are both high, shortly before they drive the population extinct.  Our simulations with a Laplace kernel produce similar 
@@ -280,8 +276,8 @@ results. In the Appendix, we show analogous results for a sinusoidal dispersal k
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=.75\textwidth]{plots/synergy.pdf}
-\caption{There is positive synergy between the two stressors: a doubly stressed population loses more biomass than would be predicted from either stressor individually.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.}
+\includegraphics[width=3in]{plots/synergy.pdf}
+\caption{Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.}
 \label{Synergy}
 \end{center}
 \end{figure}
@@ -298,23 +294,23 @@ translated into a slightly increased critical harvest rate (Figure \ref{MPAs}). 
 overall catch at the highest harvest rates under which the population could survive (Figure \ref{MPAs}).
 
 \begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=.45\textwidth]{plots/eqbiomass_sim.pdf}
-\includegraphics[width=.45\textwidth]{plots/eqbiomass_thresh.pdf}
-\caption{With threshold harvesting rules, such that all biomass above a threshold level was harvested, the population always reached an equilibrium biomass greater than $0$ so that threshold harvesting rules increased biomass at equilibrium and improved the population's ability to persist. Additionally, threshold harvesting rules remove the interaction between harvesting and environmental shift: the critical rate of environmental shift no longer depends on harvesting. The figure on the left corresponds to no thresholds and the figure on the right corresponds to threshold harvesting rule.  The x-axis shows the rate of environmental shift, the y-axis shows either the proportion of the population harvested or the threshold above which harvesting was allowed, and the color indicates the equilibrium biomass.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$. }
+
+\begin{subfigure}{.33\textwidth}
+\subcaption{}
+\includegraphics[width=\textwidth]{plots/eqbiomass_sim.pdf}
+\end{subfigure}
+\begin{subfigure}{.33\textwidth}
+\subcaption{}
+\includegraphics[width=\textwidth]{plots/eqbiomass_thresh.pdf}
+\end{subfigure}
+\begin{subfigure}{.33\textwidth}
+\subcaption{}
+\includegraphics[width=\textwidth]{plots/eqbiomass_mpa.pdf}
+\end{subfigure}
+\caption{The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$. }
 \label{thresholds}
-\end{center}
 \end{figure}
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=.45\textwidth]{plots/eqbiomass_sim.pdf}
-\includegraphics[width=.45\textwidth]{plots/eqbiomass_mpa.pdf}
-%\includegraphics[width=.45\textwidth]{plots/eqbiomass_mpa_v2.pdf}
-\caption{MPAs improved the population's ability to persist.  The figure on the left corresponds to no MPAs and the figure on the right corresponds to MPAs designed to optimize fishing yields.  MPAs designed to optimize conservation give similar results.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the equilibrium biomass.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.}
-\label{MPAs}
-\end{center}
-\end{figure}
 
 \section{Discussion}
 
