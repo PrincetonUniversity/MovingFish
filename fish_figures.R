@@ -95,6 +95,9 @@ dev.off()
 ##### wireframe of the equilibrium biomass as a function of c and h : SIMULATIONS
 
 sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
+# for emma's local copy
+	sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
+
 
 cvals=unique(sim$speed)
 hvals=unique(sim$harvest)
@@ -156,6 +159,8 @@ dev.off()
 ##########
 ##### wireframe of the equilibrium biomass as a function of c and h : MPAs
 mpas=read.csv("~/Desktop/fishMPAnotThresh_add_2013-12-09.csv")
+# emma's local copy
+	mpas = read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv")
 
 cvals=unique(mpas$speed)
 hvals=unique(mpas$harvest)
@@ -216,9 +221,12 @@ dev.off()
 
 ##### wireframe of the equilibrium biomass as a function of c and h : MPAs v2
 mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2013-12-09.csv")
+# emma's local copy
+	mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2013-12-09.csv")
+	
 
-cvals=unique(mpas$speed)
-hvals=unique(mpas$harvest)
+cvals=unique(mpas2$speed)
+hvals=unique(mpas2$harvest)
 
 H=length(hvals)
 C=length(cvals)
@@ -277,6 +285,8 @@ dev.off()
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : THRESHOLD
 thresh=read.csv("~/Desktop/noMPA_Thresh_add_2013-12-10.csv")
+# emma's local copy
+	thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2013-12-10.csv")
 
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
