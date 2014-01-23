@@ -3,7 +3,7 @@ library(plyr)
 library(zoo)
 
 # load parameters, functions
-setwd("~/Desktop/MovingFish/Updated_simulations/ToRun/code/Aspatial_fast")
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
 source("Parameters.R")
 source("Functions.R")
 

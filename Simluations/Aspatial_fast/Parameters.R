@@ -21,8 +21,8 @@ w = length(world)
 
 # haven't dealt with MPAs yet !
 
-cons.yes = rep(1,2*b/step_size)
-cons.no = rep(0,4*b/step_size)
+cons.yes = rep(1,4*b/step_size)
+cons.no = rep(0,8*b/step_size)
 fish.yes = rep(1,floor((1/3*b)/step_size))  # had to round because not complete step size. Rounded down. 
 fish.no = rep(0,floor((2/3*b)/step_size))
 
