@@ -151,30 +151,27 @@ dispersal kernel,
 
 \[ k(x-y)=\frac{1}{2}be^{-b|x-y|}\]
 
-\noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, to perform simulations we must 
-specify a recruitment function.  We chose to use a Beverton-Holt function,
+\noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, we must specify a recruitment function to perform simulations.  We chose to use a Beverton-Holt function,
 
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
 
 \noindent where $R_0$ is the intrinsic growth rate and $K$ is the carrying capacity.  In the first generation, we seeded the world with 50 individuals at a single point, as in 
-\citep{ZhouKot2011}. We first allowed the population to reach equilibrium without harvesting or climate shift.  We then 
+\citep{ZhouKot2011}. We first ran through 150 generations in order for the population to reach equilibrium without harvesting or climate shift.  We then 
 added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate 
 change by moving the viable patch.
 
-We added harvesting pressure by harvesting a constant proportion of the population, in order to confirm our analytical results. 
-We also extended our analytical work by evaluating the effect of a threshold harvest rule and marine protected 
+We added harvesting pressure by harvesting a constant proportion of the population, in order to confirm our analytical results. We extended our work by evaluating the effect of a threshold harvest rule and marine protected 
 areas (MPAs). With a threshold rule, we evaluated the population at each point in space to determine how 
 much harvesting should occur. If the population abundance was below the designated threshold, no 
 harvesting occurred. If the population exceeded the threshold, then a proportion of the `surplus' individuals 
 were harvested. To implement an MPA management strategy, we used two commonly advocated approaches: 
-MPAs designed to improve fisheries yields and MPAs designed for primarily for conservation. These networks 
+MPAs designed to improve fisheries yields and MPAs designed for primarily for conservation [REFS]. These networks 
 of MPAs were introduced into our simulations by designating segments of space in which harvesting was 
-forbidden (i.e.~harvesting rates were equal to $0$). The conservation MPAs had a length of twice the average 
-dispersal distance and had a distance of 4 times the average dispersal distance between them. Fisheries MPAs had a length of 1/3 of the 
-average dispersal distance and had a distance of 2/3 of the average dispersal distance between them.
+forbidden (i.e.~harvesting rates were equal to $0$). The conservation MPAs had a length of 4 times the average 
+dispersal distance and had a distance of 8 times the average dispersal distance between them. Fisheries MPAs had a length of 1/3 of the 
+average dispersal distance and had a distance of 2/3 of the average dispersal distance between them. These distances were chosen for the following reasons: the goal of conservation-oriented MPAs is to protect source populations, ideally that are self sustaining under a static climate. Fisheries MPAs are focused on maximizing spillover of fish populations into fishable waters, thus many MPAs, each of which are smaller than the average dispersal distance, replicates this high spillover effect. 
 
-In our simulations, we defined the critical rate of environmental shift and the critical harvest rate as model runs 
-in which the total population at equilibrium was less than 0.001. Equilibrium is calculated as the mean of 300 time steps once the difference in biomass between time step $t$ and $t+1$ no greater than $0.0360515$. Equilibrium biomass and catch are defined as the total amount of fish present and harvested, respectively, at equilibrium. 
+Equilibrium is calculated as the mean of 300 time steps once the difference in biomass between time step $t$ and $t+1$ was no greater than $0.1$. Equilibrium biomass and catch are defined as the total amount of fish present and harvested, respectively, at equilibrium. 
 
 \subsection{Calculating Synergy }
 
