@@ -295,16 +295,16 @@ H=length(threshvals)
 C=length(cvals)
 L=length(thresh$Equil.pop)
 
-ebmThresh=array(,c(C,H))
+ebm=array(,c(C,H))
 
 for(i in 1:L){
 	tind=which(threshvals==thresh$thresh[i])
 	cind=which(cvals==thresh$speed[i])
-	ebmThresh[cind,tind]=thresh$Equil.pop[i]
+	ebm[cind,tind]=thresh$Equil.pop[i]
 }
 # threshvals=c(threshvals,0)
 # toplot_ebm=cbind(toplot_ebm,rep(0,C))
-toplot_ebmThresh=ebmThresh
+toplot_ebm=ebm
 
 #breaks and colors
 lower=min(ebm)+1
@@ -335,14 +335,14 @@ pdf(file='eqbiomass_thresh.pdf',width=6.83)
 
 # wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
-image.plot(toplot_ebmThresh[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
-image(cvals,(threshvals),toplot_ebmThresh[1:C,H:1],breaks=cuts,col=mycols,
+image.plot(toplot_ebm[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
+image(cvals,(threshvals),toplot_ebm[1:C,H:1],breaks=cuts,col=mycols,
 	xlab="Rate of environmental shift",ylab="Threshold",
 	cex.lab=cex.lab,cex.axis=cex.axis,axes=F)
 axis(1)
 axis(2,at=seq(0,1,by=0.2),labels=rev(seq(0,1,by=0.2)))
 box()
-image.plot(cvals,(threshvals),toplot_ebmThresh,legend.shrink=1,legend.width=.1,zlim=range(cuts),
+image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
 	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),breaks=cuts,col=mycols,legend.only=TRUE,bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
 
