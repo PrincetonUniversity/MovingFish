@@ -220,9 +220,9 @@ dev.off()
 
 
 ##### wireframe of the equilibrium biomass as a function of c and h : MPAs v2
-mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2013-12-09.csv")
+mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2014-01-23.csv")
 # emma's local copy
-	mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2013-12-09.csv")
+	mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv")
 	
 
 cvals=unique(mpas2$speed)
