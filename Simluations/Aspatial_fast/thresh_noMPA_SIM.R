@@ -1,9 +1,9 @@
-#rm(list=ls())
+rm(list=ls())
 library(plyr)
 library(zoo)
 
 # load parameters, functions
-setwd("~/Desktop/MovingFish/Updated_simulations/ToRun/code/Aspatial_fast")
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
 source("thresh_Parameters.R")
 source("Functions.R")
 
@@ -24,6 +24,14 @@ for(t in 2:maxt){
   init[,t]= output[[1]]
   MPA.current = output[[3]]
 }
+
+# thresholds need to be relative to maximum population along 1d world
+
+biggestP <- max(init[,maxt])
+
+thresholds <- thresholds * biggestP
+# add a buffer to last to make sure captures biggest population
+thresholds <- tail(thresholds,1) + 0.001
 
 # standard for equilibrium is the difference in the final step of the initialization 
 init.diff <- diff(colSums(init))[149]
