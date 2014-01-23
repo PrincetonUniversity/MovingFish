@@ -1,22 +1,27 @@
-\documentclass[]{article}
-\usepackage[margin=.75in]{geometry}
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\geometry{verbose,letterpaper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{natbib}
 \bibliographystyle{plainnat}
-\usepackage{todonotes}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{brush_style}
+\usepackage{setspace}
+\usepackage{lineno}\linenumbers
 \title{Species persistence under climate and fishing}
 \author{Emma Fuller, Eleanor Brush, Malin Pinsky}
 \date{}
 
 \begin{document}
 \maketitle
+
+\begin{spacing}{1.9}
+\begin{flushleft}
 
 \section{Abstract}
 
@@ -430,5 +435,7 @@ h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
 
+\end{flushleft}
+\end{spacing}
 
 \end{document}
