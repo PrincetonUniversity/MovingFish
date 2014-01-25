@@ -203,7 +203,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_mpa.pdf',width=6.83)
+pdf(file='eqbiomass_fishmpa.pdf',width=6.83)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -266,7 +266,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_mpa_v2.pdf',width=6.83)
+pdf(file='eqbiomass_consmpa.pdf',width=6.83)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -284,9 +284,9 @@ dev.off()
 ##########
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : THRESHOLD
-thresh=read.csv("~/Desktop/noMPA_Thresh_add_2013-12-10.csv")
+thresh=read.csv("~/Desktop/noMPA_Thresh_add_2014-01-24.csv")
 # emma's local copy
-	thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2013-12-10.csv")
+	thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2014-01-24.csv")
 
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
@@ -328,19 +328,20 @@ ydiff=.2
 myaxes=list(arrows=FALSE,col=1,
 # x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),
 # y=list(at=rev(seq(1,H,length.out=(threshvals[1]-threshvals[H])/ydiff+1)),labels=as.character(rev(round(seq(threshvals[H],threshvals[1],by=ydiff),2)))),
-z=list(at=seq(0,max(ebm),by=25),labels=as.character(seq(0,max(ebm),by=25))))
+z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
 pdf(file='eqbiomass_thresh.pdf',width=6.83)
 
 # wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
-image.plot(toplot_ebm[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
+#image.plot(toplot_ebm[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
 image(cvals,(threshvals),toplot_ebm[1:C,H:1],breaks=cuts,col=mycols,
 	xlab="Rate of environmental shift",ylab="Threshold",
 	cex.lab=cex.lab,cex.axis=cex.axis,axes=F)
 axis(1)
-axis(2,at=seq(0,1,by=0.2),labels=rev(seq(0,1,by=0.2)))
+#axis(2,at=seq(0,1,by=0.2),labels=rev(seq(0,1,by=0.2)))
+axis(2, at=seq(min(threshvals),max(threshvals), length = 6),labels=rev(seq(0,1,by=0.2)))
 box()
 image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
