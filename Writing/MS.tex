@@ -12,7 +12,8 @@
 \usepackage{subcaption}
 \usepackage{brush_style}
 \usepackage{setspace}
-\usepackage{lineno}\linenumbers
+\usepackage{lineno}
+\linenumbers
 \title{Species persistence under climate and fishing}
 \author{Emma Fuller, Eleanor Brush, Malin Pinsky}
 \date{}
@@ -20,8 +21,8 @@
 \begin{document}
 \maketitle
 
-\begin{spacing}{1.9}
-\begin{flushleft}
+%\begin{spacing}{1.9}
+%\begin{flushleft}
 
 \section{Abstract}
 
@@ -99,10 +100,8 @@ of a small population. If a population is to persist, even when it is small it m
 grow. For this to be the case, the trivial pulse must be unstable to small perturbations.  
 
 We would like to know the rate of environmental shift and the harvesting rate such that as long as the 
-environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. 
-We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
-We found these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability in this kind of model is in 
-general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
+environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
+We found these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability in this kind of model is in  general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
 source of larvae and its dependence on the destination of the larvae,
 i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$.  In our analyses, we used one such separable kernel, the Gaussian kernel given by
 
@@ -110,7 +109,6 @@ i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_
 
 \noindent To make stability easier to analyze, we approximated this kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
 simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
-
 
 For each kernel, the population's ability to persist depends on properties of the population itself: the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment: the 
 length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
@@ -155,21 +153,19 @@ dispersal kernel,
 
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
 
-\noindent where $R_0$ is the intrinsic growth rate and $K$ is the carrying capacity.  In the first generation, we seeded the world with 50 individuals at a single point, as in 
-\citep{ZhouKot2011}. We first ran through 150 generations in order for the population to reach equilibrium without harvesting or climate shift.  We then 
-added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate 
-change by moving the viable patch.
+\noindent where $R_0$ is the intrinsic growth rate and $K$ is the carrying capacity.  In the first generation, we seeded the world with 50 individuals at a single point, as in \citep{ZhouKot2011}. We first ran through 150 generations in order for the population to reach equilibrium without harvesting or climate shift.  We then added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate change by moving the viable patch.
 
 We added harvesting pressure by harvesting a constant proportion of the population, in order to confirm our analytical results. We extended our work by evaluating the effect of a threshold harvest rule and marine protected 
 areas (MPAs). With a threshold rule, we evaluated the population at each point in space to determine how 
 much harvesting should occur. If the population abundance was below the designated threshold, no 
 harvesting occurred. If the population exceeded the threshold, then a proportion of the `surplus' individuals 
-were harvested. To implement an MPA management strategy, we used two commonly advocated approaches: 
-MPAs designed to improve fisheries yields and MPAs designed for primarily for conservation [REFS]. These networks 
-of MPAs were introduced into our simulations by designating segments of space in which harvesting was 
-forbidden (i.e.~harvesting rates were equal to $0$). The conservation MPAs had a length of 4 times the average 
-dispersal distance and had a distance of 8 times the average dispersal distance between them. Fisheries MPAs had a length of 1/3 of the 
-average dispersal distance and had a distance of 2/3 of the average dispersal distance between them. These distances were chosen for the following reasons: the goal of conservation-oriented MPAs is to protect source populations, ideally that are self sustaining under a static climate. Fisheries MPAs are focused on maximizing spillover of fish populations into fishable waters, thus many MPAs, each of which are smaller than the average dispersal distance, replicates this high spillover effect. 
+were harvested
+
+MPAs are a form of management designed to check the impact of fishing on targeted populations and are typically designed to meet either conservation of fishery management goals \citep{Agardy1994, HollandBrazee1996, Gainesetal2010a}. To implement an MPA management strategy in our model, we examine the effect of both of these commonly advocated approaches. While both conservation and fisheries oriented MPA schemes align in their goal of maintaining a sustainable fished population, they differ in desired level of adult spillover. Fisheries-oriented MPAs are often designed such that they maximize adult spillover into fishable areas by creating many small reserves closely spaced \citep{HastingsBotsford2003}. The converse of this is the goal of conservation-oriented MPAs which seek to reduce adult spillover by minizing the ratio between the reserve edge length relative to area protected \citep{Gainesetal2010a}. 
+
+Networks of MPAs were introduced into our simulations by designating segments of space in which harvesting was forbidden (i.e. harvesting rates were equal to $0$). Conservation-oriented MPAs, are frequently large and rarely part of a larger network of reserves \citep{HastingsBotsford2003}. For solitary reserves to be successful at protecting target species, they must encompass self-sustaining fish populations \citep{HastingsBotsford2006, Gainesetal2010a}. As such modeling studies estimate that isolated reserves must be at least as large as the average dispersal distance for the targeted fish species \citep{Lockwoodetal2002, HastingsBotsford2003, Botsfordetal2001, Gainesetal2010}. To implement conservation MPAs we created reserves with a length of 4 times the average dispersal distance and had a distance of 8 times the average dispersal distance between them to ensure that populations would be self sustiaining and not dependent on other dispersal for other reserves \citep{Lockwoodetal2002}. 
+
+Previous work has shown that if MPAs are to benefit fisheries, the reserves should be broken into a network, closely spaced to maximize adult spillover into fishable areas and export of larvae from reserve to reserve \citep{ HastingsBotsford2003, Gaylordetal2005, Gainesetal2010a}. To mimic this management scheme, MPAs had a length of $\tfrac{1}{3}$ of the average dispersal distance and had a distance of $\tfrac{2}{3}$ of the average dispersal distance between them. 
 
 Equilibrium is calculated as the mean of 300 time steps once the difference in biomass between time step $t$ and $t+1$ was no greater than $0.1$. Equilibrium biomass and catch are defined as the total amount of fish present and harvested, respectively, at equilibrium. 
 
@@ -228,14 +224,7 @@ We found positive synergy between the two stressors in our analysis of the Gauss
 
 \subsection{Management Strategies }
 
-We found that thresholds of any amount alleviate the effects of harvesting, and the ability of the population to 
-persist is recovered (Figure \ref{management}). Thus when thresholds are in place, the harvesting rate no longer 
-determines the critical rate of environmental shift $c^*$. We also examined the effect of marine protected 
-areas (MPAs) on the population's persistence to see whether it might extend the range of harvesting and 
-climate change parameters where the fish population could survive. With MPAs in place, the population had a 
-slightly higher abundance along the edges of the patch where the population is limited by harvesting, which 
-translated into a slightly increased critical harvest rate (Figure \ref{management}). Additionally MPAs increased 
-overall catch at the highest harvest rates under which the population could survive (Figure \ref{management}).
+We found that when thresholds are in place, the harvesting rate no longer determines the critical rate of environmental shift $c^*$ (Figure \ref{management}). We also examined the effect of marine protected  areas (MPAs) on the population's persistence to see whether it might extend the range of harvesting and  climate change parameters where the fish population could survive. With MPAs in place, the population had a  slightly higher abundance along the edges of the patch where the population is limited by harvesting, which  translated into a slightly increased critical harvest rate (Figure \ref{management}). Additionally MPAs increased overall catch at the highest harvest rates under which the population could survive (Figure \ref{management}).
 
 \section{Discussion}
 
@@ -464,7 +453,7 @@ h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
 
-\end{flushleft}
-\end{spacing}
+%\end{flushleft}
+%\end{spacing}
 
 \end{document}
