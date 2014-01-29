@@ -114,7 +114,7 @@ combined$ebm = cons$ebm - noMang$ebm
 plotParams(combined)
 ```
 
-Comparing the MPAs to each other
+Comparing the MPAs to each other (cons - fish)
 
 ```{r eachOther, message=FALSE, echo=FALSE, warning=FALSE}
 combined <- cons

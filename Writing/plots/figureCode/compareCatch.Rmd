@@ -49,7 +49,7 @@ pd <- position_dodge(.1)
 ggplot(subData, aes(x = speed, y = Equil.harvest))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.harvest - Equil.harvest.se, ymax = Equil.harvest + Equil.harvest.se), alpha = 0.35) + theme_bw()
 ```
 
-Trying the same plot but a higher rate of catch: $h = 0.10$ I get,
+Trying the same plot but a higher rate of catch: $$h = 0.10$$ I get,
 
 ```{r variance_high, echo = FALSE, fig.width=10, fig.height=5}
 subData <- subset(allData,harvest == 0.10 )
@@ -57,3 +57,15 @@ pd <- position_dodge(.1)
 ggplot(subData, aes(x = speed, y = Equil.harvest))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.harvest - Equil.harvest.se, ymax = Equil.harvest + Equil.harvest.se), alpha = 0.35) + theme_bw()
 ```
 
+Looking at holding speed constant and examining catch as a function of harvest
+
+```{r harvestVar, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,speed==0.1)
+ggplot(subData, aes(x = harvest, y = Equil.harvest)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.harvest - Equil.harvest.se, ymax = Equil.harvest + Equil.harvest.se), alpha = 0.35) + theme_bw()
+
+subData <- subset(allData,speed==0.2)
+ggplot(subData, aes(x = harvest, y = Equil.harvest)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.harvest - Equil.harvest.se, ymax = Equil.harvest + Equil.harvest.se), alpha = 0.35) + theme_bw()
+
+subData <- subset(allData,speed==0.3)
+ggplot(subData, aes(x = harvest, y = Equil.harvest)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.harvest - Equil.harvest.se, ymax = Equil.harvest + Equil.harvest.se), alpha = 0.35) + theme_bw()
+```
