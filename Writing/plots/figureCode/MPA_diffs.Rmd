@@ -1,0 +1,123 @@
+# Comparing MPAs to each other, to no management
+
+```{r required, echo=FALSE,message=FALSE}
+library(fields)
+library(lattice)
+library(colorspace)
+require(RCurl)
+```
+
+
+```{r loadData, echo=FALSE, message=FALSE}
+#sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
+# for emma's local copy
+	#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
+
+# for synced online github data
+  x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTEyNjg5OTB9--e041d4ef68764b1fc49140c128bda685c6f740f3")
+  sim = read.csv(textConnection(x))
+
+  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTAzM30%3D--f35f2593a7e901c900188fadca920fdd68a57e35")
+  fishmpa = read.csv(textConnection(fish))
+
+  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTA3Mn0%3D--ffb8451d33daaeab48f8b3be3357cacbda0aadbb")
+  consmpa = read.csv(textConnection(cons))
+```
+
+```{r plotFunctions, echo=FALSE,message=FALSE}
+plotfig <- function(df){
+  cvals=unique(df$speed)
+  hvals=unique(df$harvest)
+
+  H=length(hvals)
+  C=length(cvals)
+  L=length(df$Equil.pop)
+
+  ebm=array(,c(C,H))
+
+  for(i in 1:L){
+    hind=which(hvals==df$harvest[i])
+    cind=which(cvals==df$speed[i])
+    ebm[cind,hind]=df$Equil.pop[i]
+  }
+
+  all <- list(ebm = ebm, cvals = cvals, hvals = hvals, C = C, H = H)
+  return(all)
+}
+
+plotParams <- function(lis){
+  ebm <- lis$ebm
+  cvals <- lis$cvals
+  hvals <- lis$hvals
+  C <- lis$C
+  H <- lis$H
+  # plotting parameters
+  cex.lab=3
+  cex.axis=2
+  line=5
+  lwd=5
+  yaxs='i'
+  xaxs='i'
+  cex.lab=1.5
+  cex.axis=1
+  line=1
+  oma=c(0,0,0,2)
+  #breaks and colors
+    lower=min(ebm)+1
+    cuts=c(0,seq(lower,1538.649+.5,length.out=100))
+    mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
+    mycols=c('black',mycols)
+    
+    
+  #axis labels
+    numxlabs=11
+    numylabs=3
+    xdiff=.1
+    ydiff=.2
+    myaxes=list(arrows=FALSE,
+      x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),
+      y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))),
+      z=list(at=seq(0,1538.649,by=250),labels=as.character(seq(0,1538.649,by=250))))
+
+
+  par(oma=oma)
+  image.plot(cvals,hvals,ebm,breaks=cuts,col=mycols,
+    xlab="Rate of environmental shift",ylab="Harvesting rate",
+  	cex.lab=cex.lab,cex.axis=cex.axis, 
+  	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
+  	legend.shrink=1,legend.width=.1,zlim=range(cuts),
+  	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
+  	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
+  	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
+  box()
+}
+```
+
+
+Comparing no management to several small MPAs
+
+```{r diff_fishnoManagement, echo=FALSE,message=FALSE}
+noMang <- plotfig(sim)
+fish <- plotfig(fishmpa)
+combined <- noMang
+combined$ebm = fish$ebm - noMang$ebm
+plotParams(combined)
+```
+
+Comparing no management to few large MPAs
+
+```{r diff_consnoManagement, message=FALSE,echo=FALSE}
+noMang <- plotfig(sim)
+cons <- plotfig(consmpa)
+combined <- noMang
+combined$ebm = cons$ebm - noMang$ebm
+plotParams(combined)
+```
+
+Comparing the MPAs to each other (cons - fish)
+
+```{r eachOther, message=FALSE, echo=FALSE, warning=FALSE}
+combined <- cons
+combined$ebm = cons$ebm - fish$ebm
+plotParams(combined)
+```

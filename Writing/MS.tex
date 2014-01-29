@@ -1,22 +1,28 @@
-\documentclass[]{article}
-\usepackage[margin=.75in]{geometry}
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\geometry{verbose,letterpaper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{natbib}
 \bibliographystyle{plainnat}
-\usepackage{todonotes}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{brush_style}
+\usepackage{setspace}
+\usepackage{lineno}
+\linenumbers
 \title{Species persistence under climate and fishing}
 \author{Emma Fuller, Eleanor Brush, Malin Pinsky}
 \date{}
 
 \begin{document}
 \maketitle
+
+%\begin{spacing}{1.9}
+%\begin{flushleft}
 
 \section{Abstract}
 
@@ -30,53 +36,21 @@ synergy between the two stressors: harvesting aggravates the population's sensit
 Finally, we introduced two conservation techniques into simulations of the population model -- threshold 
 harvest rules and marine protected areas (MPAs) -- and found that 
 these approaches could mitigate the negative interaction of the two stressors.  
+\hspace{10cm}
+
+\noindent {\bf Keywords:} Climate change, fishing, integrodifference model, synergy, multiple disturbances
 
 \section{Introduction}
 
-There are many stressors that can disturb an ecosystem. Ecologists have quantified the effects of a number of stressors individually \citep{Wilcoveetal1998, Crainetal2008, DarlingCote2008}. However, disturbances rarely occur in isolation.  It is therefore important to understand how a system is affected by multiple disturbances together \citep{DoakMorris2010, Fordhametal2013, Foltetal1999}. A perturbation that has little effect when affecting a system individually may amplify the disturbance caused by a coincident perturbation \citep{Crainetal2008, DarlingCote2008}. Synergistic interactions between stressors are especially worrying if an animal population can persist in the face of a single stressor but not in the presence of multiple stressors (e.g.  \citet{Pelletieretal2006}). However, it remains hard to predict when disturbances are likely to interact in ways not predicted by the effects of individual perturbations.
+There are many stressors that can disturb an ecosystem. Ecologists have quantified the effects of a number of stressors individually \citep{Wilcoveetal1998, Crainetal2008, DarlingCote2008}. However, disturbances rarely occur in isolation and it is therefore important to understand how a system is affected by multiple disturbances together \citep{DoakMorris2010, Fordhametal2013, Foltetal1999}. A perturbation that has little effect when it occurs individually may still amplify the disturbance caused by a coincident perturbation \citep{Crainetal2008, DarlingCote2008}. Synergistic interactions between stressors can be especially problematic if an animal population can persist in the face of a single stressor but the combination of multiple stressors suffices to drive the population extinct (i.e. \citet{Pelletieretal2006}). However it remains difficult to predict when disturbances are likely to interact in ways not anticipated when perturbations are measured individually.
 
-Climate change is a prime example of a stressor occurring in a background of multiple other, possibly interacting, disturbances. These include pollution, habitat fragmentation, invasive species, and over-exploitation \citep{Wilcoveetal1998, Salaetal2000, MEA2005}. It is expected that  species will move their home ranges in response to climate change. Many marine fish are already moving \citep{Perryetal2005, HiddinkHoftstede2008, Rijnsdorpetal2009, Dulvyetal2008, Simpsonetal2011} and are projected to continue to move in the future \citep{Kelletal2005, Mackenzieetal2007}. These species are faced not only with temperature-driven range range shifts but also with anthropogenic stressors including ocean acidification and commercial fishing \citep{Pinskyetal2013, Barryetal1995, Nyeetal2009}. Climate change and fishing have been identified as the two largest human impacts on the ocean \citep{Halpernetal2008} so there is a need to understand whether and how these disturbances will interact in the future.
+Climate change is a prime example of multiple, possibly interacting, disturbances. Species that are likely to undergo (or already undergoing) shifts in range and phenology are subject to many other disturbances including pollution, habitat fragmentation, over-exploitation, and invasive species \citep{Wilcoveetal1998, Salaetal2000, MEA2005}. A common approach to predicting future population distrubtions under climate change has been to use bioclimatic-envelope models (also known as species distribution models -- SDMs). These statistical models typically correlate presence-absence data with biophysical characteristics such as mean or maximum temperatures, rainfall, or salinity, to explain and predict how species ranges' will differ under climate change \citep{Elithetal2006, GuisanThuiller2005, GuisanZimmerman2000}. Despite these models' widespread adoption, SDMs have frequently been criticized as oversimplified as they lack species interactions, dispersal and reproductive processes \citep{KearneyPorter2009, Zarnetskeetal2012, Robinsonetal2011}. Recent work on range shifts has addressed some of these gaps by explicitly including dispersal and reproduction \citep{Berestyckietal2009, ZhouKot2011}. However these models only address one disturbance: that of climate-driven range shifts. Not only does climate change disturb ecological systems via range shifts (for example), but these range shifts may interact with anthropogenetic stressors already present. Marine fish, for example, are already moving \citep{Perryetal2005, HiddinkHoftstede2008, Rijnsdorpetal2009, Dulvyetal2008, Simpsonetal2011} and projected to move more  \citep{Kelletal2005, Mackenzieetal2007}. These organisms not only are faced with ocean acidification and temperature driven range shifts \citep{Pinskyetal2013, Barryetal1995, Nyeetal2009}, but are often harvested commercially.
 
-Many methods have been proposed to help mitigate the effects of harvesting on fish populations. Marine protected areas (MPAs), which provide stepping stones to help species keep up with a changing environment, have been suggested as a key form of climate insurance \citep{Thomasetal2012, Hannahetal2007}. MPAs are frequently recommended for both conservation of biodiversity and improved fisheries yield \citep{Gainesetal2010}. Threshold harvesting levels below which no fish may be harvested have also been proposed as a means of both optimizing yield and conserving resources \citep{Landeetal1995, Landeetal1997}.
+Climate change and fishing have been identified as the two largest human impacts on the ocean \citep{Halpernetal2008} so there is a need to understand whether and how these disturbances will interact in the future. Predictions for how climate change will drive shifts in marine systems have focused on how physiological limitations \citep{PortnerKnust2007} and global fish distributions \citep{Cheungetal2008, Cheungetal2009, Hareetal2010, Lenoiretal2011} may change. Work considering the joint impacts of climate and fishing often consider climate fluctuations (large anomalies around the mean) rather than directional changes in climate \citep{WaltersParma1996, KingMcFarlane2006}. Work that does consider the effects of climate-driven range shifts on fishing typically are case-specific and detailed, integrating multiple drivers and disturbances \citep{Cheungetal2010, Lindegrenetal2010, Brownetal2010, Merinoetal2010, Merinoetal2010b, Plaganyietal2011, Ainsworthetal2011, Zhangetal2011, Barangeetal2011, Howardetal2013}. These predicted impacts are important for management and conservation planning \citep{Allisonetal2009}, however these models are so complex that understanding the relative importance of particular drivers, disturbances, and interactions is difficult (but see \citet{Nyeetal2013} for an approach using ecosystem-level models to discern relative importance of disturbances). Here we develop models of intermediate complexity \citep[sensu][]{Gaylordetal2005} that can help clarify the importance of two interacting disturbances: temperature-driven range shifts and harvest. Empirical case studies have identified interactions between overfishing and temperature-driven range shifts that suggest synergy in the magnitude of the disturbance \citep{Lingetal2009} and have demonstrated synergistic effects in micosm experiments between warming temperatures, harvesting and connectivity \citep{Moraetal2007}. This empirical work underscores the importance of understanding how range shifts and harvesting interact and, to our knowledge, there has been limited work examining interactions between harvesting and range shifts.
 
+Here we construct an analytical model of a fish population subject to both harvesting and climate change-induced range-shift. We explicitly include two mechanistic processes central to species' responses to climate and fishing: reproduction and dispersal. Previous work has highlighted the importance of these two processes and their vulnerability to climate change \citep{Fordhametal2013, Hastingsetal2005}. We focus on determining how climate-driven range shifts and fishing interact to affect population persistence. We find that these disturbances interact additively, not multiplicatively which is often the default assumption when considering mortality. 
 
-A wide range of models have been used to study the effect of climate
-change and harvesting on fish populations.  A common approach to predicting future population distributions under climate change has been to use bioclimatic-envelope models (also known as species distribution models -- SDMs). These statistical models have been
-used to find correlations between the presence or absence of fish
-species and biophysical properties of the environment such as mean or maximum
-temperatures, rainfall, or salinity, to explain and predict how species
-ranges will differ under climate change \citep{Elithetal2006, GuisanThuiller2005, GuisanZimmerman2000}. Similarly,
-projection models of future climate conditions have been used to predict
-where conditions will be favorable for fish populations in the future
-\citep{Cheungetal2008, Cheungetal2009}.  Despite these models' widespread
-adoption, they have  been criticized for being oversimplified
-as they lack species interactions, dispersal and reproductive processes
-\citep{KearneyPorter2009, Zarnetskeetal2012, Robinsonetal2011}. 
-
-Some recent work on range shifts has addressed these gaps by explicitly including dispersal and reproduction \citep{Berestyckietal2009, ZhouKot2011}, which have been highlighted as important factors in fish populations' vulnerability to climate change \citep{Fordhametal2013, Hastingsetal2005}.  These models only address one disturbance, climate-driven range shifts, and do not consider other anthropogenic stressors.  The models of Zhou and Kot
-\citep{ZhouKot2011} and Berestycki et al. \citep{Berestyckietal2009} are of
-intermediate complexity (sensu
-\citep{Gaylordetal2005}).  Work that consider both climate-driven
-range shifts and fishing is often case-specific and detailed, including
-multiple drivers and disturbances \citep{Cheungetal2010, Lindegrenetal2010, Brownetal2010, Merinoetal2010, Merinoetal2010b, Plaganyietal2011, Ainsworthetal2011, Zhangetal2011,
-Barangeetal2011, Howardetal2013}. These cumulative
-impacts are important for management and conservation planning
-\citep{Allisonetal2009}.  However, these models are
-so complex that understanding the relative importance of particular
-drivers, disturbances, and interactions is difficult (but see
-\citep{Nyeetal2013} for an approach using ecosystem-level models to discern
-relative importance of disturbances).  
-
-We analyzed an integrodifference model to study the effect of temperature-driven range shifts and
-harvesting, two important interacting disturbances, on the persistence of a marine population. In particular, we extended the model of
-Zhou and Kot \citep{ZhouKot2011}, which describes a fish population
-reproducing and dispersing while their range shifts, by
-additionally including harvesting pressure and introducing two different
-conservation measures. We found that the disturbances interact
-synergistically. We also found that MPAs can help a species persist with
-higher harvesting pressure, but they do not change the maximum speed of
-habitat shift with which a species can keep up.
-
+We also examine the effect of marine protected areas (MPAs) on species persistence. Protected areas have been suggested as a key form of climate insurance and stepping stones to help species keep up with a changing environment \citep{Thomasetal2012, Hannahetal2007}. MPAs are frequently recommended for conservation of biodiversity and improved fisheries yield \citep{Gainesetal2010}, and we evaluate whether MPAs established for those purposes could improve species persistence when habitat is shifting rapidly. We find that MPAs can help a species persist with higher harvesting pressure, but does not change the maximum climate velocity with which a species can keep up.
 
 \section{Methods}
 
@@ -125,10 +99,8 @@ of a small population. If a population is to persist, even when it is small it m
 grow. For this to be the case, the trivial pulse must be unstable to small perturbations.  
 
 We would like to know the rate of environmental shift and the harvesting rate such that as long as the 
-environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. 
-We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
-We found these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability in this kind of model is in 
-general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
+environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
+We found these rates by finding the parameters that make the trivial pulse unstable. Evaluating stability in this kind of model is in  general difficult to do analytically. It becomes easier if the dispersal kernel is separable into its dependence on the 
 source of larvae and its dependence on the destination of the larvae,
 i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$.  In our analyses, we used one such separable kernel, the Gaussian kernel given by
 
@@ -137,8 +109,12 @@ i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_
 \noindent To find analytical results about the Gaussian kernel, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
 simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
 
+<<<<<<< HEAD
 
 For each kernel, the population's ability to persist depends on properties of the population itself-- the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment-- the 
+=======
+For each kernel, the population's ability to persist depends on properties of the population itself: the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment: the 
+>>>>>>> 100825f30d038ea9c991dac4e02c493425c0abdb
 length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
 $). If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than 
 the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
@@ -177,28 +153,30 @@ dispersal kernel,
 
 \[ k(x-y)=\frac{1}{2}be^{-b|x-y|}\]
 
+<<<<<<< HEAD
 \noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, to perform simulations we must 
 specify a recruitment function.  Again, we chose to use a Beverton-Holt function.
+=======
+\noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, we must specify a recruitment function to perform simulations.  We chose to use a Beverton-Holt function,
 
-\noindent where $R_0$ is the intrinsic growth rate and $K$ is the carrying capacity.  In the first generation, we seeded the world with 50 individuals at a single point, as in 
-\citep{ZhouKot2011}. We first allowed the population to reach equilibrium without harvesting or climate shift.  We then 
-added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate 
-change by moving the viable patch.
+\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
+>>>>>>> 100825f30d038ea9c991dac4e02c493425c0abdb
 
-We added harvesting pressure by harvesting a constant proportion of the population, in order to confirm our analytical results. 
-We also extended our analytical work by evaluating the effect of a threshold harvest rule and marine protected 
+\noindent where $R_0$ is the intrinsic growth rate and $K$ is the carrying capacity.  In the first generation, we seeded the world with 50 individuals at a single point, as in \citep{ZhouKot2011}. We first ran through 150 generations in order for the population to reach equilibrium without harvesting or climate shift.  We then added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate change by moving the viable patch.
+
+We added harvesting pressure by harvesting a constant proportion of the population, in order to confirm our analytical results. We extended our work by evaluating the effect of a threshold harvest rule and marine protected 
 areas (MPAs). With a threshold rule, we evaluated the population at each point in space to determine how 
 much harvesting should occur. If the population abundance was below the designated threshold, no 
 harvesting occurred. If the population exceeded the threshold, then a proportion of the `surplus' individuals 
-were harvested. To implement an MPA management strategy, we used two commonly advocated approaches: 
-MPAs designed to improve fisheries yields and MPAs designed for primarily for conservation. These networks 
-of MPAs were introduced into our simulations by designating segments of space in which harvesting was 
-forbidden (i.e.~harvesting rates were equal to $0$). The conservation MPAs had a length of twice the average 
-dispersal distance and had a distance of 4 times the average dispersal distance between them. Fisheries MPAs had a length of 1/3 of the 
-average dispersal distance and had a distance of 2/3 of the average dispersal distance between them.
+were harvested
 
-In our simulations, we defined the critical rate of environmental shift and the critical harvest rate as model runs 
-in which the total population at equilibrium was less than 0.001. Equilibrium is calculated as the mean of 300 time steps once the difference in biomass between time step $t$ and $t+1$ no greater than $0.0360515$. Equilibrium biomass and catch are defined as the total amount of fish present and harvested, respectively, at equilibrium. 
+MPAs are a form of management designed to check the impact of fishing on targeted populations and are typically designed to meet either conservation of fishery management goals \citep{Agardy1994, HollandBrazee1996, Gainesetal2010a}. To implement an MPA management strategy in our model, we examine the effect of both of these commonly advocated approaches. While both conservation and fisheries oriented MPA schemes align in their goal of maintaining a sustainable fished population, they differ in desired level of adult spillover. Fisheries-oriented MPAs are often designed such that they maximize adult spillover into fishable areas by creating many small reserves closely spaced \citep{HastingsBotsford2003}. The converse of this is the goal of conservation-oriented MPAs which seek to reduce adult spillover by minizing the ratio between the reserve edge length relative to area protected \citep{Gainesetal2010a}. 
+
+Networks of MPAs were introduced into our simulations by designating segments of space in which harvesting was forbidden (i.e. harvesting rates were equal to $0$). Conservation-oriented MPAs, are frequently large and rarely part of a larger network of reserves \citep{HastingsBotsford2003}. For solitary reserves to be successful at protecting target species, they must encompass self-sustaining fish populations \citep{HastingsBotsford2006, Gainesetal2010a}. As such modeling studies estimate that isolated reserves must be at least as large as the average dispersal distance for the targeted fish species \citep{Lockwoodetal2002, HastingsBotsford2003, Botsfordetal2001, Gainesetal2010}. To implement conservation MPAs we created reserves with a length of 4 times the average dispersal distance and had a distance of 8 times the average dispersal distance between them to ensure that populations would be self sustiaining and not dependent on other dispersal for other reserves \citep{Lockwoodetal2002}. 
+
+Previous work has shown that if MPAs are to benefit fisheries, the reserves should be broken into a network, closely spaced to maximize adult spillover into fishable areas and export of larvae from reserve to reserve \citep{ HastingsBotsford2003, Gaylordetal2005, Gainesetal2010a}. To mimic this management scheme, MPAs had a length of $\tfrac{1}{3}$ of the average dispersal distance and had a distance of $\tfrac{2}{3}$ of the average dispersal distance between them. 
+
+Equilibrium is calculated as the mean of 300 time steps once the difference in biomass between time step $t$ and $t+1$ was no greater than $0.1$. Equilibrium biomass and catch are defined as the total amount of fish present and harvested, respectively, at equilibrium. 
 
 \subsection{Calculating Synergy }
 
@@ -241,20 +219,6 @@ is shifting more quickly than the critical rate of environmental shift $c^*$, th
 increases or the environmental shifts more quickly (Figure \ref{baseline}). The simulations replicate the analytical results with the critical speed $c^*$ 
 declining as the critical harvest rate $h^*$ increases and vice versa.
 
-\begin{figure}[htbp]
-\begin{subfigure}{3in}
-\subcaption{\label{rates}}
-\includegraphics[width=\textwidth]{plots/critical_rates.pdf}
-\end{subfigure}
-\begin{subfigure}{3in}
-\subcaption{\label{biomass}}
-\includegraphics[width=\textwidth]{plots/eqbiomass.pdf}
-\end{subfigure}
-
-\caption{(a) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  (b) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.    These results are from an approximated Gaussian dispersal kernel with $L=1$.}
-\label{baseline}
-\end{figure}
-
 It is always the case that increasing the intrinsic growth rate, $R_0$, of the population increases the critical 
 speed $c^*$ and the critical harvesting rate $h^*$, since a population that grows more quickly can recover 
 more quickly from losses caused by these disturbances. However, whether or not dispersing farther is better 
@@ -266,24 +230,74 @@ because some larvae will disperse into the space that will become viable shortly
 We found positive synergy between the two stressors in our analysis of the Gaussian kernel (Figure \ref
 {Synergy}).  In other words, a doubly stressed population loses more biomass than would be predicted from either stressor individually.  The stressors interact most strongly when they are both high, shortly before they drive the population extinct.  We found similar analytical results for a sinusoidal dispersal kernel and our simulations with a Laplace kernel produce similar results. 
 
+\subsection{Management Strategies }
+
+We found that when thresholds are in place, the harvesting rate no longer determines the critical rate of environmental shift $c^*$ (Figure \ref{management}). We also examined the effect of marine protected  areas (MPAs) on the population's persistence to see whether it might extend the range of harvesting and  climate change parameters where the fish population could survive. With MPAs in place, the population had a  slightly higher abundance along the edges of the patch where the population is limited by harvesting, which  translated into a slightly increased critical harvest rate (Figure \ref{management}). Additionally MPAs increased overall catch at the highest harvest rates under which the population could survive (Figure \ref{management}).
+
+\section{Discussion}
+
+We extended a spatial to study a fish population subject to both the climate-driven range shifts and harvesting. Previous work has highlighted the importance of reproduction and dispersal to the vulnerability of fish populations to climate change \citep[\citet{Fordhametal2013}]{Hastingsetal2005} and our model explicitly includes these processes.  In particular, we derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is on indication of an interaction between the stressors.
+
+%% discussion of critical rates and curved persistence boundary 
+
+To quantify the interaction between the stressors, we measured the synergy between their effects on population biomass.  We found positive synergy between the stressors and that the synergy is greatest in the region of parameter space where the equilibrium biomass is smallest.  We found similar results from the analytically derived biomass and the simulation derived biomass. This indicates that this result is robust to changes in the dispersal kernel.  We chose to measure the effect of each stressor by the absolute drop in biomass caused by the stressor, and we used the sum of the individual effects for our null prediction of the effect of both stressors, as in \citep{Crainetal2008, DarlingCote2008,Nyeetal2013}.  We could also have measured the effect by the percentage drop caused by the stressor(s) and used a multiplicative null prediction for the effect of both stressors.  In general, measuring synergy against an additive null prediction is more conservative than measuring synergy multiplicatively: the presence of additive synergy implies multiplicative synergy, but not vice versa \citep{Crainetal2008, Foltetal1999}.  Since we found small levels of positive additive synergy between the two stressors, other measures of synergy might show even higher levels of interaction. 
+
+While we did find synergy between the stressors, the drop in biomass caused by both stressors was never very much higher than the null prediction, i.e. synergistic effects were quite small.  However, the fact that synergy is highest in those populations whose persistence is most tenuous is worrisome from a conservation perspective.  Additionally, the fact that we found additive synergy means that harvesting levels or rate of environment shift that are sustainable individually together can drive a population to extinction.  Synergy between harvesting and climate changes, e.g. warming temperature or a more variable climate, has been identified in experiments \citep{Moraetal2007}, in the demography and size of specific populations \citep{Planque:2010uq}, and at the ecosystem level \citep{Kirby:2009fk}.  Our results  agree with these empirical findings and it is therefore important to take the effects of both stressors into consideration when designing conservation and management strategies.
+
+The two management strategies we modeled -- harvesting thresholds and MPAs -- both increased the population's biomass at equilibrium and improved its ability to persist.  Protected areas have been advanced as a way to help organisms keep pace with range shifts, as well as to ameliorate anthropogenic disturbances like harvesting and habitat fragmentation\citep{Lawleretal2010, Hannahetal2007,Botsfordetal2001, Gaylordetal2005, HastingsBotsford2003,Thomasetal2012}.  Our results, that spatial management increased the maximum harvesting rate at which the population could survive, corroborate these previous findings.  The management strategies also affect how the two stressors interact with each other.  Specifically, harvesting thresholds can alleviate interactions between the two stressors.   While the management strategies only change harvesting practices and do not directly address affect climate change, understanding how they ameliorate synergistic affects between harvesting and range shifts will help to better implement and place protected areas.
+
+The advantage of a simple model like ours is that it is general enough to be applied to a number of systems.  However, it  ignores many of the complexities present in marine fisheries. We do not include Allee effects, so that even if the population shrank to very low levels it was possible for it to persist over time. However, we found that qualitatively similar results about the interaction between climate and harvesting would hold for a model with a recruitment function with Allee effect. We also did not include age structure in our model. The effects of both harvesting and climate change may be different across different age classes; including this level of complexity is left for future work. Additionally, we did not include any mechanisms aside from larval dispersal by which the population could keep up with a shifting climate.  In addition to these species-specific extensions, this modeling framework could be extended to consider species interactions, especially predator-prey pairs.  By introducing a predatory species, we would be imposing yet another stressor on the focus species \citep{Lingetal2009, Gurevitchetal2000}and we are interested in measuring the interaction between the effects of this stressor and the two we consider here.
+
+Finally, our results suggest that particular combinations of harvesting and rate of environmental shift will affect some species more than others. Indeed, \citet{Perryetal2005} found that fish that shifted in response to warming in North Sea had faster life histories than non shifting species (smaller body sizes, faster maturation, smaller sizes at maturity). Using a simple mechanistic model like the one we presented can incorporate these species interactions and multiple disturbances to understand whether specific life histories are likely to be selected over others as harvesting and/or range shifts increase.
+
+\section{ Acknowledgements}
+We'd like to thank our reviewers for providing constructive comments. 
+
+\bibliography{fish}
+
+\section{Figures}
+
+\begin{figure}[htbp]
+\begin{subfigure}{3in}
+\subcaption{\label{rates}}
+\includegraphics[width=\textwidth]{plots/critical_rates.pdf}
+\end{subfigure}
+<<<<<<< HEAD
+\begin{subfigure}{3in}
+\subcaption{\label{biomass}}
+\includegraphics[width=\textwidth]{plots/eqbiomass.pdf}
+\end{subfigure}
+
+\caption{(a) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  (b) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.    These results are from an approximated Gaussian dispersal kernel with $L=1$.}
+=======
+\caption{
+%(a) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.  (b) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.
+}
+>>>>>>> 100825f30d038ea9c991dac4e02c493425c0abdb
+\label{baseline}
+\end{figure}
+
+\pagebreak
+
+Figure \ref{baseline}: (a) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.  (b) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.
+
+\pagebreak
+
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=3in]{plots/synergy.pdf}
-\caption{Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.}
+\caption{
+%Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
+}
 \label{Synergy}
 \end{center}
 \end{figure}
 
-\subsection{Management Strategies }
+\pagebreak
 
-We found that thresholds of any amount alleviate the effects of harvesting, and the ability of the population to 
-persist is recovered (Figure \ref{management}). Thus when thresholds are in place, the harvesting rate no longer 
-determines the critical rate of environmental shift $c^*$. We also examined the effect of marine protected 
-areas (MPAs) on the population's persistence to see whether it might extend the range of harvesting and 
-climate change parameters where the fish population could survive. With MPAs in place, the population had a 
-slightly higher abundance along the edges of the patch where the population is limited by harvesting, which 
-translated into a slightly increased critical harvest rate (Figure \ref{management}). Additionally MPAs increased 
-overall catch at the highest harvest rates under which the population could survive (Figure \ref{management}).
+Figure \ref{Synergy}: Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
+
+\pagebreak
 
 \begin{figure}[htbp]
 
@@ -299,13 +313,17 @@ overall catch at the highest harvest rates under which the population could surv
 \subcaption{}
 \includegraphics[width=\textwidth]{plots/eqbiomass_mpa.pdf}
 \end{subfigure}
-\caption{The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$. }
+\caption{
+%The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
+}
 \label{management}
 \end{figure}
 
+\pagebreak
 
-\section{Discussion}
+Figure \ref{management}: The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
 
+<<<<<<< HEAD
 We extended a spatial model to study a fish population subject to both the climate-driven range shifts and harvesting. Previous work has highlighted the importance of reproduction and dispersal to the vulnerability of fish populations to climate change \citep[\citet{Fordhametal2013}]{Hastingsetal2005} and our model explicitly includes these processes.  In particular, we derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is on indication of an interaction between the stressors.
 
 
@@ -320,6 +338,10 @@ The advantage of a simple model like ours is that it is general enough to be app
 Finally, our results suggest that particular combinations of harvesting and rate of environmental shift will affect some species more than others. Indeed, \citet{Perryetal2005} found that fish that shifted in response to warming in North Sea had faster life histories than non shifting species (smaller body sizes, faster maturation, smaller sizes at maturity). Using a simple mechanistic model like the one we presented can incorporate these species interactions and multiple disturbances to understand whether specific life histories are likely to be selected over others as harvesting and/or range shifts increase.
 
 \bibliography{fish}
+=======
+\pagebreak
+
+>>>>>>> 100825f30d038ea9c991dac4e02c493425c0abdb
 \section{Appendix}
 
 As in Zhou et al. \citep{ZhouKot2011}, let $k(x-y)$ be a dispersal kernel and let $f(y)$ be a recruitment function.  The integrodifference model describing the population over time is given by 
@@ -461,5 +483,7 @@ h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
 
+%\end{flushleft}
+%\end{spacing}
 
 \end{document}

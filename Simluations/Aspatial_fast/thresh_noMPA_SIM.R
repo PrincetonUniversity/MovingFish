@@ -1,9 +1,9 @@
-#rm(list=ls())
+rm(list=ls())
 library(plyr)
 library(zoo)
 
 # load parameters, functions
-setwd("~/Desktop/MovingFish/Updated_simulations/ToRun/code/Aspatial_fast")
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
 source("thresh_Parameters.R")
 source("Functions.R")
 
@@ -24,6 +24,14 @@ for(t in 2:maxt){
   init[,t]= output[[1]]
   MPA.current = output[[3]]
 }
+
+# thresholds need to be relative to maximum population along 1d world
+
+biggestP <- max(init[,maxt])
+
+thresholds <- thresholds * biggestP
+# add a buffer to last to make sure captures biggest population
+tail(thresholds,1) <- tail(thresholds,1) + 0.001
 
 # standard for equilibrium is the difference in the final step of the initialization 
 init.diff <- diff(colSums(init))[149]
@@ -102,7 +110,7 @@ for(q in 1:length(speeds)){
     summaries[rownumber[j,q],] <- c(
       pop.mean, pop.sd, pop.se, 
       harv.mean, harv.sd, harv.se, 
-      speeds[q], 1,ifelse(exists(thresholds[j]),thresholds[j],NA),
+      speeds[q], 1,ifelse(exists("thresholds"),thresholds[j],NA),
       ncol(init.h), ncol(move))
     print(paste("harvest is ",round(j/length(thresholds),1)*100,"% done and speed is ",round(q/length(speeds),1)*100, "% done",sep=""))
     
@@ -111,4 +119,4 @@ for(q in 1:length(speeds)){
 }
 
 write.csv(summaries,file = paste("Data/noMPA_Thresh_add_",Sys.Date(),".csv",sep=""))
-notify('Simulation is finished!')
+#notify('Simulation is finished!')
