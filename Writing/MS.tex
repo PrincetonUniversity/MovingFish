@@ -42,10 +42,10 @@ these approaches could mitigate the negative interaction of the two stressors.
 
 \section{Introduction}
 
-There are many stressors that can disturb an ecosystem. Ecologists have quantified the effects of a number of stressors individually \citep{Wilcoveetal1998, Crainetal2008, DarlingCote2008}.  If disturbances interact synergistically, a perturbation that has little effect when it occurs individually may amplify the disturbance caused by a coincident perturbation \citep{Crainetal2008, DarlingCote2008,Nyeetal2013,Gurevitchetal2000}.   In the most extreme (and worrying) cases, synergistic interactions will lead multiple stressors to drive a population extinct when it could persist in the face of any single stressor (i.e. \citet{Pelletieretal2006}).  If disturbances interact antagonistically, on the other hand, the effects of multiple stressors may be less than that predicted by any stressor individually.  Since disturbances rarely occur in isolation, it is important to measure the synergy between  disturbances in order to understand how a system will be affected by their presence and when multiple disturbances will drive a population extinct  \citep{DoakMorris2010, Fordhametal2013, Foltetal1999}.
+There are many stressors that can disturb an ecosystem. Ecologists have quantified the effects of a number of stressors individually \citep{Wilcoveetal1998, Crainetal2008, DarlingCote2008}, however less work has been done to measure the effects of multiple stressors and the interactions between them.  If disturbances interact synergistically, a perturbation that has little effect when it occurs individually may amplify the disturbance caused by a coincident perturbation \citep{Crainetal2008, DarlingCote2008,Nyeetal2013,Gurevitchetal2000}.   In the most extreme (and worrying) cases, synergistic interactions between multiple stressors will drive a population extinct even though it could persist in the face of any single stressor (i.e. \citet{Pelletieretal2006}).  If disturbances interact antagonistically, on the other hand, the effects of multiple stressors may be less than that predicted by any stressor individually.  Since disturbances rarely occur in isolation, it is important to measure the synergy between  disturbances in order to understand how a system will be affected by their presence and to understand when multiple disturbances will drive a population extinct  \citep{DoakMorris2010, Fordhametal2013, Foltetal1999}.
 
 
-Climate change and fishing have been identified as the two largest human impacts on the ocean \citep{Halpernetal2008}.  They therefore present an important case study of how disturbances interact in their effects on biological populations  and understanding these interactions will be crucial to managing populations subjected to these disturbances.  In response to climate change, marine fish are already moving \citep{Perryetal2005, HiddinkHoftstede2008, Rijnsdorpetal2009, Dulvyetal2008, Simpsonetal2011} and projected to move more in the future \citep{Kelletal2005, Mackenzieetal2007}.  Species that are likely to undergo or already undergoing shifts in range are also subject harvesting, in addition to many other disturbances including pollution, ocean acidification, habitat fragmentation, and invasive species \citep{Wilcoveetal1998, Salaetal2000, MEA2005, Pinskyetal2013, Barryetal1995, Nyeetal2009}.  Empirical case studies have identified interactions between overfishing and temperature-driven range shifts that suggest synergy in the magnitude of the disturbance \citep{Lingetal2009} and have demonstrated synergistic effects in microcosm experiments between warming temperatures, harvesting and connectivity \citep{Moraetal2007}. This empirical work underscores the importance of understanding how range shifts and harvesting interact.
+Climate change and fishing have been identified as the two largest human impacts on the ocean \citep{Halpernetal2008}.  They therefore present an important case study of how disturbances interact in their effects on biological populations.  Further, understanding these interactions will be crucial to managing populations subjected to both of these disturbances.  Marine fish are already moving in response to climate change \citep{Perryetal2005, HiddinkHoftstede2008, Rijnsdorpetal2009, Dulvyetal2008, Simpsonetal2011} and they are projected to continue to move in the future \citep{Kelletal2005, Mackenzieetal2007}.  Species that are likely to undergo or already undergoing shifts in range are also subject to harvesting, in addition to many other disturbances including pollution, ocean acidification, habitat fragmentation, and invasive species \citep{Wilcoveetal1998, Salaetal2000, MEA2005, Pinskyetal2013, Barryetal1995, Nyeetal2009}.  Empirical case studies have identified interactions between overfishing and temperature-driven range shifts that suggest synergy in the magnitude of the disturbance \citep{Lingetal2009} and have demonstrated synergistic effects in microcosm experiments between warming temperatures, harvesting and connectivity \citep{Moraetal2007}. This empirical work underscores the importance of understanding how range shifts and harvesting interact.
 
 A common approach to predicting future population distributions under climate change has been to use bioclimatic-envelope models (also known as species distribution models -- SDMs). These statistical models typically correlate presence-absence data with biophysical characteristics such as mean or maximum temperatures, rainfall, or salinity, to explain and predict how species ranges' will differ under climate change \citep{Elithetal2006, GuisanThuiller2005, GuisanZimmerman2000}. Despite these models' widespread adoption, SDMs have frequently been criticized as oversimplified as they lack species interactions, dispersal and reproductive processes \citep{KearneyPorter2009, Zarnetskeetal2012, Robinsonetal2011}.  Recent work on range shifts has addressed some of these gaps by explicitly including dispersal and reproduction \citep{Berestyckietal2009, ZhouKot2011}. However these models only address one disturbance: that of climate-driven range shifts. 
 
@@ -57,7 +57,7 @@ We also examine the effect of marine protected areas (MPAs) on species persisten
 
 \section{Methods}
 
-We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  Given the reproductive rate and average dispersal distance, first we determined the climate velocity and harvesting rate that would drive the population extinct.  We then implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to 
+We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  We first measured the drop in biomass caused by range shifts, harvesting, and both stressors together in order to determine whether they interact synergistically.  We then determined the climate velocity and harvesting rate that would drive the population extinct.  We finally implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to 
 determine how these management strategies affect population persistence.
 
 \subsection{The Model }
@@ -72,16 +72,18 @@ n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{
 \noindent where $h$ is the proportion of adults harvested, $f(n)$ is the recruitment function giving the number of 
 offspring produced by a population of size $n$ (accounting for density dependence), $k(x-y)$ is the dispersal kernel giving the probability of a 
 larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it 
-shifts across space.   Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ so we use such a kernel in our analytical expressions.
-The critical parameter of the recruitment function is how quickly recruitment increases when the population 
-size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Since the population's ability to persist only depends on how quickly harvesting increases when a small number of fish are introduced where they were previously absent, $h'(0)$. We 
-therefore only considered a proportional harvesting function initially.  We provide a list of variables and functions in Table 1. 
+shifts across space.  We chose to use a Beverton-Holt recruitment function,
+
+\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]  
+
+\noindent Regardless of the exact functional form of the recruitment function, a critical parameter of the recruitment function in determining population persistence is how quickly recruitment increases when the population 
+size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions.
+We provide a list of variables and functions in Table 1. 
 
 At equilibrium, the population will be described by a traveling wave, 
 where the density of fish at a given point in space will change but the density of fish at a location relative to the 
 shifting  patch will not. We sought to describe how the population is distributed over the viable 
-patch as it shifts through the world in order to study the size of the population at equilibrium and whether or not the population could persist. We wrote this as $n^*(\bar{x})$, the density of fish at each point $\bar{x}$ in 
-the shifting frame $\left[-\frac{L}{2}, \frac{L}{2}\right]$ As in \citet{ZhouKot2011}, the traveling wave $n^*$ must 
+patch as it shifts through the world in order to study the size of the population at equilibrium and whether or not the population could persist.  The traveling wave $n^*$ must 
 satisfy
 
 \begin{equation}
@@ -89,7 +91,7 @@ n^*(\bar{x})=\int^{\frac{L}{2}}_{-\frac{L}{2}}k(\bar{x}+c-\bar{y})f((1-h))n^*(\b
 \bar{y} \label{traveling_pulse}
 \end{equation}
 
-\citet{ZhouKot2011} only consider whether a shifting environment will drive a population extinct or not.  To quantify the effects of both a shifting environment and harvesting pressure, we additionally found the total biomass in the equilibrium traveling wave.  For a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy \citep{Latore:1998fk}
+\noindent where $\bar{x}\in\left[-\frac{L}{2}, \frac{L}{2}\right]$ describes the position within the patch \citep{ZhouKot2011}. \citet{ZhouKot2011} only considered whether a shifting environment will drive a population extinct or not.  To quantify the effects of both a shifting environment and harvesting pressure, we additionally found the total biomass in the equilibrium traveling wave.  For a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy 
 
 \begin{equation}
 n^*(x)=\sum^\infty_{i=1}
@@ -103,10 +105,8 @@ m_i=\int^{\frac{L}{2}}_{-\frac{L}{2}}b_i(y-c)f\left((1-h)\sum^\infty_{j=1}m_ja_j
 dy. \label{recursive_m}
 \end{equation}
 
-\noindent Equation \ref{recursive_m} allowed us to find the values of $m_i$ numerically. We then found the total biomass in the 
-equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.  We chose to use a Beverton-Holt recruitment function,
-
-\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]
+\noindent \citep{Latore:1998fk}. Equation \ref{recursive_m} allowed us to find the values of $m_i$ numerically. We then found the total biomass in the 
+equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.  
 
 \subsection{Calculating Synergy }
 
@@ -115,8 +115,7 @@ additively, synergistically, or antagonistically \citep{Crainetal2008}. In order
 stressors, we found the total biomass of the population when it reached an equilibrium traveling pulse and 
 compared this equilibrium biomass in the presence and absence of each stressor individually or the two stressors together. 
 
-We measured the effects of the stressors by comparing the equilibrium biomass of the stressed population to 
-the equilibrium biomass of the unstressed population. We use $B_0$ to denote the equilibrium biomass 
+We used $B_0$ to denote the equilibrium biomass 
 without either stressor, $B_\text{h}$ the equilibrium biomass with harvesting but a constant environment, $B_\text{c}$ the 
 equilibrium biomass with a shifting environment but no harvesting, and $B_\text{hc}$ the equilibrium biomass with 
 both stressors. For each stressor or combination of stressors, we found the drop in  biomass caused 
