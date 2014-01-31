@@ -58,7 +58,7 @@ In the model of \cite{ZhouKot2011}, the adults from the current year produce off
 is the density of fish at position $x$ at time $t$, then the density of fish at the next generation is given by
 
 \begin{equation}
-n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{integrodifference}
+n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{integrodifference},
 \end{equation}
 
 \noindent where $h$ is the proportion of adults harvested, $f(n)$ is the recruitment function giving the number of 
@@ -77,7 +77,7 @@ satisfy
 
 \begin{equation}
 n^*(\bar{x})=\int^{\frac{L}{2}}_{-\frac{L}{2}}k(\bar{x}+c-\bar{y})f((1-h))n^*(\bar{y}))d
-\bar{y} \label{traveling_pulse}
+\bar{y}, \label{traveling_pulse}
 \end{equation}
 
 \noindent where $\bar{x}\in\left[-\frac{L}{2}, \frac{L}{2}\right]$ describes the position within the patch \citep{ZhouKot2011}. \citet{ZhouKot2011} only considered whether a shifting environment will drive a population extinct, however to quantify the effects of both a shifting environment and harvesting pressure we must also find the total biomass in the equilibrium traveling wave.  For a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy 
@@ -135,7 +135,7 @@ We would like to know the rate of environmental shift and the harvesting rate su
 environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
 We found these rates by finding the parameters that make the trivial pulse unstable.   In our analyses, we used a  separable kernel, the Gaussian kernel given by
 
-\[k(x-y)=\frac{1}{\sqrt{2\sigma^2\pi}}e^{\frac{-(x-y)^2}{2\sigma^2}}\]
+\[k(x-y)=\frac{1}{\sqrt{2\sigma^2\pi}}e^{\frac{-(x-y)^2}{2\sigma^2}}.\]
 
 \noindent To find analytical results about the Gaussian kernel, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
 simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
@@ -146,7 +146,7 @@ the critical rate $h^*$ then the population will not be able to persist, as desc
 $$R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.$$
 A similar expression for a sinusoidal kernel is derived in the appendix.  For both kernels, the critical harvesting proportion can be approximated by a function that looks like 
 \begin{equation}
-h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\sigma^2,c^2,L^2+3c^2)
+h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\sigma^2,c^2,L^2+3c^2),
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
 
@@ -157,7 +157,7 @@ We used simulations to extend the basic integrodifference model in two ways that
 intractable. First, we examined the sensitivity of the model to choice of dispersal kernel by using the Laplace 
 dispersal kernel, 
 
-\[ k(x-y)=\frac{1}{2}be^{-b|x-y|}\]
+\[ k(x-y)=\frac{1}{2}be^{-b|x-y|}.\]
 
 \noindent Second, we examined harvesting rules more complex than harvesting a constant proportion of the population. Whereas population persistence in the analytical model does not depend on the functional form of recruitment $f$, to perform simulations we must 
 specify a recruitment function.  Again, we chose to use a Beverton-Holt function.  In the first generation, we seeded the world with 50 individuals at a single point, as in \citep{ZhouKot2011}. We first ran through 150 generations in order for the population to reach equilibrium without harvesting or climate shift.  We then added harvesting pressure, allowed the population to again reach equilibrium, and finally added climate change by moving the viable patch.  Equilibrium biomass is calculated as the mean biomass of 300 time steps once the difference in biomass between time step $t$ and $t+1$ was no greater than $0.1$.  
