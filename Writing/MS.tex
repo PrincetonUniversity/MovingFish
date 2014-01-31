@@ -63,7 +63,7 @@ n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{
 \noindent where $h$ is the proportion of adults harvested, $f(n)$ is the recruitment function giving the number of 
 offspring produced by a population of size $n$ (accounting for density dependence), $k(x-y)$ is the dispersal kernel giving the probability of a  larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it  shifts across space.  We chose to use a Beverton-Holt recruitment function,
 
-\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}\]  
+\[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}.\]  
 
 \noindent Regardless of the exact functional form of the recruitment function, a critical parameter of the recruitment function in determining population persistence is how quickly recruitment increases when the population 
 size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions. We provide a list of variables and functions in Table 1. 
@@ -98,7 +98,7 @@ equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{s
 
 \subsection{Calculating Synergy }
 
-In order to quantify whether the two stressors are interacting additively, synergistically, or antagonistically,  we found the total biomass of the population when it reached an equilibrium traveling pulse and 
+In order to quantify whether the two stressors are interacting additively, synergistically, or antagonistically, we found the total biomass of the population when it reached an equilibrium traveling pulse and 
 compared this equilibrium biomass in the presence and absence of each stressor individually or the two stressors together. 
 
 We used $B_0$ to denote the equilibrium biomass 
