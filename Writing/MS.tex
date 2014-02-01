@@ -66,7 +66,7 @@ offspring produced by a population of size $n$ (accounting for density dependenc
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}.\]  
 
 \noindent Regardless of the exact functional form of the recruitment function, a critical parameter of the recruitment function in determining population persistence is how quickly recruitment increases when the population 
-size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions. We provide a list of variables and functions in Table 1. 
+size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions. We provide a list of variables and functions in Table \ref{variables}. 
 
 At equilibrium, the population will be described by a traveling wave, 
 where the density of fish at a given point in space will change but the density of fish at a location relative to the 
@@ -134,7 +134,7 @@ We would like to know the rate of environmental shift and the harvesting rate su
 environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
 We found these rates by finding the parameters that make the trivial pulse unstable.   In our analyses, we used a  separable kernel, the Gaussian kernel given by
 
-\[k(x-y)=\frac{1}{\sqrt{2\sigma^2\pi}}e^{\frac{-(x-y)^2}{2\sigma^2}}.\]
+\[k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.\]
 
 \noindent To find analytical results about the Gaussian kernel, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
 simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
@@ -145,7 +145,7 @@ the critical rate $h^*$ then the population will not be able to persist, as desc
 $$R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.$$
 A similar expression for a sinusoidal kernel is derived in the appendix.  For both kernels, the critical harvesting proportion can be approximated by a function that looks like 
 \begin{equation}
-h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\sigma^2,c^2,L^2+3c^2),
+h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\langle d \rangle,c^2,L^2+3c^2),
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
 
@@ -289,9 +289,29 @@ The equilibrium biomass of the population as a function of the rate of environme
 
 \pagebreak
 
-The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
+Figure \ref{management}: The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
 
 \pagebreak
+
+\section{Tables}
+
+\begin{table}
+\begin{tabular}{@{}lllllll@{}}
+  Variable & Definition
+\\\cmidrule{1-1} \cmidrule{2-2}   
+$n_t(x)$ & density of fish at position $x$ at time $t$
+\\ $n^*(\overline{x})$ & density of fish at equilibrium at position $\overline{x}$ relative to the patch 
+\\ $k(x-y)$ & dispersal kernel, probability of larva traveling from position $y$ to position $x$
+\\ $\langle d \rangle $ & expected distance traveled by larva
+\\ $f(n)$ & recruitment function, number of offspring produced by a population of size $n$
+\\ $R_0$ & intrinsic growth rate, $R_0=f'(0)$
+\\ $h$ & proportion of adults harvested
+\\ $L$ & patch length
+\\ $c$ & rate of environmental shift
+\end{tabular}
+\caption{}
+\label{variables}
+\end{table}
 
 \section{Discussion}
 We extended a spatial model to study a fish population subject to both the climate-driven range shifts and harvesting. Previous work has highlighted the importance of reproduction and dispersal to the vulnerability of fish populations to climate change \citep[\citet{Fordhametal2013}]{Hastingsetal2005} and our model explicitly includes these processes.  In particular, we derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is on indication of an interaction between the stressors.
