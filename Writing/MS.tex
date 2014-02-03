@@ -21,8 +21,8 @@
 \begin{document}
 \maketitle
 
-%\begin{spacing}{1.9}
-%\begin{flushleft}
+\begin{spacing}{1.9}
+\begin{flushleft}
 
 \section{Abstract}
 
@@ -140,9 +140,10 @@ We found these rates by finding the parameters that make the trivial pulse unsta
 simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
 
 For each kernel, the population's ability to persist depends on properties of the population itself-- the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment-- the length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
-$).  Whereas equilibrium biomass depends on the function form of recruitment, population persistence only depends on the intrinsic growth rate $R_0$.  If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than 
-the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
-$$R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.$$
+$).  Whereas equilibrium biomass depends on the function form of recruitment, population persistence only depends on the intrinsic growth rate $R_0$.  If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
+
+\[R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.\]
+
 A similar expression for a sinusoidal kernel is derived in the appendix.  For both kernels, the critical harvesting proportion can be approximated by a function that looks like 
 \begin{equation}
 h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\langle d \rangle,c^2,L^2+3c^2),
@@ -226,8 +227,11 @@ Using a simple mechanistic model like the one we present here provides a useful 
 \section*{ Acknowledgements}
 We thank Catherine Offord and Will Scott for their contributions to an earlier version of this manuscript and our reviewers for providing constructive comments. 
 
-\bibliography{fish}
+\end{flushleft}
+\end{spacing}
 
+\bibliography{fish}
+\pagebreak
 \section{Figures}
 
 \begin{figure}[htbp]
@@ -240,14 +244,15 @@ We thank Catherine Offord and Will Scott for their contributions to an earlier v
 \includegraphics[width=\textwidth]{plots/eqbiomass.pdf}
 \end{subfigure}
 
-\caption{(a) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  (b) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.    These results are from an approximated Gaussian dispersal kernel with $L=1$.}
+\caption{%(a) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  (b) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.    These results are from an approximated Gaussian dispersal kernel with $L=1$.
+}
 
 \label{baseline}
 \end{figure}
 
 \pagebreak
 
-Figure \ref{baseline}: (a) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.  (b) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.
+\noindent {\bf Figure \ref{baseline}}: (a) The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis. These results are from a Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.  (b) The critical harvesting rate on the y-axis as a function of the rate of environmental shift on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.
 
 \pagebreak
 
@@ -255,7 +260,7 @@ Figure \ref{baseline}: (a) The equilibrium biomass of the population as a functi
 \begin{center}
 \includegraphics[width=3in]{plots/synergy.pdf}
 \caption{
-Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
+%Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
 }
 \label{Synergy}
 \end{center}
@@ -263,7 +268,7 @@ Positive synergy between the two stressors.  The x-axis shows the rate of enviro
 
 \pagebreak
 
-Figure \ref{Synergy}: Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
+\noindent {\bf Figure \ref{Synergy}}: Positive synergy between the two stressors.  The x-axis shows the rate of environmental shift, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
 
 \pagebreak
 
@@ -283,20 +288,19 @@ Figure \ref{Synergy}: Positive synergy between the two stressors.  The x-axis sh
 \includegraphics[width=\textwidth]{plots/eqbiomass_mpa.pdf}
 \end{subfigure}
 \caption{
-The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
+%The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
 }
 \label{management}
 \end{figure}
 
 \pagebreak
 
-Figure \ref{management}: The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
+\noindent {\bf Figure \ref{management}}: The equilibrium biomass of the population as a function of the rate of environmental shift on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) No management.  (b) Threshold harvesting levels.  (c) MPAs.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
 
 \pagebreak
 
 \section{Tables}
-
-\begin{table}
+\begin{table}[h]
 \caption{Table of variables used in the text}
 \begin{tabular}{@{}lllllll@{}}
   Variable & Definition
@@ -314,21 +318,7 @@ $n_t(x)$ & density of fish at position $x$ at time $t$
 \label{variables}
 \end{table}
 
-%\section{Discussion}
-%We extended a spatial model to study a fish population subject to both the climate-driven range shifts and harvesting. Previous work has highlighted the importance of reproduction and dispersal to the vulnerability of fish populations to climate change \citep[\citet{Fordhametal2013}]{Hastingsetal2005} and our model explicitly includes these processes.  In particular, we derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is on indication of an interaction between the stressors.
-%
-%
-%To quantify the interaction between the stressors, we measured the synergy between their effects on population biomass.  We found positive synergy between the stressors and that the synergy is greatest in the region of parameter space where the equilibrium biomass is smallest.  We found similar results from the analytically derived biomass and the simulation derived biomass. This indicates that this result is robust to changes in the dispersal kernel.  We chose to measure the effect of each stressor by the absolute drop in biomass caused by the stressor, and we used the sum of the individual effects for our null prediction of the effect of both stressors, as in \citep{Crainetal2008, DarlingCote2008,Nyeetal2013}.  We could also have measured the effect by the percentage drop caused by the stressor(s) and used a multiplicative null prediction for the effect of both stressors.  In general, measuring synergy against an additive null prediction is more conservative than measuring synergy multiplicatively: the presence of additive synergy implies multiplicative synergy, but not vice versa \citep{Crainetal2008, Foltetal1999}.  Since we found small levels of positive additive synergy between the two stressors, other measures of synergy might show even higher levels of interaction. 
-%
-%While we did find synergy between the stressors, the drop in biomass caused by both stressors was never very much higher than the null prediction, i.e. synergistic effects were quite small.  However, the fact that synergy is highest in those populations whose persistence is most tenuous is worrisome from a conservation perspective.  Additionally, the fact that we found additive synergy means that harvesting levels or rate of environment shift that are sustainable individually together can drive a population to extinction.  Synergy between harvesting and climate changes, e.g. warming temperature or a more variable climate, has been identified in experiments \citep{Moraetal2007}, in the demography and size of specific populations \citep{Planque:2010uq}, and at the ecosystem level \citep{Kirby:2009fk}.  Our results  agree with these empirical findings and it is therefore important to take the effects of both stressors into consideration when designing conservation and management strategies.
-%
-%The two management strategies we modeled -- harvesting thresholds and MPAs -- both increased the population's biomass at equilibrium and improved its ability to persist.  Protected areas have been advanced as a way to help organisms keep pace with range shifts, as well as to ameliorate anthropogenic disturbances like harvesting and habitat fragmentation\citep{Lawleretal2010, Hannahetal2007,Botsfordetal2001, Gaylordetal2005, HastingsBotsford2003,Thomasetal2012}.  Our results, that spatial management increased the maximum harvesting rate and maximum climate velocity at which the population could survive, corroborate these previous findings.  The management strategies also affect how the two stressors interact with each other.  Specifically, harvesting thresholds can alleviate interactions between the two stressors.   While the management strategies only change harvesting practices and do not directly address affect climate change, understanding how they ameliorate synergistic affects between harvesting and range shifts will help to better implement and place protected areas.
-%
-%The advantage of a simple model like ours is that it is general enough to be applied to a number of systems.  However, it  ignores many of the complexities present in marine fisheries. We do not include Allee effects, so that even if the population shrank to very low levels it was possible for it to persist over time. However, we found that qualitatively similar results about the interaction between climate and harvesting would hold for a model with a recruitment function with Allee effect. We also did not include age structure in our model. The effects of both harvesting and climate change may be different across different age classes; including this level of complexity is left for future work. Additionally, we did not include any mechanisms aside from larval dispersal by which the population could keep up with a shifting climate.  In addition to these species-specific extensions, this modeling framework could be extended to consider species interactions, especially predator-prey pairs.  By introducing a predatory species, we would be imposing yet another stressor on the focus species \citep{Lingetal2009, Gurevitchetal2000}and we are interested in measuring the interaction between the effects of this stressor and the two we consider here.
-%
-%Finally, our results suggest that particular combinations of harvesting and rate of environmental shift will affect some species more than others. Indeed, \citet{Perryetal2005} found that fish that shifted in response to warming in North Sea had faster life histories than non shifting species (smaller body sizes, faster maturation, smaller sizes at maturity). Using a simple mechanistic model like the one we presented can incorporate these species interactions and multiple disturbances to understand whether specific life histories are likely to be selected over others as harvesting and/or range shifts increase.
-
-\bibliography{fish}
+\pagebreak
 
 \section{Appendix}
 
@@ -470,8 +460,5 @@ In the case of both kernels, the critical harvesting proportion can be approxima
 h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
-
-%\end{flushleft}
-%\end{spacing}
 
 \end{document}
