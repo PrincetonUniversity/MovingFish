@@ -80,7 +80,8 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
     harv = n2-next_gen
  	n2 = next_gen 
  	MPA = next_MPA
- 	plot(world,MPA*max(n2),type='l',col="grey")
+ 	#plot(world,MPA*max(n2),type='l',col="grey")
+	plot(world,MPA*9,type='l',col="grey",main=paste("Speed=",s," Harvest rate=",Fharv,sep=""))
  	lines(world,n2,lwd=2,col="blue")
  	return(list(n2,harv,MPA))
 }

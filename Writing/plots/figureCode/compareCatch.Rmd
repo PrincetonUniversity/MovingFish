@@ -16,13 +16,13 @@ require(ggthemes)
   #sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
 
 # for synced online github data
-  x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTEyNjg5OTB9--e041d4ef68764b1fc49140c128bda685c6f740f3")
+   x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTI2NDYxMDl9--46e45a3eb2faef7fc22b6124253c925bd2290de9")
   sim = read.csv(textConnection(x))
 
-  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTAzM30%3D--f35f2593a7e901c900188fadca920fdd68a57e35")
+  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE0NH0%3D--8eff4ee16d08efcf6b266c3e4e42adde7aeff969")
   fishmpa = read.csv(textConnection(fish))
 
-  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTA3Mn0%3D--ffb8451d33daaeab48f8b3be3357cacbda0aadbb")
+  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE2Nn0%3D--586d3cb31ac0f1fe3c49f48886e3796b5132bb77")
   consmpa = read.csv(textConnection(cons))
 
 # combine all data into one dataframe

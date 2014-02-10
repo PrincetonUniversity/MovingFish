@@ -1,123 +1,124 @@
-# Comparing MPAs to each other, to no management
+# Comparing catch
 
 ```{r required, echo=FALSE,message=FALSE}
 library(fields)
 library(lattice)
 library(colorspace)
 require(RCurl)
+require(ggplot2)
+require(ggthemes)
 ```
 
 
 ```{r loadData, echo=FALSE, message=FALSE}
 #sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
 # for emma's local copy
-	#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
+  #sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
 
 # for synced online github data
-  x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTEyNjg5OTB9--e041d4ef68764b1fc49140c128bda685c6f740f3")
+   x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTI2NDYxMDl9--46e45a3eb2faef7fc22b6124253c925bd2290de9")
   sim = read.csv(textConnection(x))
 
-  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTAzM30%3D--f35f2593a7e901c900188fadca920fdd68a57e35")
+  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE0NH0%3D--8eff4ee16d08efcf6b266c3e4e42adde7aeff969")
   fishmpa = read.csv(textConnection(fish))
 
-  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MTI2OTA3Mn0%3D--ffb8451d33daaeab48f8b3be3357cacbda0aadbb")
+  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE2Nn0%3D--586d3cb31ac0f1fe3c49f48886e3796b5132bb77")
   consmpa = read.csv(textConnection(cons))
+
+# combine all data into one dataframe
+sim$management = rep("noManagement",nrow(sim))
+consmpa$management = rep("consMPA", nrow(consmpa))
+fishmpa$management = rep("fishMPA", nrow(fishmpa))
+
+allData <- rbind(sim,consmpa,fishmpa)
 ```
 
-```{r plotFunctions, echo=FALSE,message=FALSE}
-plotfig <- function(df){
-  cvals=unique(df$speed)
-  hvals=unique(df$harvest)
+Map equilibrium harvest as function of speed of climate velocity and harvest rate.
 
-  H=length(hvals)
-  C=length(cvals)
-  L=length(df$Equil.pop)
+```{r Compare_Management,echo = FALSE, fig.width=10, fig.height=10}
+contourplot(Equil.pop ~ speed * harvest | factor(management), data = allData, region=TRUE, layout = c(1,3), drape=TRUE)
 
-  ebm=array(,c(C,H))
+```
 
-  for(i in 1:L){
-    hind=which(hvals==df$harvest[i])
-    cind=which(cvals==df$speed[i])
-    ebm[cind,hind]=df$Equil.pop[i]
-  }
+Looks like conservation MPAs do the best, but there are some weird fluctuations at higher harvest rates, why is that? Can take slices to look more closely
 
-  all <- list(ebm = ebm, cvals = cvals, hvals = hvals, C = C, H = H)
-  return(all)
-}
+```{r variance, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,harvest == 0.04 )
+pd <- position_dodge(.1)
+ggplot(subData, aes(x = speed, y = Equil.pop))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+```
 
-plotParams <- function(lis){
-  ebm <- lis$ebm
-  cvals <- lis$cvals
-  hvals <- lis$hvals
-  C <- lis$C
-  H <- lis$H
-  # plotting parameters
-  cex.lab=3
-  cex.axis=2
-  line=5
-  lwd=5
-  yaxs='i'
-  xaxs='i'
-  cex.lab=1.5
-  cex.axis=1
-  line=1
-  oma=c(0,0,0,2)
-  #breaks and colors
-    lower=min(ebm)+1
-    cuts=c(0,seq(lower,1538.649+.5,length.out=100))
-    mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
-    mycols=c('black',mycols)
-    
-    
-  #axis labels
-    numxlabs=11
-    numylabs=3
-    xdiff=.1
-    ydiff=.2
-    myaxes=list(arrows=FALSE,
-      x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),
-      y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))),
-      z=list(at=seq(0,1538.649,by=250),labels=as.character(seq(0,1538.649,by=250))))
+Trying the same plot but a higher rate of catch: $h = 0.10$ I get,
 
+```{r variance_high, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,harvest == 0.10 )
+pd <- position_dodge(.1)
+ggplot(subData, aes(x = speed, y = Equil.pop))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+```
 
-  par(oma=oma)
-  image.plot(cvals,hvals,ebm,breaks=cuts,col=mycols,
-    xlab="Rate of environmental shift",ylab="Harvesting rate",
-  	cex.lab=cex.lab,cex.axis=cex.axis, 
-  	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
-  	legend.shrink=1,legend.width=.1,zlim=range(cuts),
-  	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-  	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
-  	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
-  box()
-}
+Looking at holding speed constant and examining population as a function of harvest rate
+
+```{r harvestVar, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,speed==0.1)
+ggplot(subData, aes(x = harvest, y = Equil.pop)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+
+subData <- subset(allData,speed==0.2)
+ggplot(subData, aes(x = harvest, y = Equil.pop)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+
+subData <- subset(allData,speed==0.3)
+ggplot(subData, aes(x = harvest, y = Equil.pop)) + facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+```
+
+Need to redo simulations and examine what's going on. Just looking at initialized conservation MPA simulation, see that the whole right side of the MPA has declined due to harvest on the outside. 
+
+```{r sim, echo=FALSE,fig.keep='none'}
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
+source("Parameters.R")
+source("Functions.R")
+
+# reducing range of speeds and harvests to look over
+speeds = speeds[1:15]
+harvests = harvests = harvests[6:8]
+
+## copy and pasted from MPAcons_SIM.R
+# set MPA (cons.yes/no; fish.yes/no; null.yes/no)
+mpa.yes = cons.yes
+mpa.no = cons.no
+
+# added a stipulation for equilibrium: either the difference between two time steps is as small as the initializing step or the difference in the rolling mean with a window of 100 values [move_window below] of the total population abundance is 0. With MPAs getting oscillations with perfect oscillations such that it's never 'at equilibrium' but is not trending. so is at equilibrim
+
+move_window = 100
+
+# initializing the population with no pressure (no harvesting, no climate)
+init<-array(0,c(w,maxt)) 
+init[which(patch==0.55),1]=50
+MPA.current = rep(c(mpa.yes,mpa.no),length.out=length(world))
+for(t in 2:maxt){
+  output = m(n=init[,t-1], s = 0, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+	init[,t]= output[[1]]
+	MPA.current = output[[3]]
+	}
+```
+
+```{r plots, echo=FALSE}
+plot(world, init[,t],lwd=2,col="blue",bty="n",type='l',ylab="Biomass")
+lines(world,MPA.current*9.15,col="grey",lty=2,lwd=2)
+legend("bottomleft",legend=c("Fish Biomass","MPA boundary"),col=c("blue","grey"),lty=c(1,2),lwd=2,bty="n")
 ```
 
 
-Comparing no management to several small MPAs
+Almost certainly the issue is that for each run of the simulation, the MPA borders are not starting at the same location. So how the population does at the beginning will vary. That's the first thing that needs to be fixed. 
 
-```{r diff_fishnoManagement, echo=FALSE,message=FALSE}
-noMang <- plotfig(sim)
-fish <- plotfig(fishmpa)
-combined <- noMang
-combined$ebm = fish$ebm - noMang$ebm
-plotParams(combined)
-```
+It looks like the `MPA.current` variable is not being re-set and is just picking up where it left off for the previous run of the simulation. Have fixed this I think by adding a new variable called `MPA.start` that is the same and resets for each new simulation run (each loop of the for loop). Only changed this on MPAcons right now. Will see if that changes some of the oscillations. 
 
-Comparing no management to few large MPAs
+```{r continuingSim,echo=FALSE}
+# continuing on with the simulation
+# standard for equilibrium is the difference in the final step of the initialization 
+init.diff <- diff(colSums(init))[149]
 
-```{r diff_consnoManagement, message=FALSE,echo=FALSE}
-noMang <- plotfig(sim)
-cons <- plotfig(consmpa)
-combined <- noMang
-combined$ebm = cons$ebm - noMang$ebm
-plotParams(combined)
-```
 
-Comparing the MPAs to each other (cons - fish)
+# Loop through various speeds and harvest intensities as definited in the "Parameters.R" file
+# using while loops. Only saving two time steps 
 
-```{r eachOther, message=FALSE, echo=FALSE, warning=FALSE}
-combined <- cons
-combined$ebm = cons$ebm - fish$ebm
-plotParams(combined)
+
 ```

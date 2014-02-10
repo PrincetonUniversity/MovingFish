@@ -18,9 +18,9 @@ move_window = 100
 # initializing the population with no pressure (no harvesting, no climate)
 init<-array(0,c(w,maxt)) 
 init[which(patch==0.55),1]=50
-MPA.current = rep(c(mpa.yes,mpa.no),length.out=length(world))
+MPA.start = rep(c(mpa.yes,mpa.no),length.out=length(world))
 for(t in 2:maxt){
-	output = m(n=init[,t-1], s = 0, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+	output = m(n=init[,t-1], s = 0, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
 	init[,t]= output[[1]]
 	MPA.current = output[[3]]
 	}
@@ -37,7 +37,7 @@ for(q in 1:length(speeds)){
   
   for(j in 1:length(harvests)){
     init.h<-array(0,c(w,1))
-    next.pop <- m(n=init[,maxt], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+    next.pop <- m(n=init[,maxt], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)    # this resets the MPA across the world, otherwise would pick up where the last simulation left off. 
     init.h[,1]=next.pop[[1]]
     MPA.current = next.pop[[3]]
     h.diff <- abs(sum(init[,maxt]-init.h[,1]))
@@ -104,6 +104,8 @@ for(q in 1:length(speeds)){
       harv.mean, harv.sd, harv.se, 
       speeds[q], harvests[j],ifelse(exists("Fthresh"),Fthresh,NA),
       ncol(init.h), ncol(move))
+    
+    print(paste("harvest rate is ",harvests[j],", speed is ",speeds[q],sep=""))
     print(paste("harvest is ",round(j/length(harvests),1)*100,"% done and speed is ",round(q/length(speeds),1)*100, "% done",sep=""))
     
     }
