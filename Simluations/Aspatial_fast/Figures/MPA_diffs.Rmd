@@ -1,0 +1,96 @@
+# Effect of MPAs
+
+```{r required, echo=FALSE,message=FALSE}
+library(fields)
+library(lattice)
+library(colorspace)
+require(RCurl)
+require(ggplot2)
+require(ggthemes)
+```
+Have noticed that there's a section of parameter space in which the `Equil.pop` varies in the `consMPA` simulations. Why is that?
+
+```{r loadData, echo=FALSE, message=FALSE}
+# for synced online github data
+   x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxMy0xMi0wOS5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjEzfQ%3D%3D--9fbc7c170a93836981fa63448bf378fbbdb13905")
+  sim = read.csv(textConnection(x))
+
+  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxMy0xMi0wOS5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjQzfQ%3D%3D--a432e4025f1b9042246c8a3d6b49af3464a03546")
+  fishmpa = read.csv(textConnection(fish))
+
+  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-10.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0xMC5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjYwfQ%3D%3D--00004e8d0186aa3a6f7f52bb264a406f147d1abf")
+  consmpa = read.csv(textConnection(cons))
+
+# combine all data into one dataframe
+sim$management = rep("noManagement",nrow(sim))
+consmpa$management = rep("consMPA", nrow(consmpa))
+fishmpa$management = rep("fishMPA", nrow(fishmpa))
+
+allData <- rbind(sim,consmpa,fishmpa)
+```
+Map equilibrium harvest as function of speed of climate velocity and harvest rate.
+
+```{r Compare_Management,echo = FALSE, fig.width=10, fig.height=10}
+contourplot(Equil.pop ~ speed * harvest | factor(management), data = allData, region=TRUE, layout = c(1,3), drape=TRUE)
+
+```
+
+Looks like conservation MPAs do the best, but there are some weird fluctuations at higher harvest rates, why is that? Can take slices to look more closely
+
+```{r variance, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,harvest == 0.04 )
+pd <- position_dodge(.1)
+ggplot(subData, aes(x = speed, y = Equil.pop))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+```
+
+Trying the same plot but a higher rate of catch: $h = 0.10$ I get,
+
+```{r variance_high, echo = FALSE, fig.width=10, fig.height=5}
+subData <- subset(allData,harvest == 0.10 )
+pd <- position_dodge(.1)
+ggplot(subData, aes(x = speed, y = Equil.pop))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
+```
+
+The relevant section of parameter space is shown below
+
+```{r sub, echo=FALSE,fig.width=15, fig.height=5}
+subData <- subset(allData,harvest > 0.05 & harvest < 0.13 & management == "consMPA" & speed < 0.3)
+contourplot(Equil.pop ~ speed * harvest, data = subData, region = TRUE, drape = TRUE)
+```
+
+```{r sim, echo=FALSE}
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
+source("Parameters.R")
+source("Functions.R")
+require(zoo)
+require(plyr)
+
+# adding in subset of parameters, so instead of running Parameters_nothresh.R, am manually entering
+    harvests = seq(0.05,0.13,0.001)
+    speeds = seq(0,0.21,.001)
+
+# build dataframes
+  summaries <- data.frame(
+		Equil.pop = rep(NA,length=length(speeds)*length(harvests)), 
+		Equil.pop.sd = rep(NA, length=length(speeds)*length(harvests)), 
+		Equil.pop.se = rep(NA, length=length(speeds)*length(harvests)), 
+		Equil.harvest = rep(NA,length=length(speeds)*length(harvests)),
+		Equil.harvest.sd = rep(NA,length=length(speeds)*length(harvests)), 
+		Equil.harvest.se = rep(NA,length=length(speeds)*length(harvests)), 
+		speed = rep(NA,length=length(speeds)*length(harvests)), 
+		harvest = rep(NA,length=length(speeds)*length(harvests)), 
+		thresh = rep(NA,length=length(speeds)*length(harvests)), 
+		steps.harv = rep(NA,length=length(speeds)*length(harvests)),
+		steps.move = rep(NA,length=length(speeds)*length(harvests)))
+
+
+# index for row number
+	rownumber <- matrix(seq(1:(length(harvests)*length(speeds))),ncol=length(speeds))
+
+MPA = "cons"
+
+source("Sim_noThresh.R")
+
+```
+
+After re-running the model for 
