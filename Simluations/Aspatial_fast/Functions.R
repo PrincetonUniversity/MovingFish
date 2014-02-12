@@ -85,3 +85,17 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
  	lines(world,n2,lwd=2,col="blue")
  	return(list(n2,harv,MPA))
 }
+
+startOut <- function(w, maxt, mpa.yes,mpa.no,world){
+# initializing the population with no pressure (no harvesting, no climate)
+init<-array(0,c(w,maxt)) 
+init[which(patch==0.55),1]=50
+MPA.start = rep(c(mpa.yes,mpa.no),length.out=length(world))
+for(t in 2:maxt){
+	output = m(n=init[,t-1], s = 0, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
+	init[,t]= output[[1]]
+	MPA.current = output[[3]]
+	}
+
+return(list(init, MPA.start))
+}

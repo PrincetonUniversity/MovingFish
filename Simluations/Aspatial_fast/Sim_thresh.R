@@ -1,45 +1,23 @@
-rm(list=ls())
-library(plyr)
-library(zoo)
-
-# load parameters, functions
-setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
-source("thresh_Parameters.R")
-source("Functions.R")
-
-# set MPA (cons.yes/no; fish.yes/no; null.yes/no)
-mpa.yes = null.yes
-mpa.no = null.no
 
 # added a stipulation for equilibrium: either the difference between two time steps is as small as the initializing step or the difference in the rolling mean with a window of 100 values [move_window below] of the total population abundance is 0. With MPAs getting oscillations with perfect oscillations such that it's never 'at equilibrium' but is not trending. so is at equilibrim
 
-move_window = 100
 
-# initializing the population with no pressure (no harvesting, no climate)
-init<-array(0,c(w,maxt)) 
-init[which(patch==0.55),1]=50
-MPA.current = rep(c(mpa.yes,mpa.no),length.out=length(world))
-for(t in 2:maxt){
-  output = m(n=init[,t-1], s = 0, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-  init[,t]= output[[1]]
-  MPA.current = output[[3]]
-}
+# initialize the world, set MPA (cons.yes/no; fish.yes/no; null.yes/no)
+	output <- startOut(w,maxt,mpa.yes,mpa.no,world)
+	init <- output[[1]]
+	MPA.start <- output[[2]]
 
 # thresholds need to be relative to maximum population along 1d world
-
-biggestP <- max(init[,maxt])
-
-thresholds <- thresholds * biggestP
+	biggestP <- max(init[,maxt])
+	thresholds <- thresholds * biggestP
 # add a buffer to last to make sure captures biggest population
-tail(thresholds,1) <- tail(thresholds,1) + 0.001
+	tail(thresholds,1) <- tail(thresholds,1) + 0.001
 
 # standard for equilibrium is the difference in the final step of the initialization 
-init.diff <- diff(colSums(init))[149]
-
+	init.diff <- diff(colSums(init))[149]
 
 # Loop through various speeds and harvest intensities as definited in the "Parameters.R" file
 # using while loops. Only saving two time steps 
-
 
 for(q in 1:length(speeds)){
   
@@ -118,5 +96,4 @@ for(q in 1:length(speeds)){
   
 }
 
-write.csv(summaries,file = paste("Data/noMPA_Thresh_add_",Sys.Date(),".csv",sep=""))
-#notify('Simulation is finished!')
+write.csv(summaries,file = paste("Data/Thresh_",Sys.Date(),".csv",sep=""))
