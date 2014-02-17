@@ -37,19 +37,20 @@ In order to understand how two disturbances, range shift and harvesting, interac
 
 There are many stressors that can disturb an ecosystem. Ecologists have quantified the effects of a number of stressors individually \citep{Wilcoveetal1998, Crainetal2008, DarlingCote2008}, but less work has been done to measure the effects of multiple stressors and the interactions between them.  If disturbances interact synergistically, a perturbation that has little effect when it occurs individually may amplify the disturbance caused by a coincident perturbation \citep{Crainetal2008, DarlingCote2008,Nyeetal2013,Gurevitchetal2000}.   In the most extreme (and worrying) cases, synergistic interactions between multiple stressors will drive a population extinct even though it could persist in the face of any single stressor (i.e. \citet{Pelletieretal2006}).  If disturbances interact antagonistically, on the other hand, the effects of multiple stressors may be less than that predicted by any stressor individually.  Since disturbances rarely occur in isolation, it is important to measure the synergy between  disturbances in order to understand how a system will be affected by their presence and to understand when multiple disturbances will drive a population extinct  \citep{DoakMorris2010, Fordhametal2013, Foltetal1999}.
 
+
 Climate change and fishing have been identified as the two largest human impacts on the ocean \citep{Halpernetal2008}.  They therefore present an important case study of how disturbances interact in their effects on biological populations.  Further, understanding these interactions will be crucial to managing populations subjected to both of these disturbances.  Marine fish are already moving in response to climate change \citep{Perryetal2005, HiddinkHoftstede2008, Rijnsdorpetal2009, Dulvyetal2008, Simpsonetal2011} and they are projected to continue moving in the future \citep{Kelletal2005, Mackenzieetal2007}.  Species that are likely to undergo or already undergoing shifts in range are also subject to harvesting, in addition to many other disturbances including pollution, ocean acidification, habitat fragmentation, and invasive species \citep{Wilcoveetal1998, Salaetal2000, MEA2005, Pinskyetal2013, Barryetal1995, Nyeetal2009}.  Empirical case studies have identified interactions between overfishing and temperature-driven range shifts that suggest synergy in the magnitude of the disturbance \citep{Lingetal2009} and have demonstrated synergistic effects in microcosm experiments between warming temperatures, harvesting and connectivity \citep{Moraetal2007}. This empirical work underscores the importance of understanding how range shifts and harvesting interact.
 
 A common approach to predicting future population distributions under climate change has been to use bioclimatic-envelope models (also known as species distribution models -- SDMs). These statistical models typically correlate presence-absence data with biophysical characteristics such as mean or maximum temperatures, rainfall, or salinity, to explain and predict how species ranges' will differ under climate change \citep{Elithetal2006, GuisanThuiller2005, GuisanZimmerman2000}. Despite these models' widespread adoption, SDMs have frequently been criticized as oversimplified as they lack species interactions, dispersal and reproductive processes \citep{KearneyPorter2009, Zarnetskeetal2012, Robinsonetal2011}.  Recent work on range shifts has addressed some of these gaps by explicitly including dispersal and reproduction \citep{Berestyckietal2009, ZhouKot2011}. However these models only address one disturbance: that of climate-driven range shifts. 
 
 Work considering the joint impacts of climate and fishing often consider climate fluctuations (large anomalies around the mean) rather than directional changes in climate \citep{WaltersParma1996, KingMcFarlane2006}. When the effects of climate-driven range shifts on fishing are considered, the models are typically case-specific and detailed, integrating multiple drivers and disturbances \citep{Cheungetal2010, Lindegrenetal2010, Brownetal2010, Merinoetal2010, Merinoetal2010b, Plaganyietal2011, Ainsworthetal2011, Zhangetal2011, Barangeetal2011, Howardetal2013}. These predicted impacts are important for management and conservation planning \citep{Allisonetal2009}, however these models are so complex that understanding the relative importance of particular drivers, disturbances, and interactions is difficult (but see \citet{Nyeetal2013} for an approach using ecosystem-level models to discern relative importance of disturbances).  The degree of detail and case-specificity in these studies makes it difficult to draw general conclusions. 
 
-Here we constructed an analytical model of a fish population subject to both harvesting and climate change-induced range-shift. We explicitly included two mechanistic processes central to species' responses to climate and fishing: reproduction and dispersal. Previous work has highlighted the importance of these two processes and their vulnerability to climate change \citep{Fordhametal2013, Hastingsetal2005}.  We found that climate-driven range shifts and fishing interact synergistically, when their effects are measured by absolute drop in biomass.  We also found how the threshold level of harvesting that suffices to drive the population extinct depends on how quickly the range is shifting.
+Here we constructed an analytical model of a fish population subject to both harvesting and climate change-induced range-shift. We explicitly included two mechanistic processes central to species' responses to climate and fishing: reproduction and dispersal. Previous work has highlighted the importance of these two processes and their vulnerability to climate change \citep{Fordhametal2013, Hastingsetal2005}.  We found the level of harvesting and the rate of environmental shift that drive the population extinct and how this threshold level of depends on how quickly the range is shifting.  We also found that climate-driven range shifts and fishing interact nearly additively, with very low positive synergy at more extreme levels of the stressors.  
 
 We also examined the effect of threshold harvesting rules and marine protected areas (MPAs) on species persistence. Protected areas have been suggested as a key form of climate insurance and stepping stones to help species keep up with a changing environment \citep{Thomasetal2012, Hannahetal2007}. MPAs are frequently recommended for conservation of biodiversity and improved fisheries yield \citep{Gainesetal2010}, and we evaluate whether MPAs established for those purposes could improve species persistence when habitat is shifting rapidly. We found that MPAs can help a species persist with higher harvesting pressure, but does not change the maximum climate velocity with which a species can keep up.
 
 \section{Methods}
 
-We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  We first measured the drop in biomass caused by range shifts, harvesting, and both stressors together in order to determine whether they interact synergistically.  We then determined the climate velocity and harvesting rate that would drive the population extinct.  We finally implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to determine how these management strategies affect population persistence.
+We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  We first determined the climate velocity and harvesting rate that would drive the population extinct.  We then measured the drop in biomass caused by range shifts, harvesting, and both stressors together in order to determine whether they interact synergistically.    We finally implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to determine how these management strategies affect population persistence.
 
 \subsection{The Model }
 
@@ -79,46 +80,7 @@ n^*(\bar{x})=\int^{\frac{L}{2}}_{-\frac{L}{2}}k(\bar{x}+c-\bar{y})f((1-h))n^*(\b
 \bar{y}, \label{traveling_pulse}
 \end{equation}
 
-\noindent where $\bar{x}\in\left[-\frac{L}{2}, \frac{L}{2}\right]$ describes the position within the patch \citep{ZhouKot2011}. \citet{ZhouKot2011} only considered whether a shifting environment will drive a population extinct, however to quantify the effects of both a shifting environment and harvesting pressure we must also find the total biomass in the equilibrium traveling wave.  For a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy 
-
-\begin{equation}
-n^*(x)=\sum^\infty_{i=1}
-a_i(x)\int^{\frac{L}{2}}_{-\frac{L}{2}}b_i(y-c)f((1-H(n^*(y)))n^*(y))dy=\sum^\infty_{i=1}m_ia_i(x), \label{separable_integrodifference}
-\end{equation}
-
-\noindent where the $m_i$ satisfy the recursive equations
-
-\begin{equation}
-m_i=\int^{\frac{L}{2}}_{-\frac{L}{2}}b_i(y-c)f\left((1-h)\sum^\infty_{j=1}m_ja_j(x)\right)
-dy. \label{recursive_m}
-\end{equation}
-
-\noindent \citep{Latore:1998fk}. Equation \ref{recursive_m} allowed us to find the values of $m_i$ numerically. We then found the total biomass in the 
-equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.  
-
-\subsection{Calculating Synergy }
-
-In order to quantify whether the two stressors are interacting additively, synergistically, or antagonistically, we found the total biomass of the population when it reached an equilibrium traveling pulse and 
-compared this equilibrium biomass in the presence and absence of each stressor individually or the two stressors together. 
-
-We used $B_0$ to denote the equilibrium biomass 
-without either stressor, $B_\text{h}$ the equilibrium biomass with harvesting but a constant environment, $B_\text{c}$ the 
-equilibrium biomass with a shifting environment but no harvesting, and $B_\text{hc}$ the equilibrium biomass with 
-both stressors. For each stressor or combination of stressors, we found the drop in  biomass caused 
-by stressor $s$,
-
-\[E_\text{s}=B_0-B_\text{s}.\]
-
-\noindent If the stressors do not interact, the drop caused by both stressors would be the sum of the drops caused by 
-either individually. The synergy is therefore defined as
-
-\[S = E_\text{hc}-\left(E_\text{h}+E_\text{c}\right).\]
-
-\noindent If the stressors aggravate each other, the effect of both stressors is worse than would be expected from 
-considering either stressor individually, and synergy is positive. If the stressors alleviate each other, the effect 
-of both stressors is better than would be expected from considering either stressor individually, and synergy is 
-negative. If the effect of both stressors is exactly as expected from considering either stressor individually, 
-there is no interaction and no synergy.
+\noindent where $\bar{x}\in\left[-\frac{L}{2}, \frac{L}{2}\right]$ describes the position within the patch \citep{ZhouKot2011}.
 
 \subsection{Persistence }
 One possible equilibrium traveling wave that solves Equation \ref{traveling_pulse} is the `trivial' traveling pulse, $n^*(\bar{x}) = 0$ for all $x \in \left[-\frac{L}
@@ -149,7 +111,47 @@ A similar expression for a sinusoidal kernel is derived in the appendix.  For bo
 h^*\sim1- \frac{1}{R_0}\cdot C(L,R_0)f(\langle d \rangle,c^2,L^2+3c^2),
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
+   
 
+\subsection{Calculating Synergy }
+
+\citet{ZhouKot2011} only considered whether a shifting environment will drive a population extinct.   In order to quantify whether the two stressors are interacting additively, synergistically, or antagonistically, we found the total biomass of the population when it reached an equilibrium traveling pulse and 
+compared this equilibrium biomass in the presence and absence of each stressor individually or the two stressors together.  For a separable kernel, the equilibrium traveling pulse $n^*(x)$ must satisfy 
+
+\begin{equation}
+n^*(x)=\sum^\infty_{i=1}
+a_i(x)\int^{\frac{L}{2}}_{-\frac{L}{2}}b_i(y-c)f((1-H(n^*(y)))n^*(y))dy=\sum^\infty_{i=1}m_ia_i(x), \label{separable_integrodifference}
+\end{equation}
+
+\noindent where the $m_i$ satisfy the recursive equations
+
+\begin{equation}
+m_i=\int^{\frac{L}{2}}_{-\frac{L}{2}}b_i(y-c)f\left((1-h)\sum^\infty_{j=1}m_ja_j(x)\right)
+dy. \label{recursive_m}
+\end{equation}
+
+\noindent \citep{Latore:1998fk}. Equation \ref{recursive_m} allowed us to find the values of $m_i$ numerically. We then found the total biomass in the 
+equilibrium traveling pulse by using these $m_i$ and integrating Equation \ref{separable_integrodifference}.
+
+
+We used $B_0$ to denote the equilibrium biomass 
+without either stressor, $B_\text{h}$ the equilibrium biomass with harvesting but a constant environment, $B_\text{c}$ the 
+equilibrium biomass with a shifting environment but no harvesting, and $B_\text{hc}$ the equilibrium biomass with 
+both stressors. For each stressor or combination of stressors, we found the drop in  biomass caused 
+by stressor $s$,
+
+\[E_\text{s}=B_0-B_\text{s}.\]
+
+\noindent If the stressors do not interact, the drop caused by both stressors would be the sum of the drops caused by 
+either individually. The synergy is therefore defined as
+
+\[S = E_\text{hc}-\left(E_\text{h}+E_\text{c}\right).\]
+
+\noindent If the stressors aggravate each other, the effect of both stressors is worse than would be expected from 
+considering either stressor individually, and synergy is positive. If the stressors alleviate each other, the effect 
+of both stressors is better than would be expected from considering either stressor individually, and synergy is 
+negative. If the effect of both stressors is exactly as expected from considering either stressor individually, 
+there is no interaction and no synergy.
 
 \subsection{Simulations }
 
@@ -177,11 +179,6 @@ Previous work has shown that if MPAs are to benefit fisheries, the reserves shou
 \section{Results}
 
 \subsection{Interactions Between Stressors }
-
-We found very low levels of positive synergy between the two stressors in our analysis of the Gaussian kernel (Figure \ref
-{Synergy}).  Where there is positive synergy, a doubly stressed population loses more biomass than would be predicted from either stressor individually.  The stressors interact most strongly when they are both high, shortly before they drive the population extinct.  However, the excess loss in biomass is extremely low, making it difficult to distinguish positive synergy from additive interactions. We found similar analytical results for a sinusoidal dispersal kernel and our simulations with a Laplace kernel produce similar results which indicates that this result is robust to changes in the dispersal kernel.  
-
-
 As the harvesting rate $h$ increases, 
 the critical rate of environmental shift $c^*$ decreases: the environment must move more slowly to 
 accommodate the population growing more slowly (Figure \ref{baseline}). Conversely, as the rate of 
@@ -200,6 +197,10 @@ slowly, dispersing farther is detrimental since many larvae will disperse too fa
 When the environment is shifting quickly, on the other hand, dispersing farther can help the population persist 
 because some larvae will disperse into the space that will become viable shortly in the future.  This affects the critical harvesting rate: at a low rate of environmental shift, populations that disperse less can be harvested more severely than those that disperse further, whereas at a high rate of environmental shift, populations that disperse further can be harvested more severely.
 
+We found very low levels of positive synergy between the two stressors in our analysis of the Gaussian kernel (Figure \ref
+{Synergy}).  Where there is positive synergy, a doubly stressed population loses more biomass than would be predicted from either stressor individually.  The stressors interact most strongly when they are both high, shortly before they drive the population extinct.  However, the excess loss in biomass is extremely low, making it difficult to distinguish positive synergy from additive interactions. We found similar analytical results for a sinusoidal dispersal kernel and our simulations with a Laplace kernel produce similar results which indicates that this result is robust to changes in the dispersal kernel.  
+
+
 \subsection{Management Strategies }
 
 We found that when thresholds are in place, the harvesting rate no longer determines the critical rate of environmental shift $c^*$ (Figure \ref{management}). We also examined the effect of marine protected  areas (MPAs) on the population's persistence to see whether it might extend the range of harvesting and  climate change parameters where the fish population could survive. With MPAs in place, the population had a  slightly higher abundance along the edges of the patch where the population is limited by harvesting, which  translated into a slightly increased critical harvest rate (Figure \ref{management}).
@@ -208,6 +209,8 @@ We found that when thresholds are in place, the harvesting rate no longer determ
 
 Knowing whether two disturbances interact in their impacts for a given population is important for management. The co-occurrence of climate change-driven range shifts and fishing mean that there is the potential for synergistic interactions, which have been largely unexamined.  Here we have built a general model to examine how climate and harvesting interact to affect species persistence by incorporating dispersal and reproduction. 
 
+We derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is an indication of an interaction between the stressors.
+
 To quantify the interaction between the stressors, we measured the synergy between their effects on population biomass.  We found positive synergy between the stressors and that the synergy is greatest in the region of parameter space where the equilibrium biomass is smallest.  We found similar results from the analytically derived biomass and the simulation derived biomass. This indicates that this result is robust to changes in the dispersal kernel.  We chose to measure the effect of each stressor by the absolute drop in biomass caused by the stressor, and we used the sum of the individual effects for our null prediction of the effect of both stressors, as in \citep{Crainetal2008, DarlingCote2008,Nyeetal2013}.  We could also have measured the effect by the percentage drop caused by the stressor(s) and used a multiplicative null prediction for the effect of both stressors.  In general, measuring synergy against an additive null prediction is more conservative than measuring synergy multiplicatively: the presence of additive synergy implies multiplicative synergy, but not vice versa \citep{Crainetal2008, Foltetal1999}.  Since we found small levels of positive additive synergy between the two stressors, other measures of synergy might show even higher levels of interaction. 
 
 The fact that synergy is highest in those populations whose persistence is most tenuous is worrisome from a conservation perspective.  This means that harvesting levels or rate of environment shift that are sustainable individually together can drive a population to extinction.  However, the drop in biomass caused by both stressors was never very much higher than the null prediction, i.e. synergistic effects were quite small.  Synergy between harvesting and climate changes has been identified in experimental populations \citep{Moraetal2007}, in specific populations \citep{Planque:2010uq}, and at the ecosystem level \citep{Kirby:2009fk,Planque:2010uq}.   Additionally, in the experimental populations, synergy was identified between warming and harvesting but not between habitat fragmentation \citep{Moraetal2007}.    While we did find (very) low levels of positive synergy, we did not find as much as might be predicted from these empirical studies.  However, these previous results are not directly comparable to ours because they focus on different aspects of climate change, e.g. warming temperature \citep{Moraetal2007,Kirby:2009fk} or a more variable climate \citep{Planque:2010uq}.  Additionally, while we can isolate the affects of climate shift and harvesting in our simple analytical model, there are other forces acting on real populations that may produce the observed synergistic effects.
@@ -215,8 +218,6 @@ The fact that synergy is highest in those populations whose persistence is most 
 %e.g.?!?!
 
 %Nevertheless, our results generally agree with these empirical findings and it is therefore important to take the effects of both stressors into consideration when designing conservation and management strategies.
-
-We also derived expressions for critical harvesting rates and critical rates of environmental shift for a separable Gaussian kernel and found these critical rates using numerical simulations of a Laplace kernel.  For each kernel we studied, we found that the higher the growth rate and the better the mean dispersal distance matches the rate of environmental shift, the better a population can adjust to harvest and climate change.  More interestingly, we found a negative relationship between the critical harvesting rate and the rate of environmental shift.  That is, the more quickly the environment shifts the less harvesting it takes to drive the population extinct.  The curved line separating parameters that will allow the population to persist from those that won't is another indication of an interaction between the stressors.
 
 Our results suggest that particular combinations of harvesting and rate of environmental shift will affect some species more than others. As shown in Figure \ref{baseline}, species with a shorter generation time and a longer average dispersal distance will better track a high rate of environmental shift relative to a species that has a long generation time and short dispersal distance. This is in agreement with empirical work which has found that fish which shifted in response to warming in North Sea had faster life histories than non shifting species (smaller body sizes, faster maturation, smaller sizes at maturity) \citep{Perryetal2005}. 
 
