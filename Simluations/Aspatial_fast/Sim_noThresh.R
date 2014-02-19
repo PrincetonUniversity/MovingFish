@@ -8,7 +8,7 @@ if(MPA=="cons") {mpa.yes=cons.yes; mpa.no=cons.no} else {
 	}
 }
 
-# initialize the world, set MPA (cons.yes/no; fish.yes/no; null.yes/no)
+# initialize the world
 	output <- startOut(w,maxt,mpa.yes,mpa.no,world)
 	init <- output[[1]]
 	MPA.start <- output[[2]]
