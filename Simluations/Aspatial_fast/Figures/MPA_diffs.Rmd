@@ -68,296 +68,238 @@ source("Parameters.R")
 source("Functions.R")
 require(zoo)
 require(plyr)
-require(reshape2)
 require(lattice)
-
-# adding in subset of parameters, so instead of running Parameters_nothresh.R, am manually entering
-  harvests = 0.1
-  speeds = seq(0.02,0.1,.01)
-  MPA = "cons"
-
-# setting up correct MPA
-  if(MPA=="cons") {mpa.yes=cons.yes; mpa.no=cons.no} else {
-    if(MPA=="fish") {mpa.yes=fish.yes; mpa.no=fish.no} else {
-  		if(MPA=="null") {mpa.yes=null.yes; mpa.no=null.no} else{
-  			if(exists("MPA")) warning(paste("MPA needs to be 'cons', 'fish', or 'null'.",sep=""))
-  		}
-  	}
-  }
-
-# initialize the world, set MPA
-  output <- startOut(w,maxt,mpa.yes,mpa.no,world)
-	init <- output[[1]]
-	MPA.start <- output[[2]]
-
-# standard for equilibrium is the difference in the final step of the initialization 
-  init.diff <- diff(colSums(init))[(maxt-1)]
-
-# pre-allocating list to save simulations
-
-sims <- vector("list", length(speeds))
-times <- vector("list", length(speeds))
-
-for(q in 1:length(speeds)){
-  
-  for(j in 1:length(harvests)){
-    init.h<-array(0,c(w,1))
-    next.pop <- m(n=init[,maxt], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
-    init.h[,1]=next.pop[[1]]
-    MPA.current = next.pop[[3]]
-    h.diff <- abs(sum(init[,maxt]-init.h[,1]))
-    roll.mean = 1  # set to start
-    
-    T = 1
-    
-    while(h.diff > init.diff | roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=init.h[,T-1], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      init.h <- cbind(init.h,next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(init.h[,T]-init.h[,T-1]))
-      if(ncol(init.h) > 100){
-      	rolls <- rollmean(colSums(init.h), k = move_window)
-      	diff.rolls <- diff(rolls)
-		    roll.mean <- diff.rolls[length(diff.rolls)]
-    }
-    }
-    # add in moving climate
-    move <- array(0,c(w,1))
-    next.pop <- m(n=init.h[,T], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-    move[,1] <- next.pop[[1]]
-    MPA.current <- next.pop[[3]]
-    h.diff <- abs(sum(init.h[,T]-move[,1]))
-    roll.mean = 1 # reset
-    
-    T = 1
-    
-    while(h.diff > init.diff & roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=move[,T-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      
-      move <- cbind(move, next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(move[,T]-move[,T-1]))
-      if(ncol(move) > 300){
-      	rolls <- rollmean(colSums(move), k = move_window)
-      	diff.rolls <- diff(rolls)
-		roll.mean <- diff.rolls[length(diff.rolls)]
-		print(T)
-    }
-    }
-       
-      # simulate for 300 steps after equilibrium and take average
-      harv <- vector(mode = 'logical', length = 300)
-      for (i in (T+1):(T+300)){
-        next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-        move <- cbind(move, next.pop[[1]])
-        MPA.current = next.pop[[3]]
-        harv[(i-T)] <- sum(next.pop[[2]])
-
-      }
-    }
-  
-  sims[[q]] = move[,(ncol(move)-299):ncol(move)]
-}
-
-# save the time series of population abundance 
-  series <- llply(sims,colSums)
-  df <- melt(series)
-  names(df) <- c("sums","speed")
-  df$speed=factor(df$speed)
-  df$time <- rep(seq(1,300),9)
+require(dplyr)
+require(reshape)
+steps = 300   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims300 = sims
+df300 = df
+series300 = series
+notify("Simulation is finished!")
 ```
 After re-running the model, can see that it replicates the pattern of fluctuating total biomas
 ```{r final-plot,echo=FALSE,message=FALSE,results='hide'}
-finals <- llply(series,mean)
-df_finals <- melt(finals)
-names(df_finals) <- c("totalPop","Speed")
-df_finals$Speed = speeds
-xyplot(totalPop ~ Speed, data=df_finals,type='l',lwd=2,xlab="Speed")
+finals300 <- llply(series300,mean)
+sd300 <- llply(series300,sd)
+sd300 <- melt(sd300)
+df_finals300 <- melt(finals300)
+df_finals300$sd = sd300$value
+names(df_finals300) <- c("totalPop","Speed","sd")
+df_finals300$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals300,type='l',lwd=2,xlab="Speed", main = "300 steps")
+ggplot(df_finals300,aes(x = Speed, y = totalPop)) + geom_errorbar(aes(ymin=totalPop - sd, ymax = totalPop + sd)) + geom_line() + geom_point()
+
 ```
 And when you look at the time-series population trends, it's as we expected. All the populations have the same pattern, that they oscillate up and down depending on whether or not they're in a reserve, but the slowest speeds go through the biggest oscillations which means that the average population is much lower. However I wonder if just extending the number of time steps over which I run the average would reduce this effect. 
 ```{r time-series,echo=FALSE,message=FALSE,results='hide'}
-  xyplot(sums ~ time | factor(speed), data = df, type='l',xlab="time",ylab="Population biomass",lwd=2)
+  xyplot(sums ~ time | speed, data = df300, type='l',xlab="time",ylab="Population biomass",lwd=2, main = "300 steps")
 ```
 After re-running the simulation (this time with 600 time steps for equilibrium)
 ```{r second-sim,echo=FALSE,fig.keep='none',message=FALSE,results='hide'}
 # pre-allocating list to save simulations
 
-sims2 <- vector("list", length(speeds))
-times2 <- vector("list", length(speeds))
-
-for(q in 1:length(speeds)){
-  
-  for(j in 1:length(harvests)){
-    init.h<-array(0,c(w,1))
-    next.pop <- m(n=init[,maxt], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
-    init.h[,1]=next.pop[[1]]
-    MPA.current = next.pop[[3]]
-    h.diff <- abs(sum(init[,maxt]-init.h[,1]))
-    roll.mean = 1  # set to start
-    
-    T = 1
-    
-    while(h.diff > init.diff | roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=init.h[,T-1], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      init.h <- cbind(init.h,next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(init.h[,T]-init.h[,T-1]))
-      if(ncol(init.h) > 100){
-        rolls <- rollmean(colSums(init.h), k = move_window)
-      	diff.rolls <- diff(rolls)
-		    roll.mean <- diff.rolls[length(diff.rolls)]
-    }
-    }
-    # add in moving climate
-    move <- array(0,c(w,1))
-    next.pop <- m(n=init.h[,T], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-    move[,1] <- next.pop[[1]]
-    MPA.current <- next.pop[[3]]
-    h.diff <- abs(sum(init.h[,T]-move[,1]))
-    roll.mean = 1 # reset
-    
-    T = 1
-    
-    while(h.diff > init.diff & roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=move[,T-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      
-      move <- cbind(move, next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(move[,T]-move[,T-1]))
-      if(ncol(move) > 300){
-      	rolls <- rollmean(colSums(move), k = move_window)
-      	diff.rolls <- diff(rolls)
-		roll.mean <- diff.rolls[length(diff.rolls)]
-		print(T)
-    }
-    }
-       
-      # simulate for 600 steps after equilibrium and take average
-      harv <- vector(mode = 'logical', length = 600)
-      for (i in (T+1):(T+600)){
-        next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-        move <- cbind(move, next.pop[[1]])
-        MPA.current = next.pop[[3]]
-        harv[(i-T)] <- sum(next.pop[[2]])
-
-      }
-    }
-  
-  sims2[[q]] = move[,(ncol(move)-599):ncol(move)]
-}
-
-# save the time series of population abundance 
-  series2 <- llply(sims2,colSums)
-  df2 <- melt(series2)
-  names(df2) <- c("sums","speed")
-  df2$time <- rep(seq(1,600),length(speeds))
+steps = 600   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims600 = sims
+df600 = df
+series600 = series
+notify("Simulation is finished!")
 ```
 
 ```{r plots,echo=FALSE,message=FALSE,results='hide'}
-  xyplot(sums ~ time | factor(speed), data = df2, type='l',xlab="time",ylab="Population biomass",lwd=2)
+  xyplot(sums ~ time | factor(speed), data = df600, type='l',xlab="time",ylab="Population biomass",lwd=2, main = "600 steps")
 
-finals2 <- llply(series2,mean)
-df_finals2 <- melt(finals2)
-names(df_finals2) <- c("totalPop","Speed")
-df_finals2$Speed = speeds
-
-xyplot(totalPop ~ Speed, data=df_finals2,type='l',lwd=2,xlab="Speed")
+finals600 <- llply(series600,mean)
+df_finals600 <- melt(finals600)
+names(df_finals600) <- c("totalPop","Speed")
+df_finals600$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals600,type='l',lwd=2,xlab="Speed")
 ```
 
 This seems to matter a little bit
 
 ```{r compare,echo=FALSE,message=FALSE,results='hide'}
-plot(speeds,df_finals$totalPop,pch=19,type="o",main="Mean")
-lines(speeds,df_finals2$totalPop,col="red",type="o",pch=19)
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean")
+lines(speeds,df_finals600$totalPop,col="red",type="o",pch=19)
 ```
 
 This is weird, shouldn't be like this, not sure why it is. Needs more work. Next step is to try 900 steps to see if the equilibrium varies
 
 ```{r thirdSim, echo=FALSE,fig.keep='none'}
+steps = 900   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims900 = sims
+df900 = df
+series900 = series
 
-sims3 <- vector("list", length(speeds))
+xyplot(sums ~ time | factor(speed), data = df900, type='l',xlab="time",ylab="Population biomass",lwd=2, main="900 steps")
 
-for(q in 1:length(speeds)){
-  
-  for(j in 1:length(harvests)){
-    init.h<-array(0,c(w,1))
-    next.pop <- m(n=init[,maxt], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
-    init.h[,1]=next.pop[[1]]
-    MPA.current = next.pop[[3]]
-    h.diff <- abs(sum(init[,maxt]-init.h[,1]))
-    roll.mean = 1  # set to start
-    
-    T = 1
-    
-    while(h.diff > init.diff | roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=init.h[,T-1], s = 0, Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      init.h <- cbind(init.h,next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(init.h[,T]-init.h[,T-1]))
-      if(ncol(init.h) > 100){
-        rolls <- rollmean(colSums(init.h), k = move_window)
-        diff.rolls <- diff(rolls)
-		    roll.mean <- diff.rolls[length(diff.rolls)]
-    }
-    }
-    # add in moving climate
-    move <- array(0,c(w,1))
-    next.pop <- m(n=init.h[,T], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-    move[,1] <- next.pop[[1]]
-    MPA.current <- next.pop[[3]]
-    h.diff <- abs(sum(init.h[,T]-move[,1]))
-    roll.mean = 1 # reset
-    
-    T = 1
-    
-    while(h.diff > init.diff & roll.mean > init.diff){
-      T = T + 1
-      next.pop <- m(n=move[,T-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-      
-      move <- cbind(move, next.pop[[1]])
-      MPA.current <- next.pop[[3]]
-      h.diff <- abs(sum(move[,T]-move[,T-1]))
-      if(ncol(move) > 300){
-      	rolls <- rollmean(colSums(move), k = move_window)
-      	diff.rolls <- diff(rolls)
-		roll.mean <- diff.rolls[length(diff.rolls)]
-		print(T)
-    }
-    }
-       
-      # simulate for 600 steps after equilibrium and take average
-      harv <- vector(mode = 'logical', length = 900)
-      for (i in (T+1):(T+900)){
-        next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-        move <- cbind(move, next.pop[[1]])
-        MPA.current = next.pop[[3]]
-        harv[(i-T)] <- sum(next.pop[[2]])
+finals900 <- llply(series900,mean)
+df_finals900 <- melt(finals900)
+names(df_finals900) <- c("totalPop","Speed")
+df_finals900$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals900,type='l',lwd=2,xlab="Speed")
 
-      }
-    }
-  
-  sims3[[q]] = move[,(ncol(move)-899):ncol(move)]
-}
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean")
+lines(speeds,df_finals600$totalPop,col="red",type="o",pch=19)
+lines(speeds,df_finals900$totalPop,col="blue", type="o",pch=19)
 
-# save the time series of population abundance 
-  series3 <- llply(sims3,colSums)
-  df3 <- melt(series3)
-  names(df3) <- c("sums","speed")
-  df3$time <- rep(seq(1,900),length(speeds))
 ```
 
-```{r plots3,echo=FALSE,message=FALSE,results='hide'}
-  xyplot(sums ~ time | factor(speed), data = df3, type='l',xlab="time",ylab="Population biomass",lwd=2)
 
-finals3 <- llply(series3,mean)
-df_finals3 <- melt(finals3)
-names(df_finals3) <- c("totalPop","Speed")
-df_finals3$Speed = speeds
+```{r fourthSim, echo=FALSE,fig.keep='none'}
+steps = 1200   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims1200 = sims
+df1200 = df
+series1200 = series
 
-xyplot(totalPop ~ Speed, data=df_finals3,type='l',lwd=2,xlab="Speed")
+xyplot(sums ~ time | factor(speed), data = df1200, type='l',xlab="time",ylab="Population biomass",lwd=2, main="1200 steps")
+
+finals1200 <- llply(series1200,mean)
+df_finals1200 <- melt(finals1200)
+names(df_finals1200) <- c("totalPop","Speed")
+df_finals1200$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals1200,type='l',lwd=2,xlab="Speed")
+
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean")
+lines(speeds,df_finals600$totalPop,col="red",type="o",pch=19)
+lines(speeds,df_finals900$totalPop,col="blue", type="o",pch=19)
+lines(speeds,df_finals1200$totalPop,col="green", type="o",pch=19)
+
+notify("simluation is done!")
+```
+
+```{r fifthSim, echo=FALSE,fig.keep='none'}
+steps = 1500   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims1500 = sims
+df1500 = df
+series1500 = series
+
+xyplot(sums ~ time | factor(speed), data = df1500, type='l',xlab="time",ylab="Population biomass",lwd=2, main="1500 steps")
+
+finals1500 <- llply(series1500,mean)
+df_finals1500 <- melt(finals1500)
+names(df_finals1500) <- c("totalPop","Speed")
+df_finals1500$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals1500,type='l',lwd=2,xlab="Speed")
+
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean")
+lines(speeds,df_finals600$totalPop,col="red",type="o",pch=19)
+lines(speeds,df_finals900$totalPop,col="blue", type="o",pch=19)
+lines(speeds,df_finals1200$totalPop,col="green", type="o",pch=19)
+lines(speeds,df_finals1500$totalPop,col="purple", type="o",pch=19)
+
+notify("simluation is done!")
+```
+
+```{r sixthSim, echo=FALSE,fig.keep='none'}
+steps = 1800   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims1800 = sims
+df1800 = df
+series1800 = series
+
+xyplot(sums ~ time | factor(speed), data = df1800, type='l',xlab="time",ylab="Population biomass",lwd=2, main="1800 steps")
+
+finals1800 <- llply(series1800,mean)
+df_finals1800 <- melt(finals1800)
+names(df_finals1800) <- c("totalPop","Speed")
+df_finals1800$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals1800,type='l',lwd=2,xlab="Speed")
+
+require(RColorBrewer)
+colz <- colorRampPalette(brewer.pal(6,"Dark2"))(6)
+
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean", col=colz[1], lwd=3, bty="n")
+lines(speeds,df_finals600$totalPop,col=colz[2],type="o",pch=19,lwd=3)
+lines(speeds,df_finals900$totalPop,col=colz[3], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1200$totalPop,col=colz[4], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1500$totalPop,col=colz[5], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1800$totalPop,col=colz[6], type="o",pch=19,lwd=3)
+
+legend("topright",legend=seq(300,1800,300), lwd=3, pch=19,col=colz, title="Steps", bty="n")
+
+notify("simluation is done!")
+```
+
+```{r sixthSim, echo=FALSE,fig.keep='none'}
+steps = 2100   # setting number of steps over which to take equilibrium 
+source("Figures/variable_steps.R")
+sims2100 = sims
+df2100 = df
+series2100 = series
+
+xyplot(sums ~ time | factor(speed), data = df2100, type='l',xlab="time",ylab="Population biomass",lwd=2, main="2100 steps")
+
+finals2100 <- llply(series2100,mean)
+df_finals2100 <- melt(finals2100)
+names(df_finals2100) <- c("totalPop","Speed")
+df_finals2100$Speed = speeds
+xyplot(totalPop ~ Speed, data=df_finals2100,type='l',lwd=2,xlab="Speed")
+
+require(RColorBrewer)
+colz <- colorRampPalette(brewer.pal(6,"Dark2"))(7)
+
+plot(speeds,df_finals300$totalPop,pch=19,type="o",main="Mean", col=colz[1], lwd=3, bty="n")
+lines(speeds,df_finals600$totalPop,col=colz[2],type="o",pch=19,lwd=3)
+lines(speeds,df_finals900$totalPop,col=colz[3], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1200$totalPop,col=colz[4], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1500$totalPop,col=colz[5], type="o",pch=19,lwd=3)
+lines(speeds,df_finals1800$totalPop,col=colz[6], type="o",pch=19,lwd=3)
+lines(speeds,df_finals2100$totalPop,col=colz[7], type="o",pch=19,lwd=3)
+
+legend("topright",legend=seq(300,2100,300), lwd=3, pch=19,col=colz, title="Steps", bty="n")
+
+notify("simluation is done!")
+```
+
+Idea, can I sub-sample the 2100 step run and take the mean of an increasingly limited window? This would mean using `df2100` as the data frame and taking the mean of all 2100 steps, and then 2099 steps, ... etc. down to 300 and seeing how the mean changes. 
+
+```{r}
+int <- seq(300,2100)
+names(series2100) = speeds
+foo <- melt(series2100)
+names(foo) <- c("biomass","speed")
+means = vector("list",length(int))
+names(means) = int
+for(i in 1:length(int)){
+  means[[i]] = ddply(foo,.(speed),function(df) avg = mean(df$biomass[1:int[i]]))
+  }
+
+bar = melt(means)
+bar$variable = NULL
+names(bar) = c("speed", "mean", "interval")
+bar$interval = as.numeric(bar$interval)
+ggplot(bar, aes(x = interval , y = mean))  + geom_line() + facet_wrap( ~ speed)
+```
+
+New idea, find the maxima and minima and take the mean of those two numbers. See if that erases the variability in means. 
+
+```{r}
+int <- seq(300,2100)
+names(series2100) = speeds
+foo <- melt(series2100)
+names(foo) <- c("biomass","speed")
+means_dif = vector("list",length(int))
+names(means) = int
+for(i in 1:length(int)){
+  means_dif[[i]] = ddply(foo,.(speed),function(df) avg=mean(max(df$biomass[1:int[i]]),min(df$biomass[1:int[i]])))
+  }
+
+bar = melt(means_dif)
+bar$variable = NULL
+names(bar) = c("speed", "mean", "interval")
+bar$interval = as.numeric(bar$interval)
+ggplot(bar, aes(x = interval , y = mean))  + geom_line() + facet_wrap( ~ speed)
+
+ggplot(bar, aes(x = speed, y = mean, group = interval)) + geom_line(aes(colour=interval))
+```
+
+And volia! It erases that variability. Looks like I can keep the 300 time steps and take the max and minimum and take the average. So should re-do that for the existing simulation data I have and plot a contour map
+
+```{r}
+
 ```
