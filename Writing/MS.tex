@@ -67,7 +67,12 @@ offspring produced by a population of size $n$ (accounting for density dependenc
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}.\]  
 
 \noindent Regardless of the exact functional form of the recruitment function, the critical parameter in determining population persistence is how quickly recruitment increases when the population 
-size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions.  
+size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$.  In our analyses, as in \citep{Latore:1998fk}, we used the separable Gaussian kernel given by
+
+\[k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.\]
+
+\noindent To derive analytical expressions, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
+simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.  
 
 At equilibrium, the population will be described by a traveling wave, 
 where the density of fish at a given point in space will change but the density of fish at a location relative to the 
@@ -89,17 +94,11 @@ grow even when it is small.   A small population can be thought of as a perturba
 pulse is stable, the system will return to the trivial pulse even after the introduction 
 of a small population. If the trivial pulse is unstable, a small population may increase and form a stable population.   Population persistence is therefore equivalent to the trivial traveling pulse being an unstable equilibrium.   
 
-We would like to know the rate of environmental shift and the harvesting rate such that  the population will be able to persist as long as the 
-environment moves more slowly or we harvest less severely than those parameters. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
-We found these rates by finding the parameters that make the trivial pulse unstable.   In our analyses, as in \citep{Latore:1998fk}, we used the separable Gaussian kernel given by
-
-\[k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.\]
-
-\noindent To derive analytical expressions, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
-simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
+If the population is harvested at low enough levels and the environment shifts slowly enough, the population will be able to persist.  There are threshold values of the harvesting rate $h$ and the rate of environmental shift $c$ such that if the parameters are increased beyond these values, the population will be driven extinct.  We found these critical parameters, $h^*$, and  $c^*$, by finding the parameters that make the trivial pulse unstable.   Details are provided in Appendix \ref{stab}.
+   
 
 For each kernel, the population's ability to persist depends on properties of the population itself-- the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment-- the length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
-$).  The population biomass at equilibrium depends on the function form of recruitment, but population persistence only depends on the intrinsic growth rate $R_0$.  If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
+$).  The population biomass at equilibrium depends on the function form of recruitment, but population persistence only depends on the intrinsic growth rate $R_0$.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
 
 \[R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.\]
 
