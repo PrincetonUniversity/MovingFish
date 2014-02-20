@@ -80,7 +80,8 @@ for(q in 1:length(speeds)){
       harv.mean <- mean(harv)
       harv.sd <- sd(harv)
       harv.se <- stderr(harv)
-      pop.mean <- mean(colSums(move)[(T+1):(T+300)])
+      #pop.mean <- mean(colSums(move)[(T+1):(T+300)])
+      pop.mean <- mean(max(colSums(move)[(T+1):(T+300)]),min(colSums(move)[(T+1):(T+300)])) # this deals with variability in taking mean of oscillation
       pop.sd <- sd(colSums(move)[(T+1):(T+300)])
       pop.se <- stderr(colSums(move)[(T+1):(T+300)])
        

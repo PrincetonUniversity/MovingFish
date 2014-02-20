@@ -255,3 +255,51 @@ legend("topright",legend=seq(300,2100,300), lwd=3, pch=19,col=colz, title="Steps
 
 notify("simluation is done!")
 ```
+
+Idea, can I sub-sample the 2100 step run and take the mean of an increasingly limited window? This would mean using `df2100` as the data frame and taking the mean of all 2100 steps, and then 2099 steps, ... etc. down to 300 and seeing how the mean changes. 
+
+```{r}
+int <- seq(300,2100)
+names(series2100) = speeds
+foo <- melt(series2100)
+names(foo) <- c("biomass","speed")
+means = vector("list",length(int))
+names(means) = int
+for(i in 1:length(int)){
+  means[[i]] = ddply(foo,.(speed),function(df) avg = mean(df$biomass[1:int[i]]))
+  }
+
+bar = melt(means)
+bar$variable = NULL
+names(bar) = c("speed", "mean", "interval")
+bar$interval = as.numeric(bar$interval)
+ggplot(bar, aes(x = interval , y = mean))  + geom_line() + facet_wrap( ~ speed)
+```
+
+New idea, find the maxima and minima and take the mean of those two numbers. See if that erases the variability in means. 
+
+```{r}
+int <- seq(300,2100)
+names(series2100) = speeds
+foo <- melt(series2100)
+names(foo) <- c("biomass","speed")
+means_dif = vector("list",length(int))
+names(means) = int
+for(i in 1:length(int)){
+  means_dif[[i]] = ddply(foo,.(speed),function(df) avg=mean(max(df$biomass[1:int[i]]),min(df$biomass[1:int[i]])))
+  }
+
+bar = melt(means_dif)
+bar$variable = NULL
+names(bar) = c("speed", "mean", "interval")
+bar$interval = as.numeric(bar$interval)
+ggplot(bar, aes(x = interval , y = mean))  + geom_line() + facet_wrap( ~ speed)
+
+ggplot(bar, aes(x = speed, y = mean, group = interval)) + geom_line(aes(colour=interval))
+```
+
+And volia! It erases that variability. Looks like I can keep the 300 time steps and take the max and minimum and take the average. So should re-do that for the existing simulation data I have and plot a contour map
+
+```{r}
+
+```
