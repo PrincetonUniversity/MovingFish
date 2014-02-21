@@ -8,10 +8,10 @@ setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspa
 	
 # run analysis
 	# choose threshold or no threshold
-	model = "noThresh"	# "noThresh"; "Thresh"
+	model = "Thresh"	# "noThresh"; "Thresh"
 	
 	# if no threshold, choose MPA: "null", "cons", "fish"
-	MPA = "cons"
+	MPA = "null"
 
 # analysis
 	if(model=="noThresh") {sapply(c("Parameters_nothresh.R","Sim_noThresh.R"),source,.GlobalEnv)} else {
