@@ -1,6 +1,6 @@
 rm(list=ls())
 setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
-
+require(zoo)
 
 # load parameters, functions
   source("Parameters.R")

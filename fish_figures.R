@@ -73,8 +73,10 @@ xdiff=.1
 ydiff=.2
 myaxes=list(arrows=FALSE,x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))))
 
+fig.width = 3	# for ecological applications, text needs to be at least 6 point font size
+
 quartz()
-pdf(file='eqbiomass.pdf',width=6.83)
+pdf(file='eqbiomass.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -140,7 +142,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_sim.pdf',width=6.83)
+pdf(file='eqbiomass_sim.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -203,7 +205,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_fishmpa.pdf',width=6.83)
+pdf(file='eqbiomass_fishmpa.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -266,7 +268,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_consmpa.pdf',width=6.83)
+pdf(file='eqbiomass_consmpa.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -331,7 +333,7 @@ myaxes=list(arrows=FALSE,col=1,
 z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_thresh.pdf',width=6.83)
+pdf(file='eqbiomass_thresh.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
@@ -389,7 +391,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_diffmpa.pdf',width=6.83)
+pdf(file='eqbiomass_diffmpa.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -428,7 +430,7 @@ mar=c(6,6,2,2)
 mgp=c(4,2,0)
 
 quartz()
-pdf(file='critical_rates.pdf',width=6.83)
+pdf(file='critical_rates.pdf',width=fig.width)
 
 par(mar=mar,mgp=mgp)
 plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Rate of environmental shift",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
@@ -497,7 +499,7 @@ line=1
 oma=c(0,0,0,2)
 
 quartz()
-pdf(file='synergy.pdf',width=6.83)
+pdf(file='synergy.pdf',width=fig.width)
 
 par(oma=oma)
 image.plot(cvals,hvals[1:H],syn[,1:H],breaks=v,col=cols,
