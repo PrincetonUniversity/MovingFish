@@ -26,9 +26,9 @@
 
 \section{Abstract}
 
-When the climate changes, the areas with conditions in which organisms can survive and reproduce move. 
+When the climate changes, the habitat with suitable conditions in which organisms can survive and reproduce moves. 
 This change does not occur in isolation but rather appears on a background of other disturbances. 
-In order to understand how two disturbances, range shift and harvesting, interact and affect population persistence, we studied an integrodifference model that explicitly included the mechanisms of dispersal and reproduction.  If the viable habitat moves too quickly or harvesting pressure is too great, the population is driven extinct.  We found the rates of harvesting and environmental shift required to allow the population to persist and and studied how these critical parameters depend on the growth rate and dispersal behavior of the population.  We then measured the interaction between the stressors.  The stressors interact nearly additively: we found very low positive synergy at those levels of the stressors that almost drive the population extinct.  Positive synergy suggests that harvesting may aggravate the population's sensitivity to a shifting range. Finally, we introduced two conservation techniques into simulations of the population model -- threshold harvest rules and marine protected areas (MPAs) -- and found that under some circumstances these approaches could mitigate the negative interaction of the two stressors.  
+In order to understand how two disturbances, range shift and harvesting, interact and affect population persistence, we studied an integrodifference model that explicitly included the mechanisms of dispersal and reproduction.  If the viable habitat moves too quickly or harvesting pressure is too great, the population is driven extinct.  We found the rates of harvesting and environmental shift required to allow the population to persist and and studied how these critical parameters depend on the growth rate and dispersal behavior of the population.  We then measured the interaction between the stressors.  The stressors interact nearly additively: we found very low positive synergy at those levels of the stressors that almost drive the population extinct.  Positive synergy suggests that harvesting may aggravate the population's sensitivity to a shifting range. Finally, we introduced two conservation techniques into simulations of the population model -- threshold harvest rules and marine protected areas (MPAs) -- and found that under some circumstances these approaches could mitigate the interaction between the two stressors.  
 \hspace{10cm}
 
 \noindent {\bf Keywords:} Climate change, fishing, integrodifference model, synergy, multiple disturbances
@@ -50,11 +50,11 @@ We also examined the effect of threshold harvesting rules and marine protected a
 
 \section{Methods}
 
-We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and fish at each point in space can be harvested.  We first determined the climate velocity and harvesting rate that would drive the population extinct.  We then measured the drop in biomass caused by range shifts, harvesting, and both stressors together in order to determine whether they interact synergistically.    We finally implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to determine how these management strategies affect population persistence.
+We studied the dynamics of a fish population constrained to a single, one-dimensional habitat patch by their inability to reproduce outside of the patch.  This viable habitat patch (here after `patch') is shifting at a fixed velocity and the fish at each point in space can be harvested.  We first determined the climate velocity and harvesting rate that would drive the population extinct.  We then measured the drop in biomass caused by range shifts, harvesting, and both stressors together in order to determine whether they interact synergistically.    We finally implemented marine protected areas (MPAs) and threshold harvesting rules in numerical simulations of the model to determine how these management strategies affect population persistence.
 
 \subsection{The Model }
 
-In the model of \cite{ZhouKot2011}, the adults from the current year produce offspring according to a recruitment function, and these offspring disperse across the one-dimensional world according to a dispersal kernel to become the next generation's adults.  We extend this model by additionally subjecting the adults to harvesting before they produce offspring so that only a proportion of the fish survive to reproduce. These processes-- recruitment, harvesting, and dispersal-- are incorporated into an integrodifference model to describe how the population changes over time. If $n_t(x)$ 
+In the model of \cite{ZhouKot2011}, the adults from the current year produce offspring according to a recruitment function and these offspring disperse across the one-dimensional world according to a dispersal kernel to become the next generation's adults.  We extend this model by additionally subjecting the adults to harvesting before they produce offspring so that only a proportion of the fish survive to reproduce. These processes-- recruitment, harvesting, and dispersal-- are incorporated into an integrodifference model to describe how the population changes over time. If $n_t(x)$ 
 is the density of fish at position $x$ at time $t$, then the density of fish at the next generation is given by
 
 \begin{equation*}
@@ -62,12 +62,17 @@ n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{
 \end{equation*}
 
 \noindent where $h$ is the proportion of adults harvested, $f(n)$ is the recruitment function giving the number of 
-offspring produced by a population of size $n$ (accounting for density dependence), $k(x-y)$ is the dispersal kernel giving the probability of a  larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it  shifts across space.  We chose to use a Beverton-Holt recruitment function,
+offspring produced by a population of size $n$ (accounting for density dependence), $k(x-y)$ is the dispersal kernel giving the probability of a  larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it  shifts across space.  We provide a list of variables and functions in Table \ref{variables}.  We chose to use a Beverton-Holt recruitment function,
 
 \[f(n_t)=\frac{R_0n_t}{1+\left(\frac{R_0-1}{K}\right)n_t}.\]  
 
-\noindent Regardless of the exact functional form of the recruitment function, a critical parameter of the recruitment function in determining population persistence is how quickly recruitment increases when the population 
-size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$ and we use such a kernel in our analytical expressions. We provide a list of variables and functions in Table \ref{variables}. 
+\noindent Regardless of the exact functional form of the recruitment function, the critical parameter in determining population persistence is how quickly recruitment increases when the population 
+size is near (but above) $0$, which is equivalent to the intrinsic growth rate, $R_0=f'(0)$.  Analyzing this kind of model becomes easier if the dispersal kernel is separable into its dependence on the source of larvae and its dependence on the destination of the larvae, i.e.~if there are functions $a_i, b_i$ such that $k(x- y) = \sum^\infty_{i=1} a_i(x)b_i(y)$.  In our analyses, as in \citep{Latore:1998fk}, we used the separable Gaussian kernel given by
+
+\[k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.\]
+
+\noindent To derive analytical expressions, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
+simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.  
 
 At equilibrium, the population will be described by a traveling wave, 
 where the density of fish at a given point in space will change but the density of fish at a location relative to the 
@@ -84,25 +89,16 @@ n^*(\bar{x})=\int^{\frac{L}{2}}_{-\frac{L}{2}}k(\bar{x}+c-\bar{y})f((1-h))n^*(\b
 
 \subsection{Persistence }
 One possible equilibrium traveling wave that solves Equation (\ref{traveling_pulse}) is the `trivial' traveling pulse, $n^*(\bar{x}) = 0$ for all $x \in \left[-\frac{L}
-{2}, \frac{L}{2}\right]$, i.e.~a patch with no fish in it.  If a population becomes very small (or if we introduce a small 
-population), one of two things can happen. First, the population may crash and the trivial traveling pulse 
-without any fish may appear again. Second, those small numbers may increase and form a stable population. 
-In this sense, a small population can be thought of as a perturbation to the trivial traveling pulse. If the trivial 
-pulse is stable, the system will return to the trivial pulse even after a perturbation in the form of the introduction 
-of a small population. If a population is to persist, even when it is small it must be able to avoid extinction and 
-grow. For this to be the case, the trivial pulse must be unstable to small perturbations.  
+{2}, \frac{L}{2}\right]$, i.e.~a patch with no fish in it.  If a population is to persist, it must be able to avoid extinction and 
+grow even when it is small.   A small population can be thought of as a perturbation to the trivial traveling pulse. If the trivial 
+pulse is stable, the system will return to the trivial pulse even after the introduction 
+of a small population. If the trivial pulse is unstable, a small population may increase and form a stable population.   Population persistence is therefore equivalent to the trivial traveling pulse being an unstable equilibrium.   
 
-We would like to know the rate of environmental shift and the harvesting rate such that as long as the 
-environment moves more slowly or we harvest less severely than those parameters, then the population will be able to persist. We call these, respectively, the critical rate of environmental shift, $c^*$, and the critical harvesting rate, $h^*$. 
-We found these rates by finding the parameters that make the trivial pulse unstable.   In our analyses, as in \citep{Latore:1998fk}, we used the separable Gaussian kernel given by
-
-\[k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.\]
-
-\noindent To find analytical results about the Gaussian kernel, we approximated the kernel, as described in the Appendix.  Analytical results for a separable sinusoidal kernel are also described in the Appendix.  We used 
-simulations to analyze a Laplace dispersal kernel that is not amenable to this method, as described below.
+If the population is harvested at low enough levels and the environment shifts slowly enough, the population will be able to persist.  There are threshold values of the harvesting rate $h$ and the rate of environmental shift $c$ such that if the parameters are increased beyond these values, the population will be driven extinct.  We found these critical parameters, $h^*$, and  $c^*$, by finding the parameters that make the trivial pulse unstable.   Details are provided in Appendix \ref{stab}.
+   
 
 For each kernel, the population's ability to persist depends on properties of the population itself-- the expected distance a larva disperses ($\langle d \rangle$) and the intrinsic growth rate ($R_0$); properties of the environment-- the length of the viable patch ($L$) and how quickly the environment is shifting ($c$); and the harvesting rate ($h
-$).  Whereas equilibrium biomass depends on the function form of recruitment, population persistence only depends on the intrinsic growth rate $R_0$.  If the environment shifts more quickly than the critical rate $c^*$ or the population is harvested at more than the critical rate $h^*$ then the population will not be able to persist, as described in the Appendix.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
+$).  The population biomass at equilibrium depends on the function form of recruitment, but population persistence only depends on the intrinsic growth rate $R_0$.  For a Gaussian kernel, the critical rates $c^*$ and $h^*$ are those values of $c$ and $h$ such that 
 
 \[R_0(1-h)2\sqrt{2}\exp\left(\frac{-c^2}{8D}\right)\left[\text{erf}\left(\frac{L-c}{2\sqrt{2D}}\right)-\text{erf}\left(\frac{-L-c}{2\sqrt{2D}}\right)\right]=1.\]
 
