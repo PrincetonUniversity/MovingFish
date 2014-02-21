@@ -32,7 +32,7 @@ for(q in 1:length(speeds)){
   
   for(j in 1:length(thresholds)){
     init.h<-array(0,c(w,1))
-    next.pop <- m(n=init[,maxt], s = 0, Fthresh = thresholds[j], Fharv = 1, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+    next.pop <- m(n=init[,maxt], s = 0, Fthresh = thresholds[j], Fharv = 1, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.start)
     init.h[,1]=next.pop[[1]]
     MPA.current = next.pop[[3]]
     h.diff <- abs(sum(init[,maxt]-init.h[,1]))

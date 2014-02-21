@@ -22,5 +22,7 @@ setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspa
 
 # 2014-02-10 
 # have run no-thresh cons
-
+# have run no-thresh fish
+# have run no-thresh null
+# have run thresh null
 
