@@ -23,6 +23,64 @@ f<-function(n,R0,K) return(R0*n/(1+(R0-1)/K*n))
 #Standard error removing NAs
 stderr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
 
+
+moveMPA <- function(MPA.current = MPA.current, displaced = displaced, mpa.yes=mpa.yes, mpa.no=mpa.no, world){
+  
+  ##### Move MPAS
+  # move MPA forward by <displaced> amount
+  next_MPA = MPA.current[displaced:length(MPA.current)]
+  lost <- MPA.current[1:(displaced-1)] 
+  
+  # are there any MPAs in <next_MPA>?
+  #any(test[[i]]$next_MPA==1)
+  # IF FALSE, then need to figure out how many 0s were lost in move, and make sure to preserve interval of zeros == mpa.no, then fill in mpa.yes,mpa.no to length of world. But also this is only for when mpa.no exists on both sides of MPA_next. If exactly to the edge of one reserve is lost, should shift down to next if statement
+  if(any(next_MPA==1)==FALSE & any(lost==1)==FALSE){
+    # these are the intervals that are left behind as world moves forward
+    lost <- MPA.current[1:(displaced-1)] 
+    # this is the last continuous chunk of numbers at the end of <lost>  
+    length_last <- rep(tail(rle(lost)$value,1), tail(rle(lost)$lengths,1))
+    # want to know how long <length_last> is so can make sure to get correct interval
+    L_int <- length(length_last)
+    # how many more zeros do we need before we start with mpa.yes again?
+    zero_add <- sum(mpa.no==0) - L_int - sum(next_MPA==0)
+    # this is what needs to be appended to <next_MPA>
+    new_MPA <- c(rep(0,zero_add),rep(c(mpa.yes,mpa.no),length.out=length(world)))
+    
+  }else{
+    
+    # IF FALSE (there are some 1s) then we only care about the last interval of the <next_MPA>, is that protected or not?
+    last_step = tail(next_MPA,1)
+    # IF <last_step>==1
+    if(last_step ==1){ 
+      #then how many 1s are at the end of the <next_MPA> section?
+      end_step = rep(tail(rle(next_MPA)$value,1), tail(rle(next_MPA)$lengths,1)) # number of 1s at very end of lost interval
+      # length of <end_step>
+      end_int = length(end_step)
+      # need to prepend sum(mpa.yes==1) - <end_step> to beginning 
+      prepend = rep(1, (sum(mpa.yes==1) - end_int))
+      # and then fill out with mpa.no,mpa.yes for length of world          
+      fillOut <- rep(c(mpa.no, mpa.yes), length = (length(world) - length(prepend)))
+    }else{
+      # IF <last_step>==0
+      end_step = rep(tail(rle(next_MPA)$value,1), tail(rle(next_MPA)$lengths,1)) # number of 0s at very end of lost interval
+      # length of <end_step>
+      end_int = length(end_step)
+      # need to prepend sum(mpa.no==0) - <end_step> to beginning 
+      prepend = rep(0, (sum(mpa.no==0) - end_int))
+      # and then fill out with mpa.no,mpa.yes for length of world          
+      fillOut <- rep(c(mpa.yes, mpa.no), length = (length(world) ))
+    }
+    new_MPA = c(prepend,fillOut)
+  }
+  
+  MPA_finish = c(next_MPA,new_MPA)
+  MPA_finish = MPA_finish[1:length(world)] # reduce to just the size of the world
+  
+  return(MPA_finish)
+}
+
+
+
 m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.current=NA){
 	
 	# calculate how far the patch will move through the population (if speed !=0)
@@ -34,28 +92,11 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	# fill in newly existing patch with 0s
 	next_n = c(next_n,rep(0,length.out=(displaced-1)))
 	
-	# Move MPAS
-	next_MPA = MPA.current[displaced:length(MPA.current)]
-
-	# Move MPA by figuring out what the MPA sequence starts with (0 or 1) and counting the number of subsequent 0/1s then appending the MPA sequence starting with the opposite interval (if 1 is the first, append 0s). Won't have to count the number of 1s because know that they got left behind the patch. 
-	
-	if(next_MPA[1]==1){
-		start_at <- as.numeric(rle(next_MPA)$length[1])	# find index of last 1 in first sequence
-		next_MPA <- next_MPA[1:start_at]
-		length_add <- length(world) - length(next_MPA) 		# how many indeces need filling?
-		new_MPA <- rep(c(mpa.no,mpa.yes),length.out=length_add)	#
-		next_MPA <- c(next_MPA,new_MPA)
-		
-	}else{
-		start_at <- as.numeric(rle(next_MPA)$length[1])
-		next_MPA <- next_MPA[1:start_at]
-		length_add <- length(world) - length(next_MPA) 
-		new_MPA <- rep(c(mpa.yes,mpa.no),length.out=length_add)
-		next_MPA <- c(next_MPA,new_MPA)
-	}	
+# move MPAs?
+  if(s > 0){MPA_finish = moveMPA(MPA.current,displaced,mpa.yes,mpa.no,world)}else{MPA_finish= MPA.current}
 	
 	# let patch reproduce
-	next_patch = vector(mode="numeric",length(next_n))
+	next_patch = vector(mode="numeric",length(world))
 	
 	# keep individuals still in patch + those now in it due to move
 	next_patch[1:length(patch)] = next_n[1:length(patch)]
@@ -75,12 +116,11 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	if(is.na(Fharv) & is.na(Fthresh)) {next_gen = n2}
     	
     # evaluate MPA coverage
-    next_gen[next_MPA == 1] <- n2[next_MPA == 1] 
+    next_gen[MPA_finish == 1] <- n2[MPA_finish == 1] 
     
     harv = n2-next_gen
  	n2 = next_gen 
- 	MPA = next_MPA
- 	#plot(world,MPA*max(n2),type='l',col="grey")
+ 	MPA = MPA_finish
 	plot(world,MPA*9,type='l',col="grey",main=paste("Speed=",s," Harvest rate=",Fharv,sep=""))
  	lines(world,n2,lwd=2,col="blue")
  	return(list(n2,harv,MPA))
