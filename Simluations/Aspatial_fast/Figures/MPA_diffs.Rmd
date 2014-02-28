@@ -14,13 +14,13 @@ Have noticed that there's a section of parameter space in which the `Equil.pop` 
 
 ```{r loadData, echo=FALSE, message=FALSE}
 # for synced online github data
-   x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxMy0xMi0wOS5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjEzfQ%3D%3D--9fbc7c170a93836981fa63448bf378fbbdb13905")
+   x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMjk4fQ%3D%3D--b299cd8c20eb28a2d626a3d8d467685b75986fbf")
   sim = read.csv(textConnection(x))
 
-  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxMy0xMi0wOS5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjQzfQ%3D%3D--a432e4025f1b9042246c8a3d6b49af3464a03546")
+  fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDUzfQ%3D%3D--d793f2abea78846c6b8535d73e76d5836207dea6")
   fishmpa = read.csv(textConnection(fish))
 
-  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-10.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0xMC5jc3YiLCJleHBpcmVzIjoxMzkyODI5NjYwfQ%3D%3D--00004e8d0186aa3a6f7f52bb264a406f147d1abf")
+  cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDEzfQ%3D%3D--9f521e92c8abdd1c4a8a547576e661ea41d342d6")
   consmpa = read.csv(textConnection(cons))
 
 # combine all data into one dataframe
@@ -300,6 +300,4 @@ ggplot(bar, aes(x = speed, y = mean, group = interval)) + geom_line(aes(colour=i
 
 And volia! It erases that variability. Looks like I can keep the 300 time steps and take the max and minimum and take the average. So should re-do that for the existing simulation data I have and plot a contour map
 
-```{r}
-
-```
+UPDATE, the problem persists. Malin's idea is to take a time step where the MPA and the range line up at the 'northern' edge. Because the world is only a patch length long, need to figure out when the MPA is at the northern-most edge.

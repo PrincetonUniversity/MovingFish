@@ -1,6 +1,7 @@
 library(fields)
 library(lattice)
 library(colorspace)
+library(RCurl)
 setwd("/Users/eleanorbrush/Desktop")
 source("/Users/eleanorbrush/Desktop/biomass_synergy.R")
 source("/Users/eleanorbrush/Desktop/critical_parameters.R")
@@ -31,6 +32,7 @@ cex.lab=1.5
 cex.axis=1
 line=1
 oma=c(0,0,0,2)
+fig.width = 3	# for ecological applications, text needs to be at least 6 point font size
 
 ##########
 ##########
@@ -73,8 +75,9 @@ xdiff=.1
 ydiff=.2
 myaxes=list(arrows=FALSE,x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))))
 
+
 quartz()
-pdf(file='eqbiomass.pdf',width=6.83)
+pdf(file='eqbiomass.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -94,10 +97,12 @@ dev.off()
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : SIMULATIONS
 
-sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
+#sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
 # for emma's local copy
-	sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
-
+	#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
+# github copy
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMjk4fQ%3D%3D--b299cd8c20eb28a2d626a3d8d467685b75986fbf")
+	sim = read.csv(textConnection(x))
 
 cvals=unique(sim$speed)
 hvals=unique(sim$harvest)
@@ -140,7 +145,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_sim.pdf',width=6.83)
+pdf(file='eqbiomass_sim.pdf',width=fig.width, height=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -150,7 +155,7 @@ image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
+	#legend.args=list(text="Equilibrium biomass",cex=(cex.lab-1),side=2,line=0.5,las=0),
 	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
 box()
 dev.off()
@@ -158,10 +163,12 @@ dev.off()
 ##########
 ##########
 ##### wireframe of the equilibrium biomass as a function of c and h : MPAs
-mpas=read.csv("~/Desktop/fishMPAnotThresh_add_2013-12-09.csv")
+#mpas=read.csv("~/Desktop/fishMPAnotThresh_add_2013-12-09.csv")
 # emma's local copy
-	mpas = read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv")
-
+	#mpas = read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv")
+# github copy
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDUzfQ%3D%3D--d793f2abea78846c6b8535d73e76d5836207dea6")
+	mpas = read.csv(textConnection(x))
 cvals=unique(mpas$speed)
 hvals=unique(mpas$harvest)
 
@@ -203,7 +210,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_fishmpa.pdf',width=6.83)
+pdf(file='eqbiomass_fishmpa.pdf',width=fig.width,height=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -213,17 +220,19 @@ image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
+	#legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
 	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
 box()
 dev.off()
 
 
 ##### wireframe of the equilibrium biomass as a function of c and h : MPAs v2
-mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2014-01-23.csv")
+#mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2014-01-23.csv")
 # emma's local copy
-	mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv")
-	
+	#mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv")
+# github copy
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDEzfQ%3D%3D--9f521e92c8abdd1c4a8a547576e661ea41d342d6")
+	mpas2 = read.csv(textConnection(x))
 
 cvals=unique(mpas2$speed)
 hvals=unique(mpas2$harvest)
@@ -266,7 +275,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_consmpa.pdf',width=6.83)
+pdf(file='eqbiomass_consmpa.pdf',width=fig.width,height=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -276,7 +285,7 @@ image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
+	#legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
 	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
 box()
 dev.off()
@@ -284,10 +293,12 @@ dev.off()
 ##########
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : THRESHOLD
-thresh=read.csv("~/Desktop/noMPA_Thresh_add_2014-01-24.csv")
+#thresh=read.csv("~/Desktop/noMPA_Thresh_add_2014-01-24.csv")
 # emma's local copy
-	thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2014-01-24.csv")
-
+	#thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2014-01-24.csv")
+# online github copy
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-02-21.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAyLTIxLmNzdiIsImV4cGlyZXMiOjEzOTM2MjI4NjV9--783b17356ca44a2dec87cc6bd74ef91eea8e797e")
+	thresh = read.csv(textConnection(x))
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
 
@@ -331,7 +342,7 @@ myaxes=list(arrows=FALSE,col=1,
 z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_thresh.pdf',width=6.83)
+pdf(file='eqbiomass_thresh.pdf',width=fig.width,fig.height=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
@@ -345,8 +356,9 @@ axis(2, at=seq(min(threshvals),max(threshvals), length = 6),labels=rev(seq(0,1,b
 box()
 image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=range(cuts),
 	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),breaks=cuts,col=mycols,legend.only=TRUE,bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
-
+	#legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),breaks=cuts,col=mycols,legend.only=TRUE,
+	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
+box()
 dev.off()
 
 ##########
@@ -389,7 +401,7 @@ myaxes=list(arrows=FALSE,
 	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_diffmpa.pdf',width=6.83)
+pdf(file='eqbiomass_diffmpa.pdf',width=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
@@ -428,7 +440,7 @@ mar=c(6,6,2,2)
 mgp=c(4,2,0)
 
 quartz()
-pdf(file='critical_rates.pdf',width=6.83)
+pdf(file='critical_rates.pdf',width=fig.width)
 
 par(mar=mar,mgp=mgp)
 plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Rate of environmental shift",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
@@ -497,7 +509,7 @@ line=1
 oma=c(0,0,0,2)
 
 quartz()
-pdf(file='synergy.pdf',width=6.83)
+pdf(file='synergy.pdf',width=fig.width)
 
 par(oma=oma)
 image.plot(cvals,hvals[1:H],syn[,1:H],breaks=v,col=cols,

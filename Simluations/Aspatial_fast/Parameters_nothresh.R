@@ -1,5 +1,4 @@
 # parameters for no-threshold simulations (just proportional harvesting)
-	harvests = seq(0,0.15,0.02)
 
 # build dataframes
 	summaries <- data.frame(
@@ -13,7 +12,8 @@
 		harvest = rep(NA,length=length(speeds)*length(harvests)), 
 		thresh = rep(NA,length=length(speeds)*length(harvests)), 
 		steps.harv = rep(NA,length=length(speeds)*length(harvests)),
-		steps.move = rep(NA,length=length(speeds)*length(harvests)))
+		steps.move = rep(NA,length=length(speeds)*length(harvests)),
+    req = rep(NA,length=length(speeds)*length(harvests)))
 
 
 # index for row number
