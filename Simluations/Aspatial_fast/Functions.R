@@ -100,29 +100,30 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	
 	# keep individuals still in patch + those now in it due to move
 	next_patch[1:length(patch)] = next_n[1:length(patch)]
-	babies = next_patch*f_ind
-	n2 = babies %*% d *step_size
-	n2 = sapply(n2,f,R0,K)
+	
 	
 	# harvesting and MPAs
 	if(!is.na(Fthresh)) { 
-		next_gen = ifelse(n2 < Fthresh, n2, n2 - (n2 - Fthresh) * Fharv) 
+		next_gen = ifelse(next_patch < Fthresh, next_patch, next_patch - (next_patch - Fthresh) * Fharv) 
 		}
 	
 	if(!is.na(Fharv) & is.na(Fthresh)) {
-    	next_gen = n2*(1-Fharv)
+    	next_gen = next_patch*(1-Fharv)
     	}
     
-	if(is.na(Fharv) & is.na(Fthresh)) {next_gen = n2}
+	if(is.na(Fharv) & is.na(Fthresh)) {next_gen = next_patch}
     	
     # evaluate MPA coverage
-    next_gen[MPA_finish == 1] <- n2[MPA_finish == 1] 
+    next_gen[MPA_finish == 1] <- next_patch[MPA_finish == 1] 
     
-    harv = n2-next_gen
- 	n2 = next_gen 
- 	MPA = MPA_finish
-	plot(world,MPA*9,type='l',col="grey",main=paste("Speed=",s," Harvest rate=",Fharv,sep=""))
- 	lines(world,n2,lwd=2,col="blue")
+    harv = next_patch-next_gen
+    babies = next_gen*f_ind
+    n2 = babies %*% d *step_size
+    n2 = sapply(n2,f,R0,K)
+
+ 	  MPA = MPA_finish
+	plot(world,MPA*9,col="grey",main=paste("Speed=",s," Harvest rate=",Fharv,sep=""),type="h")
+ 	lines(world,n2,lwd=2,col="blue",type="h")
  	return(list(n2,harv,MPA))
 }
 
