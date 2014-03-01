@@ -101,7 +101,7 @@ dev.off()
 # for emma's local copy
 	#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMjk4fQ%3D%3D--b299cd8c20eb28a2d626a3d8d467685b75986fbf")
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0Mjk5NzE4fQ%3D%3D--5efa7d84f60aa99b4beaf370db0a64d788fc8439")
 	sim = read.csv(textConnection(x))
 
 cvals=unique(sim$speed)
@@ -167,7 +167,7 @@ dev.off()
 # emma's local copy
 	#mpas = read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv")
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDUzfQ%3D%3D--d793f2abea78846c6b8535d73e76d5836207dea6")
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-02-28.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMi0yOC5jc3YiLCJleHBpcmVzIjoxMzk0Mjk5Njk0fQ%3D%3D--3e14ebb16165838ea9081b1f44f76d25de21eb91")
 	mpas = read.csv(textConnection(x))
 cvals=unique(mpas$speed)
 hvals=unique(mpas$harvest)
@@ -231,7 +231,7 @@ dev.off()
 # emma's local copy
 	#mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv")
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-20.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0yMC5jc3YiLCJleHBpcmVzIjoxMzkzNjIzMDEzfQ%3D%3D--9f521e92c8abdd1c4a8a547576e661ea41d342d6")
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-02-27.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMi0yNy5jc3YiLCJleHBpcmVzIjoxMzk0Mjk5NjQ1fQ%3D%3D--1a29246839595522d075f35a8f3b26d084fca17f")
 	mpas2 = read.csv(textConnection(x))
 
 cvals=unique(mpas2$speed)
@@ -297,7 +297,7 @@ dev.off()
 # emma's local copy
 	#thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2014-01-24.csv")
 # online github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-02-21.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAyLTIxLmNzdiIsImV4cGlyZXMiOjEzOTM2MjI4NjV9--783b17356ca44a2dec87cc6bd74ef91eea8e797e")
+	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAxLmNzdiIsImV4cGlyZXMiOjEzOTQyOTk4ODN9--144dd74cba92c73e30584869587876b87a3aac76")
 	thresh = read.csv(textConnection(x))
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
@@ -342,7 +342,7 @@ myaxes=list(arrows=FALSE,col=1,
 z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 
 quartz()
-pdf(file='eqbiomass_thresh.pdf',width=fig.width,fig.height=fig.width)
+pdf(file='eqbiomass_thresh.pdf',width=fig.width, height=fig.width)
 
 # wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
