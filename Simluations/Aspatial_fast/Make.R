@@ -8,10 +8,10 @@ require(zoo)
 	
 # run analysis
 	# choose threshold or no threshold
-	model = "noThresh"	# "noThresh"; "Thresh"
+	model = "Thresh"	# "noThresh"; "Thresh"
 	
 	# if no threshold, choose MPA: "null", "cons", "fish"
-	MPA = "cons"
+	MPA = "null"
 
 # analysis
 	if(model=="noThresh") {sapply(c("Parameters_nothresh.R","Sim_noThresh.R"),source,.GlobalEnv)} else {
@@ -20,9 +20,6 @@ require(zoo)
 			}
 		}
 
-# 2014-02-10 
-# have run no-thresh cons
-# have run no-thresh fish
-# have run no-thresh null
-# have run thresh null
+# 2014-02-27 
+
 

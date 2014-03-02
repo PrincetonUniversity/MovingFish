@@ -7,8 +7,8 @@ b=.5 #parameter for Laplace dispersal kernel
 R0=5 #growth parameter for recruitment
 K=100 #carrying capacity parameter for juvenile density dependence
 maxt = 150 # number of generations to run for initializing of harvest
-speeds = seq(0,.5,by=0.02)
-harvests = seq(0,.13,by=0.01)
+speeds = seq(0,.44,by=0.02)
+harvests = seq(0,.11,by=0.01)
 f_ind = 1 #per capita reproductive rate
 
 patch = seq(0,1,by=step_size)

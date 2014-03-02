@@ -66,14 +66,6 @@ for(q in 1:length(speeds)){
     }
     }
     
-      # simulate for 300 steps after equilibrium
-      harv <- vector(mode = 'logical', length = 300)
-      for (i in (T+1):(T+300)){
-        next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-        move <- cbind(move, next.pop[[1]])
-        MPA.current = next.pop[[3]]
-        harv[(i-T)] <- sum(next.pop[[2]])
-      }  
     T = ncol(move)
 		# then run until the MPA.current matches the MPA.start so we compare populations at the same point in spatial cycle
     req = 0   # this is the condition for stopping, can be modified if count gets too high
@@ -84,41 +76,34 @@ for(q in 1:length(speeds)){
 		  move <- cbind(move, next.pop[[1]])
 		  MPA.current <- next.pop[[3]]
       print(T)
-      print(length(which(MPA.current!=MPA.start)))
-      if(T == 1300){req = req+1}
-      if(T == 1400){req = req+1}
-		  if(T == 1500){req = req+1}
-		  if(T == 1600){req = req+1}
-		  if(T == 1700){req = req+1}
-		  if(T == 1800){req = req+1}
-		  if(T == 1900){req = req+1}
-		  if(T == 2000){req = req+1}
-		  if(T == 2100){req = req+1}
-		  if(T == 2200){req = req+1}
-		  
-		  
-		  
-		  
+      print(length(which(MPA.current!=MPA.start)))		  
 		}
+    
+		# simulate for 300 steps after equilibrium
+		harv <- vector(mode = 'logical', length = 300)
+		for (i in (T+1):(T+300)){
+		  next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+		  move <- cbind(move, next.pop[[1]])
+		  MPA.current = next.pop[[3]]
+		  harv[(i-T)] <- sum(next.pop[[2]])
+		}  
    
      # summary stats
-      #harv.mean <- mean(harv)
-      harv.mean <- NA
-      #harv.sd <- sd(harv)
-      harv.sd <- NA
-      #harv.se <- stderr(harv)
-      harv.se <-NA
-      pop.mean <- mean(move[,T])
-      #pop.mean <- mean(colSums(move)[(T+1):(T+300)])
+      harv.mean <- mean(harv)
+      #harv.mean <- NA
+      harv.sd <- sd(harv)
+      #harv.sd <- NA
+      harv.se <- stderr(harv)
+      #harv.se <-NA
+      #pop.mean <- mean(move[,T])
+      pop.mean <- mean(colSums(move)[(T+1):(T+300)])
       #pop.mean <- mean(max(colSums(move)[(T+1):(T+300)]),min(colSums(move)[(T+1):(T+300)])) # this deals with variability in taking mean of oscillation
-      #pop.sd <- sd(colSums(move)[(T+1):(T+300)])
-      #pop.se <- stderr(colSums(move)[(T+1):(T+300)])
-      pop.sd <- sd(move[,T])
-      pop.se <- stderr(move[,T])
+      pop.sd <- sd(colSums(move)[(T+1):(T+300)])
+      pop.se <- stderr(colSums(move)[(T+1):(T+300)])
+      #pop.sd <- sd(move[,T])
+      #pop.se <- stderr(move[,T])
       req <- req
-       
   
-    
     summaries[rownumber[j,q],] <- c(
       pop.mean, pop.sd, pop.se, 
       harv.mean, harv.sd, harv.se, 
