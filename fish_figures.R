@@ -79,10 +79,10 @@ myaxes=list(arrows=FALSE,x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xd
 quartz()
 pdf(file='eqbiomass.pdf',width=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals[1:H],toplot_ebm[,1:H],breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -147,10 +147,10 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_sim.pdf',width=fig.width, height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -212,10 +212,10 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_fishmpa.pdf',width=fig.width,height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -277,10 +277,10 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_consmpa.pdf',width=fig.width,height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -344,11 +344,11 @@ z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 quartz()
 pdf(file='eqbiomass_thresh.pdf',width=fig.width,fig.height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Rate of environmental shift",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
+# wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Climate velocity",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
 par(oma=oma)
 #image.plot(toplot_ebm[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
 image(cvals,(threshvals),toplot_ebm[1:C,H:1],breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Threshold",
+	xlab="Climate velocity",ylab="Threshold",
 	cex.lab=cex.lab,cex.axis=cex.axis,axes=F)
 axis(1)
 #axis(2,at=seq(0,1,by=0.2),labels=rev(seq(0,1,by=0.2)))
@@ -403,10 +403,10 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_diffmpa.pdf',width=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Rate of environmental shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -418,7 +418,7 @@ dev.off()
 
 ############
 #############
-#relationship between critical harvesting rate and critical rate of environmental shift 
+#relationship between critical harvesting rate and critical climate velocity
 
 cvals=matrix(seq(0,1,by=0.01),nrow=1)
 
@@ -443,7 +443,7 @@ quartz()
 pdf(file='critical_rates.pdf',width=fig.width)
 
 par(mar=mar,mgp=mgp)
-plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Rate of environmental shift",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
+plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Climate velocity",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
 
 for(i in 1:l){
 	r=rvals[i]
@@ -513,7 +513,7 @@ pdf(file='synergy.pdf',width=fig.width)
 
 par(oma=oma)
 image.plot(cvals,hvals[1:H],syn[,1:H],breaks=v,col=cols,
-	xlab="Rate of environmental shift",ylab="Harvesting rate",
+	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
 	legend.shrink=1,legend.width=.1,zlim=range(v),
