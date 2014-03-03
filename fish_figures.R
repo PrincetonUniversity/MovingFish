@@ -28,11 +28,60 @@ line=5
 lwd=5
 yaxs='i'
 xaxs='i'
-cex.lab=1.5
+cex.lab=15
 cex.axis=1
 line=1
 oma=c(0,0,0,2)
 fig.width = 3	# for ecological applications, text needs to be at least 6 point font size
+
+############
+#############
+#relationship between critical harvesting rate and critical climate velocity
+
+cvals=matrix(seq(0,1,by=0.01),nrow=1)
+
+nr=3
+ns=2
+rvals=c(rep(3,ns),rep(5,ns),rep(10,ns))
+rcols=c(rep('black',ns),rep('red',ns),rep('blue',ns))
+xvals=c(.1,.25)
+sigvals=rep(pi/2*xvals,nr)
+sigltys=rep(c(1,2),nr)
+l=length(rvals)
+
+lwd=1
+cex.lab=.75
+cex.axis=.5
+cex.legend=.5
+tck=-.02
+mar=c(2,2,1,1)
+mgp=c(1,.25,0)
+oma=c(0,0,0,0)
+
+quartz()
+postscript("critical_rates.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
+
+par(mar=mar,mgp=mgp,oma=oma)
+plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Climate velocity",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
+
+for(i in 1:l){
+	r=rvals[i]
+	sig2=sigvals[i]
+	h=apply(cvals,2,hstar_g,r=r,sig2=sig2)
+	lines(cvals,h,col=rcols[i],lty=sigltys[i],lwd=lwd)
+}
+
+urvals=unique(rvals)
+urcols=unique(rcols)
+usigvals=unique(sigvals)
+usigltys=unique(sigltys)
+
+axis(1,lwd=lwd,cex.axis=cex.axis,tck=tck)
+axis(2,lwd=lwd,cex.axis=cex.axis,tck=tck)
+
+legend(.7,.97,col=c(urcols,rep('black',3),'white'),lty=c(rep(1,3),usigltys,1),lwd=lwd,legend=c(bquote(R[0]==.(urvals[1])),bquote(R[0]==.(urvals[2])), bquote(R[0]==.(urvals[3])),expression(symbol("\341")*d*symbol("\361")== .1),expression(symbol("\341")*d*symbol("\361")== .25),expression()),bty='n',cex=cex.legend)
+
+graphics.off()
 
 ##########
 ##########
@@ -58,13 +107,6 @@ toplot_ebm=ebm[1:C,1:H]
 #breaks and colors
 lower=.001
 cuts=c(0,lower,seq(.5,max(ebm)+.5,by=.5))
-# s=5
-# maxgray=length(cuts)-2+s-1
-# vecgray=(s:maxgray)/maxgray
-# mycols=c('black',gray(vecgray))
-# colorbar.labels=as.character(round(cuts[-1],digits=1))
-# mycolorkey=list(col=mycols,at=cuts,height=1,lty=1)
-# myalpha=.7
 mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
 mycols=c('black',mycols)
 
@@ -76,10 +118,9 @@ ydiff=.2
 myaxes=list(arrows=FALSE,x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))))
 
 
-quartz()
-pdf(file='eqbiomass.pdf',width=fig.width)
+quartz(width=fig.width,height=fig.width)
+pdf(file='eqbiomass.pdf')
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals[1:H],toplot_ebm[,1:H],breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Harvesting rate",
@@ -97,9 +138,6 @@ dev.off()
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : SIMULATIONS
 
-#sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
-# for emma's local copy
-	#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
 # github copy
 	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjYyfQ%3D%3D--7f380bfb17f1cd58ff4f131134ed434700767def")
 	sim = read.csv(textConnection(x))
@@ -124,13 +162,6 @@ toplot_ebm=ebm
 #breaks and colors
 lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
-# s=5
-# maxgray=length(cuts)-2+s-1
-# vecgray=(s:maxgray)/maxgray
-# mycols=c('black',gray(vecgray))
-# colorbar.labels=as.character(round(cuts[-1],digits=1))
-# mycolorkey=list(col=mycols,at=cuts,height=1,lty=1)
-# myalpha=.7
 mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
 mycols=c('black',mycols)
 
@@ -147,7 +178,6 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_sim.pdf',width=fig.width, height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate shift",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Harvesting rate",
@@ -162,10 +192,8 @@ dev.off()
 
 ##########
 ##########
-##### wireframe of the equilibrium biomass as a function of c and h : MPAs
-#mpas=read.csv("~/Desktop/fishMPAnotThresh_add_2013-12-09.csv")
-# emma's local copy
-	#mpas = read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv")
+##### wireframe of the equilibrium biomass as a function of c and h : fisheries MPA
+
 # github copy
 	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjQxfQ%3D%3D--2dba33c2046114811967e01914fc795e1771f425")
 	mpas = read.csv(textConnection(x))
@@ -185,16 +213,10 @@ for(i in 1:L){
 }
 
 toplot_ebm=ebm
+
 #breaks and colors
 lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
-# s=5
-# maxgray=length(cuts)-2+s-1
-# vecgray=(s:maxgray)/maxgray
-# mycols=c('black',gray(vecgray))
-# colorbar.labels=as.character(round(cuts[-1],digits=1))
-# mycolorkey=list(col=mycols,at=cuts,height=1,lty=1)
-# myalpha=.7
 mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
 mycols=c('black',mycols)
 
@@ -212,7 +234,6 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_fishmpa.pdf',width=fig.width,height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Harvesting rate",
@@ -226,10 +247,8 @@ box()
 dev.off()
 
 
-##### wireframe of the equilibrium biomass as a function of c and h : MPAs v2
-#mpas2=read.csv("~/Desktop/consMPAnotThresh_add_2014-01-23.csv")
-# emma's local copy
-	#mpas2=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv")
+##### wireframe of the equilibrium biomass as a function of c and h : conservation MPAs 
+
 # github copy
 	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjEzfQ%3D%3D--6957fb9fe54dae43ecf5c361c34446f61a1b0a0f")
 	mpas2 = read.csv(textConnection(x))
@@ -250,16 +269,10 @@ for(i in 1:L){
 }
 
 toplot_ebm2=ebm2
+
 #breaks and colors
 lower=min(ebm2)
 cuts=c(0,seq(lower,max(ebm2)+.5,length.out=100))
-# s=5
-# maxgray=length(cuts)-2+s-1
-# vecgray=(s:maxgray)/maxgray
-# mycols=c('black',gray(vecgray))
-# colorbar.labels=as.character(round(cuts[-1],digits=1))
-# mycolorkey=list(col=mycols,at=cuts,height=1,lty=1)
-# myalpha=.7
 mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
 mycols=c('black',mycols)
 
@@ -277,7 +290,7 @@ myaxes=list(arrows=FALSE,
 quartz()
 pdf(file='eqbiomass_consmpa.pdf',width=fig.width,height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
+
 par(oma=oma)
 image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Harvesting rate",
@@ -293,9 +306,7 @@ dev.off()
 ##########
 ########## 
 ##### wireframe of the equilibrium biomass as a function of c and h : THRESHOLD
-#thresh=read.csv("~/Desktop/noMPA_Thresh_add_2014-01-24.csv")
-# emma's local copy
-	#thresh=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/thresh/noMPA_Thresh_add_2014-01-24.csv")
+
 # online github copy
 	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAyLmNzdiIsImV4cGlyZXMiOjEzOTQ0MDg2OTF9--50c2acb25198937b8f95463cd2713c2db8f124b2")
 	thresh = read.csv(textConnection(x))
@@ -320,13 +331,6 @@ toplot_ebm=ebm
 #breaks and colors
 lower=min(ebm)+1
 cuts=c(0,seq(lower,max(ebm)+.5,length.out=100))
-# s=5
-# maxgray=length(cuts)-2+s-1
-# vecgray=(s:maxgray)/maxgray
-# mycols=c('black',gray(vecgray))
-# colorbar.labels=as.character(round(cuts[-1],digits=1))
-# mycolorkey=list(col=mycols,at=cuts,height=1,lty=1)
-# myalpha=.7
 mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
 mycols=c('black',mycols)
 
@@ -344,14 +348,12 @@ z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
 quartz()
 pdf(file='eqbiomass_thresh.pdf',width=fig.width, height=fig.width)
 
-# wireframe(toplot_ebm[C:1,H:1], par.settings = list(axis.line = list(col = "transparent")),xlab=list("Climate velocity",rot=10),ylab=list("Threshold",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,screen=list(z=30,x=-80))
+
 par(oma=oma)
-#image.plot(toplot_ebm[1:C,H:1],bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95))
 image(cvals,(threshvals),toplot_ebm[1:C,H:1],breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Threshold",
 	cex.lab=cex.lab,cex.axis=cex.axis,axes=F)
 axis(1)
-#axis(2,at=seq(0,1,by=0.2),labels=rev(seq(0,1,by=0.2)))
 axis(2, at=seq(min(threshvals),max(threshvals), length = 6),labels=rev(seq(0,1,by=0.2)))
 box()
 image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=range(cuts),
@@ -361,108 +363,6 @@ image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=ra
 box()
 dev.off()
 
-##########
-########## 
-##### Difference between MPAs
-
-fishmpa = mpas
-consmpa = mpas2
-
-cvals=unique(fishmpa$speed)
-hvals=unique(fishmpa$harvest)
-
-H=length(hvals)
-C=length(cvals)
-L=length(fishmpa$Equil.pop)
-
-ebmfish=array(,c(C,H))
-
-for(i in 1:L){
-	hind=which(hvals==fishmpa$harvest[i])
-	cind=which(cvals==fishmpa$speed[i])
-	ebmfish[cind,hind]=fishmpa$Equil.pop[i]
-}
-
-toplot_ebmfish=ebmfish
-#breaks and colors
-lower=min(ebmfish)
-cuts=c(0,seq(lower,max(ebmfish)+.5,length.out=100))
-mycols=(sequential_hcl(length(cuts)-2,c.=c(0,0),l=c(30,100)))
-mycols=c('black',mycols)
-
-#axis labels
-numxlabs=11
-numylabs=3
-xdiff=.1
-ydiff=.2
-myaxes=list(arrows=FALSE,
-	x=list(at=rev(seq(1,C,length.out=(cvals[C]-cvals[1])/xdiff+1)),labels=as.character(round(seq(cvals[1],cvals[C],by=xdiff),2))),
-	y=list(at=rev(seq(1,H,length.out=(hvals[H]-hvals[1])/ydiff)),labels=as.character(round(seq(hvals[1],hvals[H],by=ydiff),2))),
-	z=list(at=seq(0,max(ebm),by=250),labels=as.character(seq(0,max(ebm),by=250))))
-
-quartz()
-pdf(file='eqbiomass_diffmpa.pdf',width=fig.width)
-
-# wireframe(toplot_ebm[C:1,H:1],xlab=list("Climate velocity",rot=10),ylab=list("Harvesting rate",rot=-35),zlab=list('Equilibrium biomass',rot=90),at=cuts,col.regions=mycols,alpha.regions=myalpha,scales=myaxes,drape=FALSE,screen=list(z=30,x=-80),par.settings = list(axis.line = list(col = "transparent")))
-par(oma=oma)
-image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
-	xlab="Climate velocity",ylab="Harvesting rate",
-	cex.lab=cex.lab,cex.axis=cex.axis, 
-	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
-	legend.shrink=1,legend.width=.1,zlim=range(cuts),
-	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
-	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
-	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
-box()
-dev.off()
-
-############
-#############
-#relationship between critical harvesting rate and critical climate velocity
-
-cvals=matrix(seq(0,1,by=0.01),nrow=1)
-
-nr=3
-ns=2
-rvals=c(rep(3,ns),rep(5,ns),rep(10,ns))
-rcols=c(rep('black',ns),rep('red',ns),rep('blue',ns))
-xvals=c(.1,.25)
-sigvals=rep((xvals*sqrt(2*pi))^2,nr)
-sigltys=rep(c(1,2),nr)
-l=length(rvals)
-
-lwd=2
-cex.lab=2
-cex.axis=1.5
-cex.legend=1.5
-tck=-.02
-mar=c(6,6,2,2)
-mgp=c(4,2,0)
-
-quartz()
-pdf(file='critical_rates.pdf',width=fig.width)
-
-par(mar=mar,mgp=mgp)
-plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Climate velocity",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
-
-for(i in 1:l){
-	r=rvals[i]
-	sig2=sigvals[i]
-	h=apply(cvals,2,hstar_g,r=r,sig2=sig2)
-	lines(cvals,h,col=rcols[i],lty=sigltys[i],lwd=lwd)
-}
-
-urvals=unique(rvals)
-urcols=unique(rcols)
-usigvals=unique(sigvals)
-usigltys=unique(sigltys)
-
-axis(1,lwd=lwd,cex.axis=cex.axis,tck=tck)
-axis(2,lwd=lwd,cex.axis=cex.axis,tck=tck)
-
-legend(.63,1.03,col=c(urcols,rep('black',3),'white'),lty=c(rep(1,3),usigltys,1),lwd=lwd,legend=c(bquote(R[0]==.(urvals[1])),bquote(R[0]==.(urvals[2])), bquote(R[0]==.(urvals[3])),expression(symbol("\341")*d*symbol("\361")== .1),expression(symbol("\341")*d*symbol("\361")== .25),expression()),bty='n',cex=cex.legend)
-
-dev.off()
 
 ###########
 ###########
