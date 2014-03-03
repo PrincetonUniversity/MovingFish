@@ -189,6 +189,28 @@ We thank Catherine Offord and Will Scott for their contributions to an earlier v
 \bibliography{fish}
 \pagebreak
 
+\section{Tables}
+\begin{table}[h]
+\caption{Table of variables used in the text}
+\begin{tabular}{@{}lllllll@{}}
+  Variable & Definition
+\\\cmidrule{1-1} \cmidrule{2-2}   
+$n_t(x)$ & density of fish at position $x$ at time $t$
+\\ $n^*(\overline{x})$ & density of fish at equilibrium at position $\overline{x}$ relative to the patch 
+\\ $k(x-y)$ & dispersal kernel, the probability of larva traveling from position $y$ to position $x$
+\\ $\langle d \rangle $ & expected distance traveled by larva
+\\ $f(n)$ & recruitment function, the number of offspring produced by a population of size $n$
+\\ $R_0$ & intrinsic growth rate, $R_0=f'(0)$
+\\ $h$ & proportion of adults harvested
+\\ $L$ & patch length
+\\ $c$ & climate velocity
+\end{tabular}
+\label{variables}
+\end{table}
+
+\pagebreak
+
+
 \section*{Figure Legends}
 
 \noindent {\bf Figure \ref{baseline}}: (a) The critical harvesting rate on the y-axis as a function of the climate velocity on the x-axis.  Black lines correspond to a growth rate of $R_0=3$, red to $R_0=7$, and blue to $R_0=10$.  Solid lines correspond to an average dispersal distance $\langle d \rangle =0.1$ and dashed lines correspond to an average dispersal distance $\langle d \rangle =0.25$.  These results are from an approximated Gaussian dispersal kernel with $L=1$.  (b) 
@@ -198,6 +220,7 @@ The equilibrium biomass of the population as a function of the climate velocity 
 
 \noindent {\bf Figure \ref{Synergy}}: Positive synergy between the two stressors.  The x-axis shows the climate velocity, the y-axis shows the harvesting rate, and the color indicates the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually, $E_\text{hc}-E_\text{h}-E_\text{c}$.  This excess loss, on the order of $.001$, is small in comparison to the total biomass, which can be as large as $20$.  These results are from an approximated Gaussian dispersal kernel with parameters $L=1$, $R_0=5$, $\langle d \rangle = 0.399$.
 \hspace{6in}
+
 \hspace{6in}
 
 \noindent {\bf Figure \ref{management}}: The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvesting rate on the y-axis with and without management strategies.  (a) MPAs (b) Threshold harvesting levels.  These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=5$, $K=100$, and $\langle d \rangle =2$.
@@ -259,26 +282,6 @@ The equilibrium biomass of the population as a function of the climate velocity 
 
 \pagebreak
 
-\section{Tables}
-\begin{table}[h]
-\caption{Table of variables used in the text}
-\begin{tabular}{@{}lllllll@{}}
-  Variable & Definition
-\\\cmidrule{1-1} \cmidrule{2-2}   
-$n_t(x)$ & density of fish at position $x$ at time $t$
-\\ $n^*(\overline{x})$ & density of fish at equilibrium at position $\overline{x}$ relative to the patch 
-\\ $k(x-y)$ & dispersal kernel, the probability of larva traveling from position $y$ to position $x$
-\\ $\langle d \rangle $ & expected distance traveled by larva
-\\ $f(n)$ & recruitment function, the number of offspring produced by a population of size $n$
-\\ $R_0$ & intrinsic growth rate, $R_0=f'(0)$
-\\ $h$ & proportion of adults harvested
-\\ $L$ & patch length
-\\ $c$ & climate velocity
-\end{tabular}
-\label{variables}
-\end{table}
-
-\pagebreak
 
 
 
