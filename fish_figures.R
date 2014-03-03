@@ -54,12 +54,12 @@ cex.lab=.75
 cex.axis=.5
 cex.legend=.5
 tck=-.02
-mar=c(3,3,1,1)
-mgp=c(1.5,.25,0)
+mar=c(2,2,1,1)
+mgp=c(1,.25,0)
 oma=c(0,0,0,0)
 
 quartz()
-postscript("r2plots_rev.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
+postscript("critical_rates.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
 
 par(mar=mar,mgp=mgp,oma=oma)
 plot(cvals,cvals,col='white',ylim=c(0,1),xlab="Climate velocity",ylab="Critical harvesting rate",bty='l',axes=FALSE,xaxs='i',yaxs='i',cex.lab=cex.lab)
@@ -79,7 +79,7 @@ usigltys=unique(sigltys)
 axis(1,lwd=lwd,cex.axis=cex.axis,tck=tck)
 axis(2,lwd=lwd,cex.axis=cex.axis,tck=tck)
 
-legend(.63,1.03,col=c(urcols,rep('black',3),'white'),lty=c(rep(1,3),usigltys,1),lwd=lwd,legend=c(bquote(R[0]==.(urvals[1])),bquote(R[0]==.(urvals[2])), bquote(R[0]==.(urvals[3])),expression(symbol("\341")*d*symbol("\361")== .1),expression(symbol("\341")*d*symbol("\361")== .25),expression()),bty='n',cex=cex.legend)
+legend(.7,.97,col=c(urcols,rep('black',3),'white'),lty=c(rep(1,3),usigltys,1),lwd=lwd,legend=c(bquote(R[0]==.(urvals[1])),bquote(R[0]==.(urvals[2])), bquote(R[0]==.(urvals[3])),expression(symbol("\341")*d*symbol("\361")== .1),expression(symbol("\341")*d*symbol("\361")== .25),expression()),bty='n',cex=cex.legend)
 
 graphics.off()
 
