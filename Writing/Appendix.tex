@@ -37,7 +37,7 @@ The integrodifference equation (\ref{integro}) gives us an expression for $n^*$:
 n^*(\overline{x}-c)&=\int_{-L/2}^{L/2}k(\overline{x}-\overline{y})f(n^*(\overline{y})-g(n^*(\overline{y})))d\overline y \notag
 \\ \Rightarrow n^*(\overline{x})&=\int_{-L/2}^{L/2}k(\overline{x}+c-\overline{y})f(n^*(\overline{y})-g(n^*(\overline{y}))d\overline y  \label{pulse}
 \end{align}
-As long as $f(0)=0$, there is a trivial solution to this problem where $n^*(\overline{x})\equiv 0$ for all $\overline{x}\in[-L/2,L/2]$, i.e. there is a trivial traveling pulse with no fish in it.  If the trivial traveling pulse is unstable, even very small populations will persist or grow and avoid crashing back to the trivial pulse.  To evaluate stability a traveling pulse, we introduce a small perturbation to the traveling pulse $n^*(\overline{x})$ and see if this perturbation grows or shrinks over time:
+As long as $f(0)=0$, there is a trivial solution to this problem where $n^*(\overline{x})\equiv 0$ for all $\overline{x}\in[-L/2,L/2]$, i.e. there is a trivial traveling pulse with no fish in it.  If the trivial traveling pulse is unstable, even very small populations will persist or grow and avoid crashing back to the trivial pulse.  To evaluate the stability of a traveling pulse, we introduce a small perturbation to the traveling pulse $n^*(\overline{x})$ and see if this perturbation grows or shrinks over time:
 
 \begin{align}
 n_t(x)&=n^*(\overline{x})+\xi_t(x) \notag
@@ -49,7 +49,7 @@ n_t(x)&=n^*(\overline{x})+\xi_t(x) \notag
 \end{align}
 
 
-If we assume $\xi_t(x)=\lambda^tu(x-ct)$ for some $\lambda\in\R$ and $u:[-L/2,L/2]\to\R$, then the perturbation grows in time if and only if $\lambda >1$.  Using Equation (\ref{perturb}), we can rewrite $\xi_t(x)$,
+If we assume $\xi_t(x)=\lambda^tu(x-ct)$ for some $\lambda\in\R$ and $u:[-L/2,L/2]\to\R$, then the perturbation grows in time if and only if $\lambda >1$.  Using Equation (\ref{perturb}), we can rewrite $\xi_{t+1}(x)$,
 \begin{align*}
 \lambda u(x-ct-c)&=(1-g'(0))f'(0)\int_{-L/2+ct}^{L/2+ct}k(x-y)u(y-ct)dy
 \\ \\\Rightarrow \lambda u(\overline{x})&=(1-g'(0))f'(0)\int_{-L/2}^{L/2}k(\overline{x}+c-\overline{y})u(\overline{y})dy
@@ -160,5 +160,7 @@ In the case of both kernels, the critical harvesting proportion can be approxima
 h^*\sim1- \frac{1}{R_0}\cdot C(L)f(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $C(L,R_0)$ is a decreasing function of the length of the viable patch and the intrinsic growth rate.
+
+\bibliography{fish}
 
 \end{document}
