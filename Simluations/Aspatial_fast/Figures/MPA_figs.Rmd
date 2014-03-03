@@ -9,18 +9,14 @@ require(RCurl)
 
 
 ```{r loadData, echo=FALSE, message=FALSE}
-#sim=read.csv("~/Desktop/noMPAnotThresh_add_2013-12-09.csv")
-# for emma's local copy
-#sim=read.csv("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv")
-
 # for synced online github data
-x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/noMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL25vTVBBbm90VGhyZXNoX2FkZF8yMDEzLTEyLTA5LmNzdiIsImV4cGlyZXMiOjEzOTI2NDYxMDl9--46e45a3eb2faef7fc22b6124253c925bd2290de9")
+x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDc3MzYwfQ%3D%3D--5fa73caaafffae7c95d930f61def04ee9b96930a")
 sim = read.csv(textConnection(x))
 
-fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/fishMPAnotThresh_add_2013-12-09.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2Zpc2hNUEFub3RUaHJlc2hfYWRkXzIwMTMtMTItMDkuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE0NH0%3D--8eff4ee16d08efcf6b266c3e4e42adde7aeff969")
+fish = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDc3MzQ2fQ%3D%3D--9b6ceb0092173222543c95381dfbb0f42f0c884f")
 fishmpa = read.csv(textConnection(fish))
 
-cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/nothresh/consMPAnotThresh_add_2014-01-23.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL25vdGhyZXNoL2NvbnNNUEFub3RUaHJlc2hfYWRkXzIwMTQtMDEtMjMuY3N2IiwiZXhwaXJlcyI6MTM5MjY0NjE2Nn0%3D--586d3cb31ac0f1fe3c49f48886e3796b5132bb77")
+cons = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0NDc3MzIwfQ%3D%3D--5f4f584256a4175eebe2ef5465e83c92ebe65cc0")
 consmpa = read.csv(textConnection(cons))
 ```
 
@@ -95,7 +91,9 @@ plotParams <- function(lis){
 Results of all simulations
 
 ```{r results}
-par(mfrow=c(1,3))
+
+ggplot(consmpa, aes(speed, harvest)) + geom_tile(aes(fill=Equil.pop, alpha = cut(Equil.pop, breaks=c(0,1, Inf)))) + scale_alpha_manual(values=c(0,1),guide="none") + scale_fill_gradient(low="gray99",high="black") + theme_minimal()
+
 noMang <- plotfig(sim); plotParams(noMang)
 fish <- plotfig(fishmpa); plotParams(fish)
 cons <- plotfig(consmpa); plotParams(cons)
