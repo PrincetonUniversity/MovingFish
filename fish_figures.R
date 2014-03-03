@@ -22,16 +22,26 @@ emmaK=100
 
 #####
 #### plotting parameters
-cex.lab=3
-cex.axis=2
-line=5
-lwd=5
-yaxs='i'
-xaxs='i'
-cex.lab=15
-cex.axis=1
-line=1
-oma=c(0,0,0,2)
+# cex.lab=3
+# cex.axis=2
+# line=5
+# lwd=5
+# yaxs='i'
+# xaxs='i'
+# cex.lab=15
+# cex.axis=1
+# line=1
+# oma=c(0,0,0,2)
+
+lwd=1
+cex.lab=.75
+cex.axis=.5
+cex.legend=.5
+tck=-.02
+mar=c(2,2,1,1)
+mgp=c(1,.25,0)
+oma=c(0,0,0,0)
+
 fig.width = 3	# for ecological applications, text needs to be at least 6 point font size
 
 ############
@@ -48,15 +58,6 @@ xvals=c(.1,.25)
 sigvals=rep(pi/2*xvals,nr)
 sigltys=rep(c(1,2),nr)
 l=length(rvals)
-
-lwd=1
-cex.lab=.75
-cex.axis=.5
-cex.legend=.5
-tck=-.02
-mar=c(2,2,1,1)
-mgp=c(1,.25,0)
-oma=c(0,0,0,0)
 
 quartz()
 postscript("critical_rates.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
@@ -90,13 +91,13 @@ r=emmaR0
 K=emmaK
 sig2=1
 tol=.00001
-diff=.01
+diff=.25
 cvals=seq(0,1,by=diff)
 hvals=seq(0,1,by=diff)
 
 
-# ebm=eqbiomass(cvals,hvals,r,K,sig2,tol=tol)
-load("/Users/eleanorbrush/Desktop/ebm.rdata")
+x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
+ebm=read.csv(textConnection(x))
 
 #which params to work with
 H=sum(apply(ebm,2,max)>tol)+2
@@ -131,7 +132,7 @@ image.plot(cvals,hvals[1:H],toplot_ebm[,1:H],breaks=cuts,col=mycols,
 	legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
 	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
 box()
-dev.off()
+graphics.off()
 
 
 ##########
