@@ -1,14 +1,16 @@
 # Load data for figures
+library(RCurl)
 
 # analytics
 
-x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
-ebm=read.csv(textConnection(x))
+x=getURL("https://raw.github.com/emfuller/MovingFish/d6b73bca90c71f0aedb616a241df24b536e0f80b/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9kNmI3M2JjYTkwYzcxZjBhZWRiNjE2YTI0MWRmMjRiNTM2ZTBmODBiL2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ1NTkzNjF9--9f57d5392b49fe11ef00599873ecc6b66926ba10")
+ebm=read.csv(textConnection(x),row.names=1)
+ebm=as.matrix(ebm,nrow=length(ebm[,1]))
 
 # simulations
 
 x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjYyfQ%3D%3D--7f380bfb17f1cd58ff4f131134ed434700767def")
-	sim = read.csv(textConnection(x))
+	sim = read.csv(textConnection(x),row.names=1)
 
 	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjQxfQ%3D%3D--2dba33c2046114811967e01914fc795e1771f425")
 	mpas = read.csv(textConnection(x))

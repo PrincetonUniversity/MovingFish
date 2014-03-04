@@ -4,20 +4,9 @@ library(colorspace)
 library(RCurl)
 source("biomass_synergy.R")
 source("critical_parameters.R")
-source("load_data.R")
+source("Simluations/Aspatial_fast/load_data.R")
 
-### parameters from Zhou
-r=3
-w=pi/4
-L=1
-
-####
-#the world
-step_size=0.01
-L=1
-world=matrix(seq(-L/2,L/2,by=step_size),nrow=1)
-emmaR0=5
-emmaK=100
+analytical_ebm=ebm
 
 #####
 #### plotting parameters
@@ -87,24 +76,17 @@ graphics.off()
 ##########
 ##########
 ##### heatmap of the equilibrium biomass as a function of c and h
-r=emmaR0
-K=emmaK
-sig2=1
-tol=.00001
-diff=.25
-cvals=seq(0,1,by=diff)
-hvals=seq(0,1,by=diff)
 
-
-# x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
-# ebm=read.csv(textConnection(x))
-
+cvals=as.numeric(str_sub(row.names(ebm),start=3))
+hvals=as.numeric(str_sub(dimnames(ebm)[[2]],start=3))
 
 #which params to work with
+tol=0.0001
 H=sum(apply(ebm,2,max)>tol)+1
-hvals=hvals[1:H]
+# hvals=hvals[1:H]
 C=length(cvals)
-toplot_ebm=as.matrix(ebm[1:C,1:H],nrow=C)
+toplot_ebm=as.matrix(ebm,nrow=C)
+toplot_ebm[toplot_ebm<0.01]=0
 
 #breaks and colors
 lower=.001
@@ -126,7 +108,7 @@ quartz()
 postscript("eqbiomass.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
 
 par(oma=oma,mar=mar,mgp=mgp)
-image.plot(cvals,hvals[1:H],toplot_ebm[,1:H],breaks=cuts,col=mycols,
+image.plot(cvals,hvals,toplot_ebm,breaks=cuts,col=mycols,
 	xlab="Climate velocity",ylab="Harvesting rate",
 	cex.lab=cex.lab,cex.axis=cex.axis, 
 	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
@@ -137,14 +119,51 @@ image.plot(cvals,hvals[1:H],toplot_ebm[,1:H],breaks=cuts,col=mycols,
 box()
 graphics.off()
 
+###########
+###########
+# synergy between harvesting and climate shift
+ebm=analytical_ebm
+cvals=as.numeric(str_sub(row.names(ebm),start=3))
+hvals=as.numeric(str_sub(dimnames(ebm)[[2]],start=3))
+
+tol=.00001
+
+ebm=as.matrix(ebm,nrow=length(hvals))
+
+syn=synergy(ebm,2)
+syn=round(syn,3)
+
+syn[is.na(syn)]=0
+syn[syn<0]=-1
+
+v=c(-2,seq(-.001,max(syn[!is.na(syn)]),length.out=100))
+cols=(sequential_hcl(length(v)-2,h=260,c.=c(0,0),l=c(30,90),power=c(.9)))
+cols=c('black',cols)
+
+myaxes=list(arrows=FALSE,col=1,
+z=list(at=round(seq(0,max(syn[!is.na(syn)]),by=.02),3),labels=as.character(round(seq(0,max(syn[!is.na(syn)]),by=.02),3))))
+
+quartz()
+postscript(file='synergy.eps',horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
+
+par(oma=oma,mar=mar,mgp=mgp)
+image.plot(cvals,hvals,syn,breaks=v,col=cols,
+	xlab="Climate velocity",ylab="Harvesting rate",
+	cex.lab=cex.lab,cex.axis=cex.axis, 
+	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
+	legend.shrink=1,legend.width=.1,zlim=range(v[-1]),
+	# axis.args=list(at=labs,labels=labs,cex.axis=cex.axis,mgp=c(0,.6,0)),
+	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis,mgp=c(0,.6,0)),
+	# legend.args=list(text="Synergy",cex=cex.lab,side=2,line=0.5,las=0),
+	bigplot=c(.13,.9,.15,.95),smallplot=c(.95,.99,.15,.95),horizontal=FALSE)
+
+	
+	graphics.off()
+
 
 ##########
 ########## 
 ##### heatmap of the equilibrium biomass as a function of c and h : SIMULATIONS
-
-# github copy
-	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjYyfQ%3D%3D--7f380bfb17f1cd58ff4f131134ed434700767def")
-	# sim = read.csv(textConnection(x))
 
 cvals=unique(sim$speed)
 hvals=unique(sim$harvest)
@@ -198,9 +217,6 @@ graphics.off()
 ##########
 ##### heatmap of the equilibrium biomass as a function of c and h : fisheries MPA
 
-# github copy
-	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjQxfQ%3D%3D--2dba33c2046114811967e01914fc795e1771f425")
-	# mpas = read.csv(textConnection(x))
 cvals=unique(mpas$speed)
 hvals=unique(mpas$harvest)
 
@@ -252,11 +268,6 @@ graphics.off()
 
 
 ##### heatmap of the equilibrium biomass as a function of c and h : conservation MPAs 
-
-# github copy
-	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjEzfQ%3D%3D--6957fb9fe54dae43ecf5c361c34446f61a1b0a0f")
-	# mpas2 = read.csv(textConnection(x))
-
 cvals=unique(mpas2$speed)
 hvals=unique(mpas2$harvest)
 
@@ -326,9 +337,6 @@ graphics.off()
 ########## 
 ##### heatmap of the equilibrium biomass as a function of c and h : THRESHOLD
 
-# online github copy
-	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAyLmNzdiIsImV4cGlyZXMiOjEzOTQ0MDg2OTF9--50c2acb25198937b8f95463cd2713c2db8f124b2")
-	# thresh = read.csv(textConnection(x))
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
 
@@ -384,53 +392,3 @@ image.plot(cvals,(threshvals),toplot_ebm,legend.shrink=1,legend.width=.1,zlim=ra
 graphics.off()
 
 
-###########
-###########
-# synergy between harvesting and climate shift
-x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
-ebm=read.csv(textConnection(x),row.names=1)
-
-r=emmaR0
-K=emmaK
-sig2=1
-tol=.00001
-diff=.01
-cvals=seq(0,1,by=diff)
-hvals=seq(0,1,by=diff)
-
-ebm=as.matrix(ebm,nrow=length(hvals))
-
-syn=synergy(ebm,2)
-
-a=apply(syn,2,min,na.rm=TRUE)
-H=max(which(is.finite(a)))
-C=length(cvals)
-# for(i in 1:H){
-	# m=which.max(syn[,i])
-	# if(is.na(syn[C-1,i]))
-	# syn[,i][(m+1):(C-1)]=NA
-# }
-H=H+1
-
-m=min(syn[!is.na(syn)])
-v=c(m-.00002,m-.00001,seq(0,max(syn[!is.na(syn)]),length.out=100))
-syn[is.na(syn)]=m-.000015
-cols=(sequential_hcl(length(v)-2,h=260,c.=c(0,0),l=c(30,90),power=c(.9)))
-cols=c('black',cols)
-
-labs=round(seq(0,max(syn[!is.na(syn)]),by=.02),3)
-
-quartz()
-postscript(file='synergy.eps',horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
-
-par(oma=oma,mar=mar,mgp=mgp)
-image.plot(cvals,hvals[1:H],syn[,1:H],breaks=v,col=cols,
-	xlab="Climate velocity",ylab="Harvesting rate",
-	cex.lab=cex.lab,cex.axis=cex.axis, 
-	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
-	legend.shrink=1,legend.width=.1,zlim=range(v),
-	axis.args=list(at=labs,labels=labs,cex.axis=cex.axis,mgp=c(0,.6,0)),
-	# legend.args=list(text="Synergy",cex=cex.lab,side=2,line=0.5,las=0),
-	bigplot=c(.13,.9,.15,.95),smallplot=c(.95,.99,.15,.95),horizontal=FALSE)
-	
-	graphics.off()
