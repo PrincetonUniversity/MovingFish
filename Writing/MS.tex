@@ -58,9 +58,7 @@ We studied a model of the dynamics of a fish population constrained to a single,
 In the model of \cite{ZhouKot2011}, the adults from the current year produce offspring according to a recruitment function and these offspring disperse across the one-dimensional world according to a dispersal kernel to become the next generation's adults.  We extend this model by additionally subjecting the adults to harvesting before they produce offspring so that only a proportion of the fish survive to reproduce. These processes -- recruitment, harvesting, and dispersal -- are incorporated into an integrodifference model to describe how the population changes over time. If $n_t(x)$ 
 is the density of fish at position $x$ at time $t$, then the density of fish at the next generation is given by
 
-\begin{equation*}
-n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{integrodifference},
-\end{equation*}
+\[n_{t+1}(x)=\int^{\frac{L}{2}+ct}_{-\frac{L}{2}+ct}k(x-y)f((1-h)n_t(y))dy \label{integrodifference},\]
 
 \noindent where $h$ is the proportion of adults harvested, $k(x-y)$ is the dispersal kernel giving the probability of a  larva traveling from position $y$ to position $x$, $L$ is the length of the patch, and $c$ is the rate at which it  shifts across space. We used a Beverton-Holt stock-recruitment function for $f(n)$,
 
