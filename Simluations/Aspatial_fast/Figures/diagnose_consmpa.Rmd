@@ -71,7 +71,7 @@ contourplot(Equil.pop ~ speed * -thresh | factor(management), data = threshz, re
 Looking at the weird variance in some of the `consmpa` simulations, try to target
 
 ```{r}
- ggplot(consmpa, aes(x=speed, y = Equil.pop)) + geom_line() + facet_wrap(~harvest)
+ ggplot(consmpa, aes(x=speed, y = Equil.pop)) + geom_line() + facet_wrap(~harvest) + geom_point()
 ```
 
 Looks like it's in `h=0.08,0.09, 0.1, 0.12`
@@ -87,8 +87,8 @@ And it's in different places depending on the harvest.. So the simulations to lo
 
 + `h = 0.08; s = 0.24-0.28`
 + `h = 0.09; s = 0.24-0.28`
-+ `h = 0.10; s = 0.14-0.16`
-+ `h = 0.12; s = 0.14-0.16`
++ `h = 0.10; s = 0.14-0.18`
++ `h = 0.12; s = 0.14-0.18`
 
 The next step is to run a few of these simulations and save entire outputs (biomass over space/time). Will do `h = 0.08, s = 0.24-0.28`
 
@@ -102,8 +102,8 @@ require(lattice)
 require(dplyr)
 require(reshape)
 steps = 300   # setting number of steps over which to take equilibrium 
-harvests = 0.08
-speeds = seq(0.24,0.28,0.02)
+harvests = seq(0,.15,0.01)
+speeds = c(0.1,0.3)
 MPA = "cons"
 source("Figures/variable_steps.R")
 ```
