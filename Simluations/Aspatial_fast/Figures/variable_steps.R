@@ -40,10 +40,10 @@ for(q in 1:length(speeds)){
       init.h <- cbind(init.h,next.pop[[1]])
       MPA.current <- next.pop[[3]]
       h.diff <- abs(sum(init.h[,T]-init.h[,T-1]))
-      if(ncol(init.h) > 100){
-        rolls <- rollmean(colSums(init.h), k = move_window)
-        diff.rolls <- diff(rolls)
-        roll.mean <- diff.rolls[length(diff.rolls)]
+      if(ncol(init.h) > 300){
+      rolls <- rollmean(colSums(init.h), k = move_window)
+      diff.rolls <- diff(rolls)
+      roll.mean <- diff.rolls[length(diff.rolls)]
       }
     }
     # add in moving climate
@@ -54,7 +54,14 @@ for(q in 1:length(speeds)){
     h.diff <- abs(sum(init.h[,T]-move[,1]))
     roll.mean = 1 # reset
     
-    T = 1
+    for (i in 2:300){
+      next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+      move <- cbind(move, next.pop[[1]])
+      MPA.current = next.pop[[3]]
+      harv[(i-T)] <- sum(next.pop[[2]])
+    }  
+    
+    T = ncol(move)
     
     while(h.diff > init.diff & roll.mean > init.diff){
       T = T + 1

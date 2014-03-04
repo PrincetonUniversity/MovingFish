@@ -318,6 +318,21 @@ image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
 box()
 graphics.off()
 
+postscript("eqbiomass_consmpa.eps", horizontal = FALSE, onefile = FALSE, paper = "special", width = fig.width,height=fig.width,bg="white")
+
+par(oma=oma)
+image.plot(cvals,hvals,toplot_ebm2,breaks=cuts,col=mycols,
+	xlab="Climate velocity",ylab="Harvesting rate",
+	cex.lab=cex.lab,cex.axis=cex.axis, 
+	yaxs=yaxs,xaxs=xaxs,axes=TRUE,
+	legend.shrink=1,legend.width=.1,zlim=range(cuts),
+	axis.args=list(at=myaxes$z$at,labels=myaxes$z$labels,cex.axis=cex.axis),
+	#legend.args=list(text="Equilibrium biomass",cex=cex.lab,side=2,line=0.5,las=0),
+	bigplot=c(.13,.85,.15,.95),smallplot=c(.91,.95,.15,.95),horizontal=FALSE)
+box()
+
+graphics.off()
+
 ##########
 ########## 
 ##### heatmap of the equilibrium biomass as a function of c and h : THRESHOLD
