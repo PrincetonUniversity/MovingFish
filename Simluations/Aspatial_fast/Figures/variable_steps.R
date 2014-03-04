@@ -1,9 +1,7 @@
 # MPA simulation with variable numbers of steps for 'equilibrium' step. Set steps outside of this file
 
 # adding in subset of parameters, so instead of running Parameters_nothresh.R, am manually entering
-harvests = 0.1
-speeds = seq(0.02,0.1,.01)
-MPA = "cons"
+
 
 sims = vector("list", length(speeds))
 
@@ -71,6 +69,19 @@ for(q in 1:length(speeds)){
         roll.mean <- diff.rolls[length(diff.rolls)]
         print(T)
       }
+    }
+    
+    T = ncol(move)
+    # then run until the MPA.current matches the MPA.start so we compare populations at the same point in spatial cycle
+    req = 0   # this is the condition for stopping, can be modified if count gets too high
+    while(length(which(MPA.current!=MPA.start)) > req){
+      T = T + 1
+      next.pop <- m(n=move[,T-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+      
+      move <- cbind(move, next.pop[[1]])
+      MPA.current <- next.pop[[3]]
+      print(T)
+      print(length(which(MPA.current!=MPA.start)))		  
     }
     
     # simulate for <steps> steps after equilibrium and take average

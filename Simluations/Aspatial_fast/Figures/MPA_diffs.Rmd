@@ -78,6 +78,15 @@ pd <- position_dodge(.1)
 ggplot(subData, aes(x = speed, y = Equil.pop))+ facet_wrap(~management) + geom_line() + geom_ribbon(aes(ymin = Equil.pop - Equil.pop.se, ymax = Equil.pop + Equil.pop.se), alpha = 0.35) + theme_bw()
 ```
 
+Looking at the weird variance in some of the simulations, try to target
+
+```{r}
+ ggplot(consmpa, aes(x=speed, y = Equil.pop)) + geom_line() + facet_wrap(~harvest)
+```
+
+Looks like it's in `h=0.08,0.09, 0.1, 0.12`
+
+
 Trying the same plot but a higher rate of catch: $h = 0.10$ I get,
 
 ```{r variance_high, echo = FALSE, fig.width=10, fig.height=5}
