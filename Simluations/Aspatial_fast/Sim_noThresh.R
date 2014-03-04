@@ -48,9 +48,18 @@ for(q in 1:length(speeds)){
     move[,1] <- next.pop[[1]]
     MPA.current <- next.pop[[3]]
     h.diff <- abs(sum(init.h[,T]-move[,1]))
-    roll.mean = 1 # reset
+    roll.mean = 10 # reset
     
-    T = 1
+    # run for an extra 300 steps to ensure we get out of transition between harvesting and move+harvesting
+    
+    for (i in 2:300){
+      next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+      move <- cbind(move, next.pop[[1]])
+      MPA.current = next.pop[[3]]
+      harv[(i-T)] <- sum(next.pop[[2]])
+    }  
+    
+    T = ncol(move)
     
     while(h.diff > init.diff & roll.mean > init.diff){
       T = T + 1
@@ -59,11 +68,10 @@ for(q in 1:length(speeds)){
       move <- cbind(move, next.pop[[1]])
       MPA.current <- next.pop[[3]]
       h.diff <- abs(sum(move[,T]-move[,T-1]))
-      if(ncol(move) > 300){
-      	rolls <- rollmean(colSums(move), k = move_window)
-      	diff.rolls <- diff(rolls)
-		roll.mean <- diff.rolls[length(diff.rolls)]
-    }
+      rolls <- rollmean(colSums(move), k = move_window)
+      diff.rolls <- diff(rolls)
+		  roll.mean <- diff.rolls[length(diff.rolls)]
+
     }
     
     T = ncol(move)

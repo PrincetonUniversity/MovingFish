@@ -4,7 +4,7 @@ library(colorspace)
 library(RCurl)
 source("biomass_synergy.R")
 source("critical_parameters.R")
-
+source("load_data.R")
 
 ### parameters from Zhou
 r=3
@@ -96,8 +96,9 @@ cvals=seq(0,1,by=diff)
 hvals=seq(0,1,by=diff)
 
 
-x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
-ebm=read.csv(textConnection(x),row.names=1)
+# x=getURL("https://raw.github.com/emfuller/MovingFish/38c6f3bb51dae267fe4056159609de100fb34826/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC8zOGM2ZjNiYjUxZGFlMjY3ZmU0MDU2MTU5NjA5ZGUxMDBmYjM0ODI2L2VxYmlvbWFzc19nYXVzLmNzdiIsImV4cGlyZXMiOjEzOTQ0ODQ5OTh9--d95944353679e18e44def40cd49ca41a22502039")
+# ebm=read.csv(textConnection(x))
+
 
 #which params to work with
 H=sum(apply(ebm,2,max)>tol)+1
@@ -142,8 +143,8 @@ graphics.off()
 ##### heatmap of the equilibrium biomass as a function of c and h : SIMULATIONS
 
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjYyfQ%3D%3D--7f380bfb17f1cd58ff4f131134ed434700767def")
-	sim = read.csv(textConnection(x))
+	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjYyfQ%3D%3D--7f380bfb17f1cd58ff4f131134ed434700767def")
+	# sim = read.csv(textConnection(x))
 
 cvals=unique(sim$speed)
 hvals=unique(sim$harvest)
@@ -198,8 +199,8 @@ graphics.off()
 ##### heatmap of the equilibrium biomass as a function of c and h : fisheries MPA
 
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjQxfQ%3D%3D--2dba33c2046114811967e01914fc795e1771f425")
-	mpas = read.csv(textConnection(x))
+	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjQxfQ%3D%3D--2dba33c2046114811967e01914fc795e1771f425")
+	# mpas = read.csv(textConnection(x))
 cvals=unique(mpas$speed)
 hvals=unique(mpas$harvest)
 
@@ -253,8 +254,8 @@ graphics.off()
 ##### heatmap of the equilibrium biomass as a function of c and h : conservation MPAs 
 
 # github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjEzfQ%3D%3D--6957fb9fe54dae43ecf5c361c34446f61a1b0a0f")
-	mpas2 = read.csv(textConnection(x))
+	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-01.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wMS5jc3YiLCJleHBpcmVzIjoxMzk0NDA4NjEzfQ%3D%3D--6957fb9fe54dae43ecf5c361c34446f61a1b0a0f")
+	# mpas2 = read.csv(textConnection(x))
 
 cvals=unique(mpas2$speed)
 hvals=unique(mpas2$harvest)
@@ -311,8 +312,8 @@ graphics.off()
 ##### heatmap of the equilibrium biomass as a function of c and h : THRESHOLD
 
 # online github copy
-	x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAyLmNzdiIsImV4cGlyZXMiOjEzOTQ0MDg2OTF9--50c2acb25198937b8f95463cd2713c2db8f124b2")
-	thresh = read.csv(textConnection(x))
+	# x = getURL("https://raw.github.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAyLmNzdiIsImV4cGlyZXMiOjEzOTQ0MDg2OTF9--50c2acb25198937b8f95463cd2713c2db8f124b2")
+	# thresh = read.csv(textConnection(x))
 cvals=unique(thresh$speed)
 threshvals=unique(thresh$thresh)
 
