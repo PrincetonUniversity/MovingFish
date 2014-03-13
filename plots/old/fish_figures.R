@@ -5,7 +5,8 @@ library(RCurl)
 source("biomass_synergy.R")
 source("critical_parameters.R")
 source("Simluations/Aspatial_fast/load_data.R")
-
+require(stringr)
+require(colorspace)
 analytical_ebm=ebm
 
 #####
