@@ -58,7 +58,7 @@ for(q in 1:length(speeds)){
       next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
       move <- cbind(move, next.pop[[1]])
       MPA.current = next.pop[[3]]
-      harv[(i-T)] <- sum(next.pop[[2]])
+      #harv[(i-T)] <- sum(next.pop[[2]])
     }  
     
     T = ncol(move)
@@ -97,7 +97,7 @@ for(q in 1:length(speeds)){
       next.pop <- m(n=move[,i-1], s = speeds[q], Fharv=harvests[j], mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
       move <- cbind(move, next.pop[[1]])
       MPA.current = next.pop[[3]]
-      harv[(i-T)] <- sum(next.pop[[2]])
+      #harv[(i-T)] <- sum(next.pop[[2]])
       
     }
   }

@@ -72,3 +72,6 @@ subnewdata <- subset(newdata, speed == 1)
 pdf(file="bounded_flux.pdf")
 xyplot(sums ~ time | MPA, data = subnewdata, type='l',lwd=2,ylab="Population biomass")
 dev.off()
+
+mean(subnewdata$sums[subnewdata$MPA=="many small MPAs"])
+mean(subnewdata$sums[subnewdata$MPA=="few large MPAs"])
