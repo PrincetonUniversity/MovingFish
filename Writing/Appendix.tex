@@ -21,7 +21,7 @@
 In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates.
 
 \subsection{Determining stability \label{stab}}
-Let $k(x)$ be a dispersal kernel describing the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring produced by a population of size $n$, let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$, and let $n_t(x)$ be the number of adults at position $x$ at time $t$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
+Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describing the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring produced by a population of size $n$, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
 
 \begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y))dy. \label{integro} \end{equation}
 as described in \citep{ZhouKot2011}.  With the addition of harvesting, the model becomes
@@ -176,13 +176,15 @@ h^*\sim1- \frac{1}{R_0}\cdot g(L)q(\sigma^2,c^2,L^2+3c^2)
 \end{equation}
 where $g(L)$ is a decreasing function of the length of the viable patch $L$.
 
+\pagebreak
 \subsection{MPA fluctuations}
 
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[width=1\textwidth]{plots/bounded_flux.pdf}
 \caption{Comparing population over time where $s = 0.1, h = 0.08$, see bounded\_flux.R for code that made this plot. }
 \end{figure}
 
+\pagebreak
 \bibliography{fish}
 
 \end{document}
