@@ -121,7 +121,14 @@ ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 		scale_fill_gradient(low="black", high="white") + 
 		theme(legend.position="bottom", text=element_text(family="Helvetica", size = 11)) + 
 		guides(fill = guide_colorbar(barwidth = 18, barheight = 1, title.position="top", title="Equilibrium Biomass"))
+		
+	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="A") + xlab("") + ylab("")
 
+	plotB <- ggplot(threshz, aes(x=speed, y = -thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")
+	
+	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="C")+ xlab("") + ylab("")
+	
+	plotD <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="D")+ xlab("") + ylab("")
 
-
+	grid.arrange(plotA, plotB,plotC,plotD)
 
