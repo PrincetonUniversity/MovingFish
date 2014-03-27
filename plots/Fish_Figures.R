@@ -122,13 +122,39 @@ ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 		theme(legend.position="bottom", text=element_text(family="Helvetica", size = 11)) + 
 		guides(fill = guide_colorbar(barwidth = 18, barheight = 1, title.position="top", title="Equilibrium Biomass"))
 		
-	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="A") + xlab("") + ylab("")
+	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 
-	plotB <- ggplot(threshz, aes(x=speed, y = -thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")
-	
-	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="C")+ xlab("") + ylab("")
-	
-	plotD <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="D")+ xlab("") + ylab("")
 
-	grid.arrange(plotA, plotB,plotC,plotD)
+	plotB <- ggplot(threshz, aes(x=speed, y = -thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") 
+
+
+	
+	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="C")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
+
+
+	
+	plotD <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+		geom_raster(interpolate=TRUE) + theme_tufte() + 
+		scale_fill_gradient(low="black", high="white") + 
+		labs(title="D")+ xlab("") + ylab("") + 
+		theme(legend.position="right", text=element_text(family="Helvetica", size = 11),plot.margin=unit(c(.0,0,0,0),"cm")) + 
+		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
+			
+	
+# grabbing the legend from the last plot
+
+library(gridExtra)
+g_legend<-function(a.gplot){
+tmp <- ggplot_gtable(ggplot_build(a.gplot))
+leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+legend <- tmp$grobs[[leg]]
+return(legend)}
+
+legend <- g_legend(plotD)
+lwidth <- sum(legend$width)
+
+pdf(file="fig3.pdf",width=6,height=5)
+		grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+		dev.off()
+
 
