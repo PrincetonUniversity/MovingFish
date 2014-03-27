@@ -23,7 +23,7 @@ require(ggthemes)
 	rvals=c(rep(3,ns),rep(5,ns),rep(10,ns))
 	rcols=c(rep('black',ns),rep('red',ns),rep('blue',ns))
 	xvals=c(.1,.25)
-	sigvals=rep(pi/2*xvals,nr)
+	sigvals=rep(pi/2*xvals^2,nr)
 	sigltys=rep(c(1,2),nr)
 	l=length(rvals)
 
@@ -40,7 +40,7 @@ require(ggthemes)
 	names(melted_h) <- c("h", "Param_combo")
 	melted_h$speed <- rep(cvals, 6)
 	melted_h$R <- rep(rvals, each = 101)
-	melted_h$d <- round(rep(sigvals, each =101),digits=2)
+	melted_h$d <- round(rep(xvals, each =101),digits=2)
 
 	plot1 <- ggplot(melted_h, aes(x=speed, y = h, group=Param_combo)) + 
 		geom_line(aes(color=factor(R), linetype=factor(d)),size=1) + 
