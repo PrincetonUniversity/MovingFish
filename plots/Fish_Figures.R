@@ -22,7 +22,7 @@ require(ggthemes)
 	ns=2
 	rvals=c(rep(3,ns),rep(5,ns),rep(10,ns))
 	rcols=c(rep('black',ns),rep('red',ns),rep('blue',ns))
-	xvals=c(.1,.25)
+	xvals=c(.1,.5)
 	sigvals=rep(pi/2*xvals^2,nr)
 	sigltys=rep(c(1,2),nr)
 	l=length(rvals)
