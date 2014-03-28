@@ -112,20 +112,11 @@ ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 	consmpa$management = rep("Few Large MPAs", nrow(consmpa))
 	fishmpa$management = rep("Many Small MPAs", nrow(fishmpa))
 	threshz$management = rep("Thresholds", nrow(threshz))
-	allData <- rbind(consmpa,fishmpa, sim)
-
-	ggplot(allData, aes(x = speed, y = harvest, fill = Equil.pop)) + 
-		geom_raster(interpolate=TRUE) + 
-		facet_wrap(~management, scales="free") + 
-		theme_tufte() + 
-		scale_fill_gradient(low="black", high="white") + 
-		theme(legend.position="bottom", text=element_text(family="Helvetica", size = 11)) + 
-		guides(fill = guide_colorbar(barwidth = 18, barheight = 1, title.position="top", title="Equilibrium Biomass"))
-		
+	threshz$ord_thresh <- threshz$thresh/max(threshz$thresh)
 	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 
 
-	plotB <- ggplot(threshz, aes(x=speed, y = -thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") 
+	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") + scale_y_reverse()
 
 
 	
