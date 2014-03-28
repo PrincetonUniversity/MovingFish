@@ -21,14 +21,14 @@
 In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. 
 
 \subsection{Determining stability \label{stab}}
-Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describing the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring produced by a population of size $n$, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
+Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describingt the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring produced by a population of size $n$, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
 
-\begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y))dy. \label{integro} \end{equation}
-as described in \citep{ZhouKot2011}.  With the addition of harvesting, the model becomes
+\begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y))dy \label{integro} \end{equation}
+as described in \citet{ZhouKot2011}.  With the addition of harvesting, the model becomes
 
 \begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy. \label{integro} \end{equation}
 
-In evaluating persistence, we follow the methods of \citep{ZhouKot2011}.  A traveling pulse is a solution such that population size relative to location within the patch (rather than absolute position) is constant over time, i.e. 
+In evaluating persistence, we apply the methods of \citet{ZhouKot2011} to the new model, Equation 2.  A traveling pulse is a solution such that population size relative to location within the patch (rather than absolute position) is constant over time, i.e. 
 
 \begin{equation*}
 n^*(\overline{x}_t)\equiv n^*(x-ct)=n_t(x),   \label{trav} 
@@ -82,7 +82,7 @@ $\lambda$ and $u$ are thus an eigenvalue and eigenfunction of the functional ope
 The biomass in the equilibrium traveling wave depends on the specific functional form of the harvesting function $g(n)$.  However, the persistence of the population only depends on $g'(0)$ so in this paper, we only considered a proportional harvesting function, i.e. the amount of fish harvested obeyed $g(n)=hn$.  For this function, $g'(0)=h$.  
 
 \subsection{Separable dispersal kernels \label{sep}}
-It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e. there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
+It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
 \begin{align}
 \lambda u(x)&=f'(0)\sum_{n=1}^\infty\left( a_n(x)\int_{-L/2}^{L/2}b_n(y-c)u(y)dy\right) \notag
 \\ \Rightarrow \lambda\int_{-L/2}^{L/2}b_k(x-c)u(x)dx&=f'(0)\sum_{n=1}^{\infty}\left(\int_{-L/2}^{L/2}b_n(x-c)u(x)dx\right)\left(\int_{-L/2}^{L/2}a_n(y)b_k(y-c)dy\right) \notag \text{for any $k$}
@@ -96,7 +96,8 @@ Finding the eigenvalues of (\ref{eigen}) then reduces to finding the eigenvalues
 
 \subsection{Gaussian dispersal kernel \label{gausapp}}
 The Gaussian dispersal kernel is given by
-$$k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}}.$$
+$$k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}},$$
+where $D=\frac{\pi}{4}\langle d\rangle$ and $\langle d \rangle$ is the expected distance a larva disperses.
 This is a separable kernel with
 $a_n(x)=b_n(x)=\frac{1}{\sqrt{2n!\sqrt{D\pi}}}e^{-x^2/4D}\left(\frac{x}{\sqrt{2D}}\right)^n$ \citep{Latore:1998fk}.
 
@@ -124,7 +125,7 @@ If we solve for $\lambda$,we find
 \begin{equation*} \lambda=(1-h)R_0\left[\frac{wL\cos(wc)}{4}+\frac{1}{4}\sqrt{\sin^2(wL)-w^2L^2\sin^2(wc)}\right]. \label{cosine} \end{equation*}
 
 
-Zhou et al. \citep{ZhouKot2011} solve for the critical speed, $c^*$, at which the population will be driven extinct:
+\citet{ZhouKot2011} solve for the critical speed, $c^*$, at which the population will be driven extinct:
 $$c^*=c^*(R_0)=\frac{1}{w}\cos^{-1}\left[\frac{16+R_0^2(1-h)^2(w^2L^2-\sin^2(wL))}{8R_0(1-h)wL}\right].$$
 In our model, we can additionally solve for the critical harvesting rate, $h^*$, at which the population will be driven extinct:
 $$
@@ -180,8 +181,9 @@ where $g(L)$ is a decreasing function of the length of the viable patch $L$.
 \subsection{MPA fluctuations \label{MPA}}
 ~\\After the simulations come to equilibrium, the fluctuations in total biomass per generation fluctuate more in MPAs that are larger and spaced farther apart than simulations in which the MPAs that are smaller and more closely spaced. The large MPAs have a slightly larger average population, however large MPAs here can induce fluctuations of biomass even in deterministic simulations. Thus we expect if reproduction was stochastic, large MPAs spaced far apart would be more likely to result in extinction of the population than more closely spaced, smaller MPAs. 
 \begin{figure}[h]
-\includegraphics[width=.85\textwidth]{plots/bounded_flux.pdf}
-\caption{Total population biomass at is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.08$. }
+\centering
+\includegraphics[width=.5\textwidth]{plots/bounded_flux.pdf}
+\caption{Total population biomass is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.08$. }
 % see bounded\_flux.R for code that made this plot
 \end{figure}
 
