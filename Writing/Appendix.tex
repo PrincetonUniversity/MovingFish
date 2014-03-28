@@ -53,15 +53,16 @@ n_t(x)&=n^*(\overline{x}_t)+\xi_t(x) \notag
 \\ \Rightarrow \xi_{t+1}(x)&=n_{t+1}(x)-n^*(\overline{x}_{t+1}) \notag
 \\&=n_{t+1}(x)-n^*(\overline{x}_{t}-c) \notag
 \\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2}^{L/2}k(\overline{x}_{t}-\overline{y}_t)f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))d\overline y_t \text{ using (\ref{pulse})} \notag
-\\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2}^{L/2}k(\overline{x}_{t}-\overline{y}_t)f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))d\overline y_t \notag
+%\\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2}^{L/2}k(\overline{x}_{t}-\overline{y}_t)f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))d\overline y_t \notag
 \\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2+ct}^{L/2+ct}k(x-ct-(y-ct))f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))d\overline y_t \notag
 \\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))d\overline y_t \notag
 \\ &=\int_{-L/2+ct}^{L/2+ct}k(x-y)\big(f(n_t(y)-g(n_t(y)))-f(n^*(\overline{y}_t)-g(n^*(\overline{y}_t))\big)dy \notag
 %%
 %\\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)f(n_t(y)-g(n_t(y)))dy-\int_{-L/2}^{L/2}k(x+ct-\overline{y})f(n^*(\overline{y})-g(n^*(\overline{y}))d\overline y \notag
 %\\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)\big(f(n_t(y)-g(n_t(y)))-f(n^*(\overline{y})-g(n^*(\overline{y}))\big)dy \notag
-\\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)(1-g'(n^*(\overline{y})))f'(n^*(\overline{y})-g(n^*(\overline{y}))\xi_t(y)dy \notag
+\\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)(1-g'(n^*(\overline{y})))(n_t(y)-n^*(\overline{y}_t))f'(n^*(\overline{y})-g(n^*(\overline{y}))dy \notag
 \\& \text{ by linearizing around the traveling pulse} \notag
+\\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)(1-g'(n^*(\overline{y})))f'(n^*(\overline{y})-g(n^*(\overline{y}))\xi_t(y)dy \notag
 \\ \Rightarrow \xi_{t+1}(x)&=\int_{-L/2+ct}^{L/2+ct}k(x-y)(1-g'(0))f'(0)\xi_t(y)dy \text{ if $n^*(\overline{x})=0$} \label{perturb}
 \end{align}
 
@@ -84,20 +85,21 @@ The biomass in the equilibrium traveling wave depends on the specific functional
 \subsection{Separable dispersal kernels \label{sep}}
 It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
 \begin{align}
-\lambda u(x)&=f'(0)\sum_{n=1}^\infty\left( a_n(x)\int_{-L/2}^{L/2}b_n(y-c)u(y)dy\right) \notag
-\\ \Rightarrow \lambda\int_{-L/2}^{L/2}b_k(x-c)u(x)dx&=f'(0)\sum_{n=1}^{\infty}\left(\int_{-L/2}^{L/2}b_n(x-c)u(x)dx\right)\left(\int_{-L/2}^{L/2}a_n(y)b_k(y-c)dy\right) \notag \text{for any $k$}
-\\ \Rightarrow \lambda d_k&=f'(0)\sum_{n=1}^\infty A_{nk}d_n  \label{problem}
+\lambda u(x)&=(1-g'(0))f'(0)\sum_{n=1}^\infty\left( a_n(x)\int_{-L/2}^{L/2}b_n(y-c)u(y)dy\right) \notag
+\\ \Rightarrow \lambda\int_{-L/2}^{L/2}b_k(x-c)u(x)dx&=(1-g'(0))f'(0)\sum_{n=1}^{\infty}\left(\int_{-L/2}^{L/2}b_n(x-c)u(x)dx\right)\left(\int_{-L/2}^{L/2}a_n(y)b_k(y-c)dy\right) \notag
+\\& \text{for any $k$} \notag
+\\ \Rightarrow \lambda d_k&=(1-g'(0))f'(0)\sum_{n=1}^\infty A_{nk}d_n  \label{problem}
 \end{align}
 where
 \begin{equation*}
 A_{nk}=\int_{-L/2}^{L/2}a_n(x)b_k(x-c)dx \text{ and } d_k=\int_{-L/2}^{L/2}b_k(x-c)u(x)dx
 \end{equation*}
-Finding the eigenvalues of (\ref{eigen}) then reduces to finding the eigenvalues of the matrix $(A_{nk})_{n,k=1}^\infty$.
+Finding the eigenvalues of (\ref{eigen}) then reduces to finding the eigenvalues of the matrix comprised of entires $(A_{nk})_{n,k=1}^\infty$.
 
 \subsection{Gaussian dispersal kernel \label{gausapp}}
 The Gaussian dispersal kernel is given by
 $$k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}},$$
-where $D=\frac{\pi}{4}\langle d\rangle$ and $\langle d \rangle$ is the expected distance a larva disperses.
+where $D$ is one half the variance of the kernel.
 This is a separable kernel with
 $a_n(x)=b_n(x)=\frac{1}{\sqrt{2n!\sqrt{D\pi}}}e^{-x^2/4D}\left(\frac{x}{\sqrt{2D}}\right)^n$ \citep{Latore:1998fk}.
 
