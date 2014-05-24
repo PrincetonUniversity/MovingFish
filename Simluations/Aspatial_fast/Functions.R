@@ -103,15 +103,15 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	
 	
 	# harvesting and MPAs
-	if(!is.na(Fthresh)) { 
+	if(!is.na(Fthresh)) { # if thresholds
 		next_gen = ifelse(next_patch < Fthresh, next_patch, next_patch - (next_patch - Fthresh) * Fharv) 
 		}
 	
-	if(!is.na(Fharv) & is.na(Fthresh)) {
+	if(!is.na(Fharv) & is.na(Fthresh)) { # if harvesting, no thresholds
     	next_gen = next_patch*(1-Fharv)
     	}
     
-	if(is.na(Fharv) & is.na(Fthresh)) {next_gen = next_patch}
+	if(is.na(Fharv) & is.na(Fthresh)) {next_gen = next_patch} # if no harvesting of any kind
     	
     # evaluate MPA coverage
     next_gen[MPA_finish == 1] <- next_patch[MPA_finish == 1] 
@@ -129,7 +129,7 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 
 startOut <- function(w, maxt, mpa.yes,mpa.no,world){
 # initializing the population with no pressure (no harvesting, no climate)
-init<-array(0,c(w,maxt)) 
+init<-array(0,c(w,maxt)) # rows are world, columns are time
 init[which(patch==0.55),1]=50
 MPA.start = rep(c(mpa.yes,mpa.no),length.out=length(world))
 for(t in 2:maxt){
