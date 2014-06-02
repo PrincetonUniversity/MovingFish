@@ -3,7 +3,7 @@ library(RCurl)
 
 # analytics
 
-x=getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/plots/eqbiomass_gaus.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvcGxvdHMvZXFiaW9tYXNzX2dhdXMuY3N2IiwiZXhwaXJlcyI6MTM5NjU1NDcwN30%3D--206b5aaf6a06b82faa6f082379ee975236cea6c8")
+x=getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/plots/eqbiomass_gaus.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvcGxvdHMvZXFiaW9tYXNzX2dhdXMuY3N2IiwiZXhwaXJlcyI6MTQwMjMxODk2MX0%3D--0353a5ad723f0a92036ec6b4eeec43d565b43e90")
 ebm=read.csv(textConnection(x),row.names=1)
 ebm=as.matrix(ebm,nrow=length(ebm[,1]))
 
