@@ -11,7 +11,6 @@ f<-function(n,R0,K) return(R0*n/(1+(R0-1)/K*n))
 #Standard error removing NAs
 stderr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
 
-
 moveMPA <- function(MPA.current = MPA.current, displaced = displaced, mpa.yes=mpa.yes, mpa.no=mpa.no, world){
   
   ##### Move MPAS
@@ -77,19 +76,14 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	# harvesting occurs first - check to see how should re-allocate effort
 	
 	if(!is.na(effort_re_allocate)){	
-		total_catch = sum(n*Fharv)
+		total_catch = sum(n)*Fharv
 		available_total_pop = sum(n[which(MPA.current==0)]) # pop with no MPA coverage
-		available_fish <- n[which(MPA.current==0)] # available_total_pop # proportion at each point
+		available_fish = rep(0,length(n))
+		available_fish[MPA.current==0] <- n[MPA.current==0]/available_total_pop # available_total_pop 
+		# proportion at each point
 		catch_in_space <- total_catch*available_fish # allocate catch
 		
-		# NEED check that total catch is preserved
-		#sum(catch_in_space == total_catch)
-		
-		harvest <- MPA.current
-		harvest[harvest==0]<-catch_in_space
-		harvest[harvest==1]<-0
-		
-		next_gen = n-harvest
+		next_gen = n-catch_in_space
 		next_gen[next_gen<0] = 0
 	}else{
 		if(!is.na(Fthresh)) { # if thresholds
@@ -135,133 +129,41 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
  	return(list(n2,harv,MPA))
 }
 
-# goes until the slope is less than 0.001 as measured with linear regression. Returns final population 
-startOut <- function(s, mpa.yes, mpa.no, burn_in, Fharv, Fthresh, init, MPA.start){
-	# burn in:
+longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init, MPA.start, generations_total, generations_av, effort_re_allocate=NA){
 	MPA.current <- MPA.start
-	cat("burning in...\n")
-		for(t in 1:burn_in){
-			output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-			init= output[[1]]
-			MPA.current = output[[3]]
-			if(sum(output[[1]])<threshold){ # if below threshold, call it zero and end this loop
-			return(list(rep(0,nrow(ts.init)),MPA.current))}
-
-		}
-	# now continue and require that the slope is < threshold
-		slope <- 1 # initializing the difference between steps
-		ts.i <- 1 # indexes the time series array
-		ts.init <- as.data.frame(init) 
-		
-	# initializing first 2
-	cat("initializing first two...\n")
-		output = m(n=ts.init[,ts.i], s = s, Fthresh=Fthresh, Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-		ts.init = cbind(ts.init,output[[1]])
+	burn_in <- generations_total - generations_av
+	for(t in 1:(burn_in)){
+		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+		init= output[[1]]
 		MPA.current = output[[3]]
-		ts.sums = data.frame(ts.sums = colSums(ts.init),time=1:ncol(ts.init))
-		ts.i <-2
-		output = m(n=ts.init[,ts.i], s = s, Fthresh=Fthresh, Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-		ts.init = cbind(ts.init,output[[1]])
-		MPA.current=output[[3]]
-		ts.sums = data.frame(ts.sums = colSums(ts.init),time=1:ncol(ts.init))
+	}
 	
-	cat("checking for slope < threshold...\n")	
-	while(abs(slope) > threshold){
-		
-		ts.i = ts.i + 1
-		output = m(n=ts.init[,ts.i], s = s, Fthresh=Fthresh, Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-		ts.init = cbind(ts.init,output[[1]])
-		MPA.current=output[[3]]
-		ts.sums = data.frame(ts.sums = colSums(ts.init),time=1:ncol(ts.init))
-		sumlm <- summary(lm(ts.sums~time,data=ts.sums))
-		slope = coef(sumlm)[2]
-		# if below threshold, call it zero and end this loop
-		if(sum(output[[1]])<threshold) return(list(rep(0,nrow(ts.init)),MPA.current))
-		
-			#par(mfrow=c(1,2))
-			#plot(world,MPA.current*9,col="grey",main=paste("Speed=",s," Harvest rate=",Fharv,sep=""),type="h",ylim=c(0,10))
- 			#lines(world,output[[1]],lwd=2,col="blue")
-			#plot(ts.sums$time, ts.sums$ts.sums,type="o",pch=19,col="orange",main="population over time")
-		}
-	
-	# if monotonic, return final abundance (sum of final time step)
-	# if periodic, (i.e. any(diff(ts.init[,ts.i]>0)==TRUE)), then need to do periodicity and take average of last period. 
-	
-	cat("checking for periodicity...\n")
-	if(any(diff(ts.sums$ts.sums)>0) & s>0){ # if periodic then...
-	# make sure there are at least 3 periods, if not keep going until true
-	cat("adding a few more periods...\n")
-	while(count_ind(ts.sums$ts.sums)[[1]]==FALSE){
-			ts.i = ts.i + 1
-			output = m(n=ts.init[,ts.i], s = s, Fthresh=Fthresh, Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
-			ts.init = cbind(ts.init,output[[1]])
-			MPA.current=output[[3]]
-			ts.sums = data.frame(ts.sums = colSums(ts.init),time=1:ncol(ts.init))
-			if(sum(output[[1]])<threshold){ # if below threshold, call it zero and end this loop
-			return(list(rep(0,nrow(ts.init)),MPA.current))}
+	# make dataframe for simulation average
+	pop <- rep(0,generations_av)
+	sd <- rep(0,generations_av)
+	for(keep in 1:generations_av){
+		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+		init = output[[1]]
+		MPA.current = output[[3]]
+		pop[keep] = sum(output[[1]])
 
-				# plot(world,MPA.current*9,col="grey",main=paste("Speed=",s," Harvest rate=", Fharv, sep=""), type="h", ylim=c(0,10))
- 				# lines(world,output[[1]],lwd=2,col="blue")
-				 #plot(ts.sums$time, ts.sums$ts.sums, type="o", pch=19, col="orange", main = "population over time")
-		cat(".")
-		}
-		
-		# once more than 3 periods label periods and get average for final period
-		final_mean <- findPeriod(ts.sums$ts.sums)
-		return(list(final_mean,MPA.current))	
-	}else{return(list(ts.init[,ts.i], MPA.current))}
+	}
+	
+	# take mean for equil_abundance
+	equil.pop = mean(pop)
+	equil.sd = sd(pop)
+	
+	return(list(equil.pop,equil.sd))
 }
 
-# identify periods if periodicity in time series
-findPeriod <- function(sums){ # sums = the time series of abundance (sum across world)
-		require(plyr)
-		check_ind <- count_ind(sums)
-		strct <- check_ind[[3]]
-		ind <- check_ind[[2]]
-		# set up period id vector
-			per <- rep(0,length(sums)) # vector to label period
-		# initialize the dataframe of indices
-			indices <- data.frame(start=1,end=strct[[1]][1]+strct[[1]][2])
-			# the period length
-		# initialize the period counter
-			w = 0
-		# identify the first period
-			per[indices[1,1]:indices[1,2]] <- w + 1
-		# add one to period counter
-			w = w + 1
-		# id rest of periods 
-			for(j in 2:length(ind)){
-				id <- ind[j]
-				new_start <-indices[j-1,2]
-				new_end <- new_start + strct[[1]][id]+strct[[1]][id+1]
-				indices[j,] <- c(new_start, new_end)
-				per[indices[j,1]:indices[j,2]] <- w + 1
-				w = w + 1
-				}
-		# make new dataframe with all info
-			all_data <- data.frame(sums=sums,period=per,time=1:length(sums))
-		# take average by period
-			av_pop <- ddply(all_data, .(period),summarize, equil = mean(sums),  len=length(sums))
-			to_remove <- c(1,max(av_pop$period)) # remove first and last to make sure have a complete period
-			new_av <- subset(av_pop,!(period %in% to_remove))
-			# take last available period
-			final_period <- subset(new_av, period==max(new_av$period))
-	 		equil_mean <- final_period$equil
-	 		return(equil_mean)
-		}
-		
-# makes sure there's enough periods to count over
-count_ind <- function(sums){
-	# take average of existing vector
-			av <- mean(sums)
-		# make vector of differences from average
-			d.a <- sums-av
-		# find out which periods are positive and negative
-			strct <- rle(d.a>0)
-		# set an index to run. Needs to be even, because odd, won't have a final half of a period	
-			ind <- seq(from=1,to=length(strct[[1]]),by=2) # the index of the rle vector 
-			is.even <- length(strct[[1]])%%2 # if 1, not even, subtract the last element from ind
-			if(is.even==1){ind<- head(ind,-1)}
-			
-	if(length(ind)>3){return(list(TRUE,ind,strct))}else{return(list(FALSE,ind,strct))}
+# to introduce population to empty landscape, harvesting before adding speed treatment
+
+startUp <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init, MPA.start, burn_in,effort_re_allocate=NA){
+	MPA.current <- MPA.start
+	for(t in 1:(burn_in)){
+		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
+		init= output[[1]]
+		MPA.current = output[[3]]
+	}
+	return(list(init,MPA.current))
 }
