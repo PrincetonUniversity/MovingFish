@@ -3,20 +3,20 @@ library(RCurl)
 
 # analytics
 
-x=getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/plots/eqbiomass_gaus.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvcGxvdHMvZXFiaW9tYXNzX2dhdXMuY3N2IiwiZXhwaXJlcyI6MTQwMjMxODk2MX0%3D--0353a5ad723f0a92036ec6b4eeec43d565b43e90")
+x=getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/plots/eqbiomass_gaus.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvcGxvdHMvZXFiaW9tYXNzX2dhdXMuY3N2IiwiZXhwaXJlcyI6MTQwMjk0OTk1OX0%3D--7f3a49902fd6f47b2b8cda6b306da6a86d348bd0")
 ebm=read.csv(textConnection(x),row.names=1)
 ebm=as.matrix(ebm,nrow=length(ebm[,1]))
 
 # simulations
 
-x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-03-02.csv?token=6224444__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk2NTU0NzUzfQ%3D%3D--a0b15d528bb977d63d2a881aba4616db7ab3299b")
+x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAnull_2014-06-04.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQW51bGxfMjAxNC0wNi0wNC5jc3YiLCJleHBpcmVzIjoxNDAyOTQ5OTA5fQ%3D%3D--ff1b6f98034f048ce14e19f908f34da14d7c8fcc")
 	sim = read.csv(textConnection(x),row.names=1)
 
-	x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfMjAxNC0wMy0wMi5jc3YiLCJleHBpcmVzIjoxMzk2NTQyNTM5fQ%3D%3D--8170eb7f17025444daac72c56988416a845e3441")
+	x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAfish_NA_2014-06-05.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWZpc2hfTkFfMjAxNC0wNi0wNS5jc3YiLCJleHBpcmVzIjoxNDAyOTQ5ODg2fQ%3D%3D--7e9625707bc33b373890fcdb0896448b7c7cd3c6")
 	mpas = read.csv(textConnection(x), row.names=1)
 
-x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_2014-03-04.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfMjAxNC0wMy0wNC5jc3YiLCJleHBpcmVzIjoxMzk2NTQyNTU1fQ%3D%3D--7372d01eb9a479b0221b384d017102c39963905d")
+x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/MPAcons_NA_2014-06-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL01QQWNvbnNfTkFfMjAxNC0wNi0wMi5jc3YiLCJleHBpcmVzIjoxNDAyOTQ5ODM4fQ%3D%3D--aed3c4a92c39f84a47289ea351899572f1ffb7bb")
 	mpas2 = read.csv(textConnection(x), row.names=1)
 
-x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-03-02.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTAzLTAyLmNzdiIsImV4cGlyZXMiOjEzOTY1NDI1NzJ9--db664efb844f7721642408171cd462105d52d5bb")
+x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-06-06.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTA2LTA2LmNzdiIsImV4cGlyZXMiOjE0MDI5NDk5Mjl9--0b46cc290706e13e37f2db47568f5752f1eb09ef")
 	thresh = read.csv(textConnection(x), row.names=1)
