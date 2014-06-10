@@ -13,8 +13,6 @@ require(ggplot2)
 require(ggthemes)
 
 ###################################### Figure 1
-
-### A
 	analytical_ebm=ebm
 	cvals=matrix(seq(0,1,by=0.01),nrow=1)
 
@@ -46,31 +44,34 @@ require(ggthemes)
 		geom_line(aes(color=factor(R), linetype=factor(d)),size=1) + 
 		theme_tufte() + 
 		scale_color_manual(values=c("grey", "dark grey", "black")) + 
-		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(1,0,0,0),"cm")) + 
-		xlab("") + ylab("Harvesting rate") + 
-		labs(linetype=expression(symbol("\341")*d*symbol("\361")), color=expression("R"[0]), title="A")
+		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm")) + 
+		xlab("Climate Velocity") + ylab("Harvesting rate") + 
+		labs(linetype=expression(symbol("\341")*d*symbol("\361")), color=expression("R"[0]), title="")
 	
+	png("Fig1.png",height=3,width=4,units="in",res=300)
+	print(plot1)
+	dev.off() 
+	
+################################################################## FIGURE 2
 
-#### B
+#### A
 	melted_ebm <- melt(ebm)
-	speeds <- rep(seq(0,1, 0.01), 101)
-	harvests <- rep(seq(0,1,0.01), each = 101)
+	speeds <- rep(seq(0,1, 0.01), 100)
+	harvests <- rep(seq(0.01,1,0.01), each = 101)
 	melted_ebm$speed = speeds
 	melted_ebm$harvest = harvests
 
-	plot2 <- ggplot(melted_ebm, aes(x=speed, y = harvest, fill=value)) + 
+	plot2a <- ggplot(melted_ebm, aes(x=speed, y = harvest, fill=value)) + 
 		geom_tile() + theme_tufte() + 
 		scale_fill_gradient(low="black", high="white") + 
-		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(1,0,0,0),"cm")) + 
+		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm")) + 
 		guides(fill = guide_colorbar(barwidth=1, barheight=10, title.position="top", title="Equilibrium\nBiomass")) + 
 		xlab("") + 
-		ylab("") + 
-		labs(title="B")
+		ylab("Harvesting Rate") + 
+		labs(title="A")
 
-### TOGETHER
-	grid.arrange(plot1, plot2, ncol=2, sub = textGrob("Climate velocity", just="bottom"))
+#### B
 
-################################################################## FIGURE 2
 # making data
 	ebm=analytical_ebm
 	cvals=as.numeric(str_sub(row.names(ebm),start=3))
@@ -85,22 +86,26 @@ require(ggthemes)
 # reshaping data for ggplot
 	melt_syn <- melt(syn)
 	names(melt_syn) <- c("Speed","Harvest","Synergy")
-	speeds <- rep(seq(0.01,1, 0.01), 100)
-	harvests <- rep(seq(0.01,1,0.01), each = 100)
+	speeds <- rep(seq(0.01,1, 0.01), 99)
+	harvests <- rep(seq(0.02,1,0.01), each = 100)
 	
 	melt_syn$Speed = speeds
 	melt_syn$Harvest = harvests
 	
-ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) + 
+plot2b <- ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) + 
 	geom_tile() + 
 	theme_tufte() + 
 	scale_fill_gradient(low="black", high="white") + 
 	theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm")) + 
 	guides(fill = guide_colorbar(barwidth=1, barheight=10, title.position="top", title="Synergy")) + 
-	xlab("Climate velocity") + 
-	ylab("Harvesting rate")  + 
-	opts(panel.grid.major=theme_blank(), panel.grid.minor=theme_blank())
+	xlab("") + 
+	ylab("")  + 
+	theme(panel.grid.major=element_blank(), panel.grid.minor=element_blank()) + labs(title="B")
 
+#### Together
+png("Fig2.png",height=3, width=8,units="in",res=300)
+grid.arrange(plot2a, plot2b, ncol=2, sub = textGrob("Climate velocity", just="bottom"))
+dev.off() 
 
 ################################################################### Figure 3
 # data
@@ -113,22 +118,26 @@ ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 	fishmpa$management = rep("Many Small MPAs", nrow(fishmpa))
 	threshz$management = rep("Thresholds", nrow(threshz))
 	threshz$ord_thresh <- threshz$thresh/max(threshz$thresh)
-	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
+	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 
 
-	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") + scale_y_reverse()
+	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") + scale_y_reverse()
 
 
 	
-	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="white")  + labs(title="C")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
+	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+		geom_raster(interpolate=TRUE) + theme_tufte() + 
+		scale_fill_gradient(low="black", high="gray95")  + 
+		labs(title="C") + xlab("") + ylab("") + 
+		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
 
 
 	
 	plotD <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
 		geom_raster(interpolate=TRUE) + theme_tufte() + 
-		scale_fill_gradient(low="black", high="white") + 
+		scale_fill_gradient(low="black", high="gray95") + 
 		labs(title="D")+ xlab("") + ylab("") + 
-		theme(legend.position="right", text=element_text(family="Helvetica", size = 11),plot.margin=unit(c(.0,0,0,0),"cm")) + 
+		theme(legend.position="right", text=element_text(family="Helvetica", size = 14),plot.margin=unit(c(.0,0,0,0),"cm")) + 
 		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
 			
 	
@@ -144,8 +153,66 @@ return(legend)}
 legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
-pdf(file="fig3.pdf",width=6,height=5)
+png(file="fig3.png",width=8,height=6,res=300,units="in")
 		grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 		dev.off()
 
+############## Appendix
 
+#### Additional harvest simulations: compensation
+
+source("append_data.R")
+
+
+# data
+	fishmpa = fish_TRUE
+	consmpa = cons_TRUE
+
+	consmpa$management = rep("Few Large MPAs", nrow(consmpa))
+	fishmpa$management = rep("Many Small MPAs", nrow(fishmpa))
+	
+	plotA_fish <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+		geom_raster(interpolate=TRUE) + theme_tufte() + 
+		scale_fill_gradient(low="black", high="gray95")  + 
+		labs(title="A") + xlab("") + ylab("") + 
+		theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
+
+
+	
+	plotA_cons <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+		geom_raster(interpolate=TRUE) + theme_tufte() + 
+		scale_fill_gradient(low="black", high="gray95") + 
+		labs(title="B")+ xlab("") + ylab("") + 
+		theme(legend.position="right", text=element_text(family="Helvetica", size = 14),plot.margin=unit(c(.0,0,0,0),"cm")) + 
+		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
+			
+	
+# grabbing the legend from the last plot
+
+legend <- g_legend(plotA_cons)
+lwidth <- sum(legend$width)
+
+png(file="figA_mpa.png",width=6,height=6,res=300,units="in")
+		grid.arrange(arrangeGrob(plotA_fish,plotA_cons + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+		dev.off()
+
+# checking there's a difference between fish and cons MPA
+
+diff_mpa <- mpas2
+diff_mpa$Equil.pop <- mpas2$Equil.pop-mpas$Equil.pop
+
+ggplot(diff_mpa, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # very little
+
+# what about harvest re_allocated
+
+diff_TRUE <- consmpa
+diff_TRUE$Equil.pop <- consmpa$Equil.pop - fishmpa$Equil.pop
+
+ggplot(diff_TRUE, aes(x=speed, y = harvest, fill=Equil.pop)) + geom_tile() # looks the same
+
+# what about between harvest re-compensated
+
+diff_cons <- mpas2
+diff_cons$Equil.pop <- diff_cons$Equil.pop - consmpa$Equil.pop
+
+ggplot(diff_cons, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # no difference. 

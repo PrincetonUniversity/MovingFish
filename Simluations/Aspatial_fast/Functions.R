@@ -118,7 +118,6 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA, mpa.no = NA, MPA.cur
 	# keep individuals still in patch + those now in it due to move
 	next_patch[1:length(patch)] = next_n[1:length(patch)]
 	
-    harv = n-next_gen
     babies = next_patch*f_ind
     n2 = babies %*% d *step_size
     n2 = sapply(n2,f,R0,K)
@@ -140,7 +139,6 @@ longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init, MPA.start, generat
 	
 	# make dataframe for simulation average
 	pop <- rep(0,generations_av)
-	sd <- rep(0,generations_av)
 	for(keep in 1:generations_av){
 		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv, mpa.yes = mpa.yes, mpa.no = mpa.no, MPA.current = MPA.current)
 		init = output[[1]]
