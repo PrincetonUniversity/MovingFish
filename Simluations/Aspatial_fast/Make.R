@@ -13,8 +13,8 @@ sims <- data.frame(model = c("noThresh","noThresh","noThresh","noThresh","noThre
 					MPA = c("cons","cons","fish","fish","null","null"),
 					effort_allocate = c(NA, TRUE, NA, TRUE, NA, NA), stringsAsFactors=FALSE)
 					
-for(run in 1:nrow(sims)){
-
+#for(run in 1:nrow(sims)){
+for(run in c(2,4)){ # just re-do effort reallocation
 # run analysis
 	# choose threshold or no threshold
 	model = sims$model[run]	# "noThresh"; "Thresh"
