@@ -21,7 +21,7 @@
 In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. 
 
 \subsection{Determining stability \label{stab}}
-Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describingt the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring produced by a population of size $n$, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
+Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describingt the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring that settle and survive in juvenile population of size $n$, let $R_0$ be the intrinsic growth rate of the population, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
 
 \begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)R_0f(n_t(y))dy \label{integro} \end{equation}
 as described in \citet{ZhouKot2011}.  With the addition of harvesting, the model becomes
@@ -46,7 +46,7 @@ n^*(\overline{x}_{t+1})&=n_{t+1}(x) \notag
 %\\n^*(\overline{x}-c)&=\int_{-L/2}^{L/2}k(\overline{x}-\overline{y})f(n^*(\overline{y})-g(n^*(\overline{y})))d\overline y \notag
 \\ \Rightarrow n^*(\overline{x}_t)&=\int_{-L/2}^{L/2}k(\overline{x}_t+c-\overline{y}_t)R_0g(f(n^*(\overline{y}_t)))d\overline y_t  \label{pulse}
 \end{align}
-As long as $f(0)=0$, there is a trivial solution to this problem where $n^*(\overline{x})\equiv 0$ for all $\overline{x}$, i.e., there is a trivial traveling pulse with no fish in it.  If the trivial traveling pulse is unstable, even very small populations will persist or grow and avoid crashing back to the trivial pulse.  To evaluate the stability of a traveling pulse, we introduce a small perturbation to the traveling pulse $n^*(\overline{x})$ and see if this perturbation grows or shrinks over time:
+As long as $f(0)=0$, there is a trivial solution to this problem where $n^*(\overline{x})\equiv 0$ for all $\overline{x}$, i.e., there is a trivial traveling pulse with no adults in it.  If the trivial traveling pulse is unstable, even very small populations will persist or grow and avoid crashing back to the trivial pulse.  To evaluate the stability of a traveling pulse, we introduce a small perturbation to the traveling pulse $n^*(\overline{x})$ and see if this perturbation grows or shrinks over time:
 
 \begin{align}
 n_t(x)&=n^*(\overline{x}_t)+\xi_t(x) \notag
@@ -81,7 +81,7 @@ Then the perturbation to the traveling pulse will satisfy
 $\lambda$ and $u$ are thus an eigenvalue and eigenfunction of the functional operator $\psi_f$.  The trivial traveling pulse is unstable when the dominant eigenvalue of $\psi_f$ is greater than $1$.
 
 
-The biomass in the equilibrium traveling wave depends on the specific functional forms of the harvesting function $g(n)$ and the recruitment function $f(n)$.  However, the persistence of the population only depends on $g'(0)$ and $f'(0)$. In this paper, we only considered a proportional harvesting function, i.e. the amount of fish harvested obeyed $g(n)=(1-h)n$.  For this function, $g'(0)=1-h$.  For the recruitment function we considered, $f'(0)=1$.
+The biomass in the equilibrium traveling wave depends on the specific functional forms of the harvesting function $g(n)$ and the recruitment function $f(n)$.  However, the persistence of the population only depends on $R_0$, $g'(0)$ and $f'(0)$. In this paper, we only considered a proportional harvesting function, i.e. the amount of fish harvested obeyed $g(n)=(1-h)n$.  For this function, $g'(0)=1-h$.  For the recruitment function we considered, $f'(0)=1$.
 
 \subsection{Separable dispersal kernels \label{sep}}
 It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
