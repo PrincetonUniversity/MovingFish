@@ -220,7 +220,8 @@ ggplot(diff_TRUE, aes(x=speed, y = harvest, fill=Equil.pop)) + geom_tile() # loo
 
 # what about between harvest re-compensated
 
-consTrue <- data[[5]]
+consTrue <- data[[5]]# not sure why there are NAs, making them 0
+consTrue$Equil.pop[is.na(consTrue$Equil.pop)] <- 0
 fishTrue <- data[[6]]
 
 #compare cons without effort reallocated and effort removed
@@ -235,7 +236,8 @@ ggplot(diff_fish, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile()
 
 # generate plot for appendix using reallocated effort
 
-
+	consTrue$management = rep("Few Large MPAs", nrow(consTrue))
+	fishTrue$management = rep("Many Small MPAs", nrow(fishTrue))
 
 plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 

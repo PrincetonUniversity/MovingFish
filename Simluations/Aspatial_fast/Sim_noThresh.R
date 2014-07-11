@@ -12,7 +12,7 @@ if(MPA=="cons") {mpa.yes=cons.yes; mpa.no=cons.no} else {
 	init[which(patch==0.55)]=50
 	MPA.start = rep(c(mpa.yes,mpa.no),length.out=length(world))
 	
-	output <- startUp(s=0,mpa.yes=mpa.yes,mpa.no=mpa.no,burn_in=burn_in, Fharv=NA, Fthresh=NA, init=init, MPA.start = MPA.start)
+	output <- startUp(s=0,mpa.yes=mpa.yes,mpa.no=mpa.no,burn_in=burn_in, Fharv=NA, Fthresh=NA, init=init, MPA.start = MPA.start, effort_re_allocate=NA)
 	init.s <- output[[1]]
 	MPA.start <- output[[2]]
 	
@@ -34,4 +34,4 @@ for(q in 1:length(speeds)){
 }	
 
 
-write.csv(summaries,file = paste("Data/MPA",MPA,"_",Sys.Date(),".csv",sep=""))
+write.csv(summaries,file = paste("Data/MPA",MPA,"_",effort_allocate,"_",Sys.Date(),".csv",sep=""))

@@ -98,7 +98,7 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA,
 	# harvesting occurs first - check to see how should 
 	# re-allocate effort
 	
-	if(!is.na(effort_re_allocate)){	
+	if(!is.na(effort_re_allocate) & !is.na(Fharv)){	# harvesting non-zero and effort reallocate
 		#total_catch = sum(n)*Fharv
 		total_catch = sum(n)*Fharv * 1.5 # increasing effort by 50% to account for effort-reallocation
 		available_total_pop = sum(n[which(MPA.current==0)]) 
@@ -163,13 +163,13 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA,
 
 longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 	 MPA.start, generations_total, generations_av, 	
-	 effort_re_allocate=NA){
+	 effort_re_allocate=effort_allocate){
 	MPA.current <- MPA.start
 	burn_in <- generations_total - generations_av
 	for(t in 1:(burn_in)){
 		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv,
 		 mpa.yes = mpa.yes, mpa.no = mpa.no, 
-		 MPA.current = MPA.current)
+		 MPA.current = MPA.current, effort_re_allocate=effort_allocate)
 		init= output[[1]]
 		MPA.current = output[[2]]
 	}
@@ -179,7 +179,7 @@ longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 	for(keep in 1:generations_av){
 		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv,
 		 mpa.yes = mpa.yes, mpa.no = mpa.no, 
-		 MPA.current = MPA.current)
+		 MPA.current = MPA.current, effort_re_allocate = effort_allocate)
 		init = output[[1]]
 		MPA.current = output[[2]]
 		pop[keep] = sum(output[[1]])
@@ -197,12 +197,13 @@ longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 #  adding speed treatment
 
 startUp <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
-	 MPA.start, burn_in,effort_re_allocate=NA){
+	 MPA.start, burn_in,effort_re_allocate=effort_allocate){
 	MPA.current <- MPA.start
 	for(t in 1:(burn_in)){
 		output = m(n=init, s = s, Fthresh=Fthresh,Fharv=Fharv,
 		 mpa.yes = mpa.yes, mpa.no = mpa.no, 
-		 MPA.current = MPA.current)
+		 MPA.current = MPA.current,
+		 effort_re_allocate=effort_allocate)
 		init= output[[1]]
 		MPA.current = output[[2]]
 	}

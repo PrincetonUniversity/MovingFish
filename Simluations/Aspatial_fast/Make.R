@@ -11,7 +11,7 @@ require(lattice)
 
 sims <- data.frame(model = c("noThresh","noThresh","noThresh","noThresh","noThresh","Thresh"),
 					MPA = c("cons","cons","fish","fish","null","null"),
-					effort_allocate = c(NA, TRUE, NA, TRUE, NA, NA), stringsAsFactors=FALSE)
+					effort_allocate = c(NA, "yes", NA, "yes", NA, NA), stringsAsFactors=FALSE)
 					
 #for(run in 1:nrow(sims)){
 for(run in c(2,4)){ # just re-do effort reallocation
@@ -34,5 +34,5 @@ timed <- system.time(
 		}
 	)
 		
-cat(paste("Time elapsed: ",timed[1]/360," hours\n","Finished running a ", model, " simulation with ", MPA, " MPAs", " and effort re_allocate set to ", effort_allocate,".\n",nrow(sims)-run, " simulations left to go...",sep=""))
+cat(paste("Time elapsed: ",round(timed[1]/3600,3)," hours\n","Finished running a ", model, " simulation with ", MPA, " MPAs", " and effort re_allocate set to ", effort_allocate,".\n",nrow(sims)-run, " simulations left to go...",sep=""))
 }
