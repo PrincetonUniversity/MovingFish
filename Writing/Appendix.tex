@@ -19,7 +19,8 @@
 
 \appendix
 \section{Appendix}
-In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. 
+In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{effort} we show how reallocation of effort does not qualitatively change our results in our MPA simulations. 
+
 
 \subsection{Determining stability \label{stab}}
 Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describingt the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring that settle and survive in juvenile population of size $n$, let $R_0$ be the intrinsic growth rate of the population, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
@@ -82,7 +83,7 @@ Then the perturbation to the traveling pulse will satisfy
 $\lambda$ and $u$ are thus an eigenvalue and eigenfunction of the functional operator $\psi_f$.  The trivial traveling pulse is unstable when the dominant eigenvalue of $\psi_f$ is greater than $1$.
 
 
-The biomass in the equilibrium traveling wave depends on the specific functional forms of the harvesting function $g(n)$ and the recruitment function $f(n)$.  However, the persistence of the population only depends on $R_0$, $g'(0)$ and $f'(0)$. In this paper, we only considered a proportional harvesting function, i.e. the amount of fish harvested obeyed $g(n)=(1-h)n$.  For this function, $g'(0)=1-h$.  For the recruitment function we considered, $f'(0)=1$.
+The biomass in the equilibrium traveling wave depends on the specific functional forms of the harvesting function $g(n)$ and the recruitment function $f(n)$.  However, the persistence of the population only depends on $R_0$, $g'(0)$ and $f'(0)$. In this paper, we only considered a proportional harvesting function, i.e. the amount of adults harvested obeyed $g(n)=(1-h)n$.  For this function, $g'(0)=1-h$.  For the recruitment function we considered, $f'(0)=1$.
 
 \subsection{Separable dispersal kernels \label{sep}}
 It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
@@ -206,6 +207,18 @@ where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 \end{figure}
 
 \pagebreak
+
+\subsection{Re-allocation of Effort \label{effort}}
+~\\Spatial shifts of harvesters in response to MPA creation can affect sustainability of the system. We model the two extremes of response: either that harvesting pressure that occurred in now-MPAs is reallocated outside the reservers, or harvesting inside MPAs disappears from the system with the creation of MPAs and MPAs are effectively an effort control management technique. To reallocate effort we increased quota by 50\% in outside of MPAs. 
+
+We found no qualitative change in our results. Reallocation of effort was effectively like increasing the harvesting rate, and thus the critical harvest rate was lower than when effort was removed from the system. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\textwidth]{plots/fig3a.pdf}
+\caption{Climate velocity is on the x axis, harvest rate is on the y axis. These simulations were run with effort reallocated to areas outside of MPAs. }
+% see bounded\_flux.R for code that made this plot
+\end{figure}
 
 \bibliography{fish}
 
