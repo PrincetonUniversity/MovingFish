@@ -274,6 +274,6 @@ return(legend)}
 legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
-png(file="fig3a.png",width=8,height=6,res=300,units="in")
+pdf(file="fig3a.pdf",width=8,height=6)
 		grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 		dev.off()
