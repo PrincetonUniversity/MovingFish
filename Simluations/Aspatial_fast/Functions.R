@@ -1,3 +1,5 @@
+# Functions.R ---> defines reproduction, dispersal, and climate velocity functions used in simulations
+
 #Laplace dispersal kernel
 k<-function(x,y,b) return(1/2*b*exp(-b*abs(x-y)))    
 
@@ -92,8 +94,8 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA,
 	# steps
 	# 1. Harvest (check for thresholds, harvesting, MPA coverage)
 	# 2. Patch moves (and MPAs are adjusted)
-	# 3. Fish outside patch die
-	# 4. Fish still alive (ie inside the patch) reproduce
+	# 3. Individuals outside patch die
+	# 4. Individuals still alive (ie inside the patch) reproduce
 	
 	# harvesting occurs first - check to see how should 
 	# re-allocate effort
@@ -161,6 +163,7 @@ m <- function(n, s, Fthresh = NA, Fharv = NA, mpa.yes = NA,
  	return(list(n2,MPA)) # removed a mysterious 'harv' from here
 }
 
+# wrapper function to run simulation for 6000 generations and save outcome from 2000 additional generations to take average
 longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 	 MPA.start, generations_total, generations_av, 	
 	 effort_re_allocate=effort_allocate){
@@ -196,6 +199,7 @@ longRun <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 # to introduce population to empty landscape, harvesting before
 #  adding speed treatment
 
+# wrapper function to initialize the population, only returns results from final generation
 startUp <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 	 MPA.start, burn_in,effort_re_allocate=effort_allocate){
 	MPA.current <- MPA.start
@@ -209,3 +213,4 @@ startUp <- function(s, mpa.yes, mpa.no, Fthresh, Fharv, init,
 	}
 	return(list(init,MPA.current))
 }
+#------------------------------------------------------------------------#

@@ -1,3 +1,6 @@
+# Sim_thresh.R
+# runs simulations in which there is threshold management, MPAs are not possible
+
 # initializing the population with no pressure (no harvesting, no climate)
 	init<-rep(0,w) # rows are world, columns are time
 	init[which(patch==0.55)]=50
@@ -25,3 +28,5 @@ for(q in 1:length(speeds)){
 }
 
 write.csv(summaries,file = paste("Data/Thresh_",Sys.Date(),".csv",sep=""))
+
+#------------------------------------------------------------------------#

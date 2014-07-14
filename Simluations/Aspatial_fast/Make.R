@@ -1,5 +1,5 @@
+# Make.R --> Wrapper script to run simulations
 rm(list=ls())
-setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast")
 require(plyr)
 require(lattice)
 
@@ -13,8 +13,7 @@ sims <- data.frame(model = c("noThresh","noThresh","noThresh","noThresh","noThre
 					MPA = c("cons","cons","fish","fish","null","null"),
 					effort_allocate = c(NA, "yes", NA, "yes", NA, NA), stringsAsFactors=FALSE)
 					
-#for(run in 1:nrow(sims)){
-for(run in c(2,4)){ # just re-do effort reallocation
+for(run in 1:nrow(sims)){
 # run analysis
 	# choose threshold or no threshold
 	model = sims$model[run]	# "noThresh"; "Thresh"
@@ -36,3 +35,4 @@ timed <- system.time(
 		
 cat(paste("Time elapsed: ",round(timed[1]/3600,3)," hours\n","Finished running a ", model, " simulation with ", MPA, " MPAs", " and effort re_allocate set to ", effort_allocate,".\n",nrow(sims)-run, " simulations left to go...",sep=""))
 }
+#------------------------------------------------------------------------#

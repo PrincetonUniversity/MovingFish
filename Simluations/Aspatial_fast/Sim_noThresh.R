@@ -1,3 +1,6 @@
+# Sim_noThresh.R
+# runs simulations in which there is no threshold management, MPAs are possible
+
 # set MPAs
 if(MPA=="cons") {mpa.yes=cons.yes; mpa.no=cons.no} else {
 	if(MPA=="fish") {mpa.yes=fish.yes; mpa.no=fish.no} else {
@@ -35,3 +38,4 @@ for(q in 1:length(speeds)){
 
 
 write.csv(summaries,file = paste("Data/MPA",MPA,"_",effort_allocate,"_",Sys.Date(),".csv",sep=""))
+#------------------------------------------------------------------------#

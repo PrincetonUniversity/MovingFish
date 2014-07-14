@@ -1,3 +1,4 @@
+# Parameters_nothresh.R
 # parameters for no-threshold simulations (just proportional harvesting)
 
 # build dataframes
@@ -12,3 +13,5 @@
 
 # index for row number
 	rownumber <- matrix(seq(1:(length(harvests)*length(speeds))),ncol=length(speeds))
+	
+#------------------------------------------------------------------------#
