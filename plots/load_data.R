@@ -3,9 +3,9 @@ library(RCurl)
 
 # analytics
 
-where_load <- function(where_load){
+where_load <- function(load_it){
 
-if(where_load=="github"){
+if(load_it=="github"){
 	
 	x=getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/plots/eqbiomass_gaus.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvcGxvdHMvZXFiaW9tYXNzX2dhdXMuY3N2IiwiZXhwaXJlcyI6MTQwMjk0OTk1OX0%3D--7f3a49902fd6f47b2b8cda6b306da6a86d348bd0")
 ebm=read.csv(textConnection(x),row.names=1)
@@ -25,7 +25,7 @@ x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluat
 x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluations/Aspatial_fast/Data/Thresh_2014-06-06.csv?token=3235371__eyJzY29wZSI6IlJhd0Jsb2I6ZW1mdWxsZXIvTW92aW5nRmlzaC9tYXN0ZXIvU2ltbHVhdGlvbnMvQXNwYXRpYWxfZmFzdC9EYXRhL1RocmVzaF8yMDE0LTA2LTA2LmNzdiIsImV4cGlyZXMiOjE0MDI5NDk5Mjl9--0b46cc290706e13e37f2db47568f5752f1eb09ef")
 	thresh = read.csv(textConnection(x), row.names=1)
 }else{
-	if(where_load=="local"){
+	if(load_it=="local"){
 		setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/Data/")
 		sim = read.csv("MPAnull_2014-06-04.csv",row.names=1)
 		mpas=read.csv("MPAfish_NA_2014-06-05.csv",row.names=1)
@@ -38,5 +38,5 @@ x = getURL("https://raw.githubusercontent.com/emfuller/MovingFish/master/Simluat
 	}
 }	
 	
-	return(list(sim,mpas,mpas2,thresh, mpacons_true, mpafish_true))
+	return(list(sim,mpas,mpas2,thresh, mpacons_true, mpafish_true, ebm))
 	}

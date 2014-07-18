@@ -185,17 +185,17 @@ png(file="fig3.png",width=8,height=8,res=300,units="in")
 ############## Alternate figure 3 and 4
 # find contour line where population < 0.001 and call extinct, draw all contour lines on same plot. 
 
-	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("Harvest") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
+	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 
 
 	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="right") + scale_y_reverse()
 
-png("Fig3_alt.png",height=3, width=8,units="in",res=300)
+png("Fig3_alt.png",height=6, width=5,units="in",res=300)
 
 legend <- g_legend(plotB)
 lwidth <- sum(legend$width)
 
-grid.arrange(arrangeGrob(plotA, plotB + theme(legend.position="none")), legend, left="\nHarvest", ncol=2, sub = textGrob("Climate velocity", just="bottom"), widths=unit.c(unit(1,"npc") - lwdith, lwidth))
+grid.arrange(arrangeGrob(plotA, plotB + theme(legend.position="none")), legend, left="\nHarvest", ncol=2, sub = textGrob("Climate velocity", just="bottom"), widths=unit.c(unit(1,"npc") - lwidth, lwidth))
 dev.off()
 
 ################ Figure 4
