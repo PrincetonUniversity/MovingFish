@@ -3,7 +3,7 @@ require(plyr)
 require(lattice)
 
 # load parameters, functions
-	source("Parameters.R")
+	source("fluct_Parameters.R")
 	source("Functions.R")
 	
 # set up different parameter combinations for all simulations

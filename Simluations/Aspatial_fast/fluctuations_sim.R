@@ -33,7 +33,9 @@ for(q in 1:length(speeds)){
 			MPA.start <- output[[2]]
 		  	MPA.current <- MPA.start
 		  	
+	# adding speed
 	burn_in <- generations_total - generations_av
+	init <- init.h
 	for(t in 1:(burn_in)){
 		output = m(n=init, s = speeds[q], Fthresh=NA,Fharv=harvests[j],
 		 mpa.yes = mpa.yes, mpa.no = mpa.no, 
@@ -56,5 +58,5 @@ for(q in 1:length(speeds)){
 	}
 }
 
-write.csv(pop, paste("pop",MPA, model, effort_allocate, ".csv",sep=""))	
+write.csv(pop, paste("Data/fluctuations/pop",MPA, model, effort_allocate, ".csv",sep=""))	
 
