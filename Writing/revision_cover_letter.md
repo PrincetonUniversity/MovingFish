@@ -1,6 +1,6 @@
 Fuller et al. Persistance of populations facing climate velocity and harvest
 
-Dear Ecosphere Editorial Board
+Dear EcoSphere Editorial Board
 
 We are resubmiting our article (MS#ES14-00533) based on the invitation to re-submit with revisions. We are grateful for this opportunity to re-submit an improved manuscript.
 
