@@ -2,7 +2,7 @@ Fuller et al. Persistance of populations facing climate velocity and harvest
 
 Dear Ecosphere Editorial Board
 
-We are resubmiting our article (MS#ES14-00533) based on the invitation to re-submit with revisions. We are grateful for this opportunity for this opportunity to re-submit an improved manuscript.
+We are resubmiting our article (MS#ES14-00533) based on the invitation to re-submit with revisions. We are grateful for this opportunity to re-submit an improved manuscript.
 
 We have made two types of revisions in response to the concerns of the reviewers. Throughout the manuscript, we highlight areas in blue corresponding to new analysis or substantial revision. We highlight these changes here, and provide details about each below.
 
@@ -26,6 +26,7 @@ The majority of these suggestions are comments for the discussion section:
 3. Additionally, there has been much discussion on MPA spacing from Kaplan (multiple papers), Neubert (chattering paper), and the squeezing from others (starting with Halpern). The impacts of spacing and reallocation can depend on whether the fishery is optimally or over harvested, thus, there needs to be some discussion of this in the paper. Does this matter here when the leading edge is potentially most important? A one sentence acknowledgement that harvesting may be spatially explicit and not uniformly redistributed before or after MPA establishment should also be included as this would have important implications as well. Also, in relation to the paragraph above about invasion control, why would we expect harvesters to harvest the leading edge when the density is lower there? Again, this points out how the reallocation of effort can matter more than the threshold harvesting scenario covers.
 
 Minor comments:
+
 1. There is a disconnect of the analytical methods and the simulation methods, for example, a Laplace dispersal kernel is used for the simulations. A little more discussion about the connection between these two sections and their results would be helpful and should be added to the methods and results sections.
 2. Page 17, Line 311 and Page 19, Line 19. These are example sentences where caution should be taken about the words interact and interaction. The authors clearly laid out earlier when impacts could be synergistic, additive, etc... However, the terms interact or interaction might imply something more than additive, so perhaps being clearer when using the words interact or interaction throughout the manuscript would be helpful.
 
@@ -50,7 +51,7 @@ Also in this case, the absence of an example could not allow the reader to easil
 
 Specific comments:
 - lines 83 and 417: Which is the difference between plants and trees? What the Authors mean for "plants": only herbaceous ones or the kingdom Plantae? In the latter case, the kingdom includes also trees.
-- In the final portion of the Introduction section (lines: 85 - 87 and 93 - 100), the Authors explained their findings. Probably these paragraphs are more suitable for a discussion rather than for an introduction. 
+- In the final portion of the Introduction section (lines: 85 - 87 and 93 - 100), the Authors explained their findings. Probably these paragraphs are more suitable for a discussion rather than for an introduction.
 - The parameters used for setting the model are specified only in the figure legends (cf. Figure 2 and Figure 3, lines 632 and 651 respectively), probably the insertion in the main text could help the readers.
 
 Literature cited:
