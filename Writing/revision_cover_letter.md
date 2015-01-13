@@ -26,6 +26,9 @@ The majority of these suggestions are comments for the discussion section:
 > We agree, paragraph expanded and broadened (lines 449-456).
 
 2. More discussion about the relation of findings to invasion studies would also be helpful. While there is some brief info in the discussion, more should be included. For example, Shigesada 1997 includes information and analytical solutions that would he helpful here for the MPA analysis on invasion in heterogeneous habitats that relates to the MPA spacing examined here. Along these lines, also helpful would be more discussion about lessons learned from invasion control, as much of the invasion literature has also focused on the leading edge and would provide some insights here.
+
+> We thank the reviewer for pointing us to this literature. We agree it strengthened the connection between our study and previous work in invasion theory and we have incorporated a discussion of this and related papers. 
+
 3. Additionally, there has been much discussion on MPA spacing from Kaplan (multiple papers), Neubert (chattering paper), and the squeezing from others (starting with Halpern). The impacts of spacing and reallocation can depend on whether the fishery is optimally or over harvested, thus, there needs to be some discussion of this in the paper. Does this matter here when the leading edge is potentially most important? A one sentence acknowledgement that harvesting may be spatially explicit and not uniformly redistributed before or after MPA establishment should also be included as this would have important implications as well. Also, in relation to the paragraph above about invasion control, why would we expect harvesters to harvest the leading edge when the density is lower there? Again, this points out how the reallocation of effort can matter more than the threshold harvesting scenario covers.
 
 > We thank the reviewer for making this important point. Our work simulates a range of harvesting rates from 0 to 100% of the population. Thus we encompass optimal and overharvested scenarios.
@@ -51,12 +54,19 @@ climate velocities, if harvesting effort was not reallocated outside the protect
 The manuscript is original and quite clearly written. However some clarifications are needed:
 
 - the Authors state their model was built originally for marine species, but it could be applied also to some terrestrial ones (lines 83-85). In my opinion the manuscript could benefit from a clear example (e.g., an application case study): the application of some real parameters (i.e., ‹d›, R0, K, h = proportion of the population harvested) to a well known case study could allow the readers to more easily understand the manuscript. Moreover, the example could facilitate the researchers intending to apply their approach to different biological models or datasets.
+
+> We acknowledge that adding a case study would help to validate our results and show how they could be applied to empirical systems, but have not been able to do in the time allotted. 
+
 - at lines 234 - 239 the Authors explain their simulation scheme. They use 2000 generations to reach equilibrium without perturbations (neither harvesting nor climate velocity). Subsequently, they add harvesting pressure (2000 generations) and, finally, a changing climate. They run the model for 6000 generations and finally, calculate the equilibrium biomass as the mean biomass of 2000 additional generations. If we imagine a univoltine or bivoltine species, the Authors exposed their population to 2000/1000 years of continuous harvesting (with a constant rate?) and, subsequently to 6000/3000 years of changing climate (with a constant velocity?). Did they suppose that the spatial configuration of protected areas remained constant for thousands years?
 Also in this case, the absence of an example could not allow the reader to easily understand the manuscript. What does it happen when the Authors shorten these times to simulate the effect of harvesting and climate change on a real biological model? Could I obtain the same results if I expose my species (e.g., a fish with an annual generation time) to 200 or 300 generations of harvesting at a constant rate (after 2000 generations to reach equilibrium with no perturbation) and subsequently to 100 or 200 additional generations of climate change?
 
+> We did not mean to suggest that we were modeling a population dealing with harvesting and climate change for 6000 years. The population reaches equilibrium after a short number of iterations, but we used a large number of iterations we used was primarily to ensure consist numerical results. We have now added some text to the Model section to clarify this issue.
 
 Specific comments:
 - lines 83 and 417: Which is the difference between plants and trees? What the Authors mean for "plants": only herbaceous ones or the kingdom Plantae? In the latter case, the kingdom includes also trees.
+
+> We thank the reviewer for noticing the ambiguity in our language here and fixed the sentences to remedy the issue.  
+
 - In the final portion of the Introduction section (lines: 85 - 87 and 93 - 100), the Authors explained their findings. Probably these paragraphs are more suitable for a discussion rather than for an introduction.
 - The parameters used for setting the model are specified only in the figure legends (cf. Figure 2 and Figure 3, lines 632 and 651 respectively), probably the insertion in the main text could help the readers.
 
@@ -74,3 +84,5 @@ Literature cited:
 - line 503: remove "D. C.," after "Smith,"
 
 - line 611: replace "&" with "and"
+
+> We thank the reviewer for noticing these mistakes and have remedied them.
