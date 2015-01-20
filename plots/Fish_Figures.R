@@ -100,6 +100,9 @@ ebm <- data[[7]]
 	melt_syn$Speed = speeds
 	melt_syn$Harvest = harvests
 	
+  # change any negative values to 0, due to numerical rounding error - EB
+  melt_syn$Synergy[which(melt_syn$Synergy<0)] = 0
+
 plot2b <- ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) + 
 	geom_tile() + 
 	theme_tufte() + 
