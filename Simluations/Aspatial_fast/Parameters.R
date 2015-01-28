@@ -3,14 +3,24 @@
 ## Parameters & Building Structures ##
 ######################################
 
+# adding in parameterization for rockfish
+# currently need to figure out how to change the dispersal kernal. and re-scale so that interval of 1 is equal to 1000 km. So can re-run with proper scaling. 
+
+# - Mean dispersal distance: 73km (Gaussian)
+# - R0 = 2.86
+# - K = 1 (for simplicity)
+# - h = 0 to 1
+# - c = 0 to 200 km/decade
+# - L = 1000 km
+
 step_size=0.01 #distance between points in space
 b=.5 #parameter for Laplace dispersal kernel
-R0=5 #growth parameter for recruitment
-K=100 #carrying capacity parameter for juvenile density dependence
+R0=2.86 #growth parameter for recruitment
+K=1 #carrying capacity parameter for juvenile density dependence
 threshold = 0.001 #difference between generation populations. 
 burn_in = 2000 # number of generations to run simulations before checking for equilibrium conditions
 speeds = seq(0,.5,by=0.02)
-harvests = seq(0,.2,by=0.01)
+harvests = seq(0,1,by=0.1)
 f_ind = 1 #per capita reproductive rate
 generations_total = 8000
 generations_av = 2000
