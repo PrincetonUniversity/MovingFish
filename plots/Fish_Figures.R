@@ -252,6 +252,7 @@ polygon(fN.p[[1]][fN.p[[2]],], col=alpha("grey",0.5),bor=F)
 
 cY.p <- poly(consTrue)
 polygon(cY.p[[1]][cY.p[[2]],],col=alpha("grey",0.5),bor=F)
+
 ############## Appendix
 
 #### Additional harvest simulations: compensation
@@ -375,3 +376,51 @@ ggplot(diff_cons, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # no di
 diff_fish <- sim
 diff_fish$Equil.pop <- fishTrue$Equil.pop - sim$Equil.pop
 ggplot(diff_fish, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile()
+
+## plot rockfish simulations
+setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/rockfish_sim/Data/")
+noThresh <- read.csv('MPAnull_NA_2015-02-09.csv')
+rockMPA_eff <- read.csv('MPArock_yes_2015-02-09.csv')
+rockMPA_na <- read.csv('MPArock_NA_2015-02-09.csv')
+thresh_noMPA <- read.csv('Thresh_2015-02-09.csv')
+
+
+plotA <- ggplot(noThresh, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
+
+
+thresh_noMPA$ord_thresh <- thresh_noMPA$thresh/max(thresh_noMPA$thresh)
+
+
+plotB <- ggplot(thresh_noMPA, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") + scale_y_reverse()
+
+plotC <-ggplot(rockMPA_na, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+  geom_raster(interpolate=TRUE) + theme_tufte() + 
+  scale_fill_gradient(low="black", high="gray95")  + 
+  labs(title="C") + xlab("") + ylab("") + 
+  theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
+
+rockMPA_eff$Equil.pop[which(is.na(rockMPA_eff$Equil.pop))] <- 0
+
+plotD <- ggplot(rockMPA_eff, aes(x=speed, y = harvest, fill = Equil.pop)) + 
+  geom_raster(interpolate=TRUE) + theme_tufte() + 
+  scale_fill_gradient(low="black", high="gray95") + 
+  labs(title="D")+ xlab("") + ylab("") + 
+  theme(legend.position="right", text=element_text(family="Helvetica", size = 14),plot.margin=unit(c(.0,0,0,0),"cm")) + 
+  guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
+
+
+# grabbing the legend from the last plot
+
+library(gridExtra)
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+legend <- g_legend(plotD)
+lwidth <- sum(legend$width)
+
+pdf(file="rockfish_sims.pdf",width=8,height=6)
+grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+dev.off()

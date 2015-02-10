@@ -19,7 +19,7 @@
 
 \appendix
 \section{Appendix}
-In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{effort} we show how reallocation of effort does not qualitatively change our results in our MPA simulations. 
+In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{effort} we show how reallocation of effort does not qualitatively change our results in our MPA simulations. In Appendix \ref{rock} we parameterize our model for black rockfish in the California Current and demonstrate the qualitatively similarities of the results. 
 
 
 \subsection{Determining stability \label{stab}}
@@ -208,6 +208,24 @@ where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 
 \pagebreak
 
+
+\pagebreak
+\subsection{Effort reallocation \label{effort}}
+Effort reallocation does not affect our results. 
+\pagebreak
+
+\pagebreak
+\subsection{California Current Black Rockfish Parameterization \label{rock}}
+We parameterize our model for black rockfish in the California Current, with MPAs of spacing and width that is qualitatively similar to the MLP Act reserves, and with a maximum climate velocity equal to that observed empirically. The parameters are as follows
+
+We find qualitatively similar results with this parameterization to what is presented in the main text. 
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\textwidth]{plots/rockfish_sims.pdf}
+\caption{The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvesting rate on the y-axis under alternative management strategies as parameterized for black rockfish. (a) The equilibrium biomass for simulations with constant harvest rates. (b) Equilibrium biomass for simulations with threshold management. For threshold management, the maximum threshold below which no harvesting is allowed is set to be the largest population size observed at a given time step before harvesting. For a less sever threshold, we use a proportion of this maximum threshold, so that a lower proportion gives a lower threshold and allows for more harvesting. We show this proportion on the y-axis. (c) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves unchanged. (d) Equilibrium biomass for simulations with protected areas with harvesting pressure reallocated outside reserves. These results are from a simulation with a Laplacian dispersal kernel with parameters $L=1$, $R_0=2.83$, $K=1$, and $b=73$.}
+\end{figure}
+
+\pagebreak
 \bibliography{fish}
 
 \end{document}
