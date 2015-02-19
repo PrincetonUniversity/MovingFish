@@ -5,7 +5,7 @@
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{natbib}
+\usepackage[round]{natbib}
 \bibliographystyle{plainnat}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -217,13 +217,13 @@ Our results with this parameterization are qualitatively similar to the results 
 Parameter & Value & Source\\
 \hline
 $R_0$ & 2.86 & \citet{white2010decision}, equivalent to $\left(\frac{1}{CRT}\right)$ \\
-$K$ & 1 & \citet{white2010decision} \\
+$K$ & 1 & \cite{white2010decision} \\
 $h$ & 0-100\% &\\
-$c$ & 0-200km/decade & \citet{burrows2011pace}\\
-$L$ & 1000km  & \citet{fishbase} \\
-MPA width & 20km & \citet{Gainesetal2010}\\
-Space between MPAs & 76km & \citet{Gainesetal2010}\\
-Dispersal kernal &  Gaussian & \citet{white2010decision}\\
+$c$ & 0-200km/decade & \cite{burrows2011pace}\\
+$L$ & 1000km  & \cite{fishbase} \\
+MPA width & 20km & \cite{Gainesetal2010}\\
+Space between MPAs & 76km & \cite{Gainesetal2010}\\
+Dispersal kernal &  Gaussian & \cite{white2010decision}\\
 \hline
 \end{tabular}
 \end{center}
@@ -240,26 +240,27 @@ Dispersal kernal &  Gaussian & \citet{white2010decision}\\
 \centering
 \includegraphics[width=.75\textwidth]{../../plots/rockfish_criticalh.pdf}
 \caption{ \label{crith_rockfish}
-Lines indicate the critical threshold for persistence as a function of harvesting rate on the y-axis and climate velocity as a fraction of the length of the viable patch on the x-axis from an approximated Gaussian dispersal kernel as parameterized for black rockfish. }
+Lines indicate the critical threshold for persistence as a function of harvest fraction on the y-axis and climate velocity on the x-axis. Model parameterized for black rockfish. }
  \end{figure}
  
  \begin{figure}[h]
  \centering
  \includegraphics[width=.75\textwidth]{../../plots/rockfisheqbiomass.pdf}
  \caption{ \label{synergy_rockfish}
- (a) The equilibrium biomass of the population as a function of the climate velocity relative to patch length on the x-axis and the proportional harvesting rate on the y-axis. (b) Interaction between the two stressors as a function of climate velocity and harvesting rate. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss, on the order of $0.001$, is small in comparison to the total biomass, which can be as large as $20$. These results are from an approximated Gaussian dispersal kernel as parameterized for  black rockfish.
+ (a) Results from a model parameterized for black rockfish. The equilibrium biomass of a black rockfish population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis. (b) Interaction between the two stressors as a function of climate velocity and harvest fraction. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss, on the order of $4$, is small in comparison to the total biomass, which can be as large as $160$.
  }
  \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.75\textwidth]{../../plots/rockfish_sims.pdf}
-\caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity relative to patch length on the x-axis and the harvesting rate on the y-axis under alternative management strategies as parameterized for black rockfish. (a) The equilibrium biomass for simulations with constant harvest rates. (b) Equilibrium biomass for simulations with threshold management. For threshold management, the maximum threshold below which no harvesting is allowed is set to be the largest population size observed at a given time step before harvesting. For a less sever threshold, we use a proportion of this maximum threshold, so that a lower proportion gives a lower threshold and allows for more harvesting. We show this proportion on the y-axis. (c) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves unchanged. (d) Equilibrium biomass for simulations with protected areas with harvesting pressure reallocated outside reserves.}
+\caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis under alternative management strategies as parameterized for black rockfish. (a) The equilibrium biomass for simulations with constant harvest rates. (b) Equilibrium biomass for simulations with threshold management. For threshold management, we set a threshold density below which no fishing is allowed. The threshold ranges between 0 (no fishing allowed) and 1 (all fish taken), with intermediate density thresholds determined as fractions of the maximum population density observed at a given time step before harvesting. We show this on the y-axis. (c) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves is unchanged  (i.e., harvest effort inside reserves is eliminated). (d) Equilibrium biomass for simulations with protected areas in which harvesting pressure is reallocated outside reserves.}
 \end{figure}
 
 
 \cleardoublepage
 
+\bibstyle{cbe}
 \bibliography{fish}
 
 \end{document}
