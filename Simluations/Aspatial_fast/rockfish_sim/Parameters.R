@@ -23,7 +23,7 @@ w = length(world)
 # MPAs are 20km wide and 75km apart. Step size is 2 km (1000*step_size). 
 
 rock.yes = rep(1,.02/step_size) 
-rock.no = rep(0,.076/step_size) # 10*8 = 80 (more than 75. so conservative)
+rock.no = rep(0,.076/step_size) # (more than 75. so conservative)
 
 null.yes = rep(0,length(world))
 null.no = rep(0, length(world))

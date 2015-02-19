@@ -19,7 +19,7 @@
 
 \appendix
 \section{Appendix}
-In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock} we parameterize our model for black rockfish in the California Current and demonstrate results for those parameters that are qualitatively similar to those presented in the main text. 
+In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock} we parameterize our model for black rockfish in the California Current and demonstrate results for  parameters  which are qualitatively similar to those  presented in the main text. 
 
 
 \subsection{Determining stability \label{stab}}
@@ -203,7 +203,7 @@ where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 
 %\pagebreak
 \subsection{California Current Black Rockfish Parameterization \label{rock}}
-We parameterize our model for black rockfish in the California Current, with MPAs of spacing and width that is qualitatively similar to the MLP Act reserves, and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
+~\\We parameterize our model for black rockfish in the California Current, with MPAs of spacing and width that is qualitatively similar to the MLP Act reserves, and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
 
 Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse under some rates of range shift and harvesting rates, than no MPA at all (compare Fig. \ref{simulation_rockfish}a and \ref{simulation_rockfish}d). 
 
@@ -218,9 +218,10 @@ $R_0$ & 2.86 & \citet{white2010decision}, equivalent to $\left(\frac{1}{CRT}\rig
 $K$ & 1 & \citet{white2010decision} \\
 $h$ & 0-100\% &\\
 $c$ & 0-200km/decade & \citet{burrows2011pace}\\
-$L$ & 1000km & \\
+$L$ & 1000km  & \citet{fishbase} \\
 MPA width & 20km & \citet{Gainesetal2010}\\
 Space between MPAs & 76km & \citet{Gainesetal2010}\\
+Dispersal kernal &  Gaussian & \citet{white2010decision}\\
 \hline
 \end{tabular}
 \end{center}
@@ -237,7 +238,7 @@ Space between MPAs & 76km & \citet{Gainesetal2010}\\
 \centering
 \includegraphics[width=.75\textwidth]{../../plots/rockfish_criticalh.pdf}
 \caption{ \label{crith_rockfish}
- Lines indicate the critical threshold for persistence as a function of harvesting rate on the y-axis and climate velocity as a fraction of the length of the viable patch on the x-axis from an approximated Gaussian dispersal kernel as parameterized for black rockfish. }
+Lines indicate the critical threshold for persistence as a function of harvesting rate on the y-axis and climate velocity as a fraction of the length of the viable patch on the x-axis from an approximated Gaussian dispersal kernel as parameterized for black rockfish. }
  \end{figure}
  
  \begin{figure}[h]
