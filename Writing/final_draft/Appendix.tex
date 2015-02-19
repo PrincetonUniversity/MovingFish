@@ -16,10 +16,12 @@
 \usepackage{listings}
 \begin{document}
 
+\renewcommand{\thefigure}{S\arabic{figure}}
+ \renewcommand{\thetable}{S\arabic{table}}
 
 \appendix
 \section{Appendix}
-In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock} we parameterize our model for black rockfish in the California Current and demonstrate results for  parameters  which are qualitatively similar to those  presented in the main text. 
+In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock}, we parameterize our model for black rockfish ($Sebastes melanops$)in the California Current and demonstrate that results for  parameters  are qualitatively similar to results  presented in the main text. 
 
 
 \subsection{Determining stability \label{stab}}
@@ -203,9 +205,9 @@ where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 
 %\pagebreak
 \subsection{California Current Black Rockfish Parameterization \label{rock}}
-~\\We parameterize our model for black rockfish in the California Current, with MPAs of spacing and width that is qualitatively similar to the MLP Act reserves, and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
+~\\We parameterize our model for black rockfish ($Sebastes melanops$) in the California Current, with MPAs of spacing and width qualitatively similar to those in the Marine Life Projection Act (MLPA), and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
 
-Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse under some rates of range shift and harvesting rates, than no MPA at all (compare Fig. \ref{simulation_rockfish}a and \ref{simulation_rockfish}d). 
+Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse than no MPA at all (compare Figure \ref{simulation_rockfish}a and \ref{simulation_rockfish}d). 
 
 \begin{table}[htdp]
 \caption{\label{rockfish_params} Rockfish simulation parameters}
