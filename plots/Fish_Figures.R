@@ -377,13 +377,21 @@ diff_fish <- sim
 diff_fish$Equil.pop <- fishTrue$Equil.pop - sim$Equil.pop
 ggplot(diff_fish, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile()
 
-## plot rockfish simulations
+## plot rockfish simulations ----
+library(fields)
+library(ggplot2)
+library(ggthemes)
 setwd("/Users/efuller/Documents/Projects/Moving_fish/MovingFish/Simluations/Aspatial_fast/rockfish_sim/Data/")
 noThresh <- read.csv('MPAnull_NA_2015-02-09.csv')
 rockMPA_eff <- read.csv('MPArock_yes_2015-02-09.csv')
 rockMPA_na <- read.csv('MPArock_NA_2015-02-09.csv')
 thresh_noMPA <- read.csv('Thresh_2015-02-09.csv')
 
+# change speeds units
+noThresh$speed <- noThresh$speed * 1000
+rockMPA_eff$speed <- rockMPA_eff$speed * 1000
+rockMPA_na$speed <- rockMPA_na$speed * 1000
+thresh_noMPA$speed <- thresh_noMPA$speed * 1000
 
 plotA <- ggplot(noThresh, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=14), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
 
@@ -422,5 +430,5 @@ legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
 pdf(file="rockfish_sims.pdf",width=8,height=6)
-grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest Fraction", sub="Climate velocity (km/decade)\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest fraction", sub="Climate velocity (km/decade)\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 dev.off()
