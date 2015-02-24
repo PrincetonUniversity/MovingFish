@@ -422,5 +422,5 @@ legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
 pdf(file="rockfish_sims.pdf",width=8,height=6)
-grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest Fraction", sub="Climate velocity (km/decade)\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 dev.off()
