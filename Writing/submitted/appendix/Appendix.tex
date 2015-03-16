@@ -16,23 +16,23 @@
 \usepackage{listings}
 \begin{document}
 
-\renewcommand{\thefigure}{S\arabic{figure}}
- \renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+ \renewcommand{\thetable}{A\arabic{table}}
+ \renewcommand{\thesubsection}{\Alph{subsection}}
 
-\appendix
-\section{Appendix}
-~\\In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock}, we parameterize our model for black rockfish ($Sebastes melanops$)in the California Current and demonstrate that results for  parameters  are qualitatively similar to results  presented in the main text. 
+\section*{Appendix}
+~\\In Appendix \ref{stab}, we provide the details for assessing the persistence of a population with an integrodifference model and we discuss the effect of the harvesting function on population persistence.  In Appendix \ref{sep}, we provide the details for assessing population persistence with separable dispersal kernels.  In Appendix \ref{gausapp} and \ref{sinapp}, we derive expressions for the critical harvesting rate and rate of environmental shift for Gaussian and sinuosoidal dispersal kernels.  In Appendix \ref{approxcrit}, we derive approximate expressions for these critical rates. In Appendix \ref{MPA} we provide details on differences between small and large MPA simulations. In Appendix \ref{rock}, we parameterize our model for black rockfish (\emph{Sebastes melanops})in the California Current and demonstrate that results for  parameters  are qualitatively similar to results  presented in the main text. 
 
 
 \subsection{Determining stability \label{stab}}
 ~\\Let $n_t(x)$ be the number of adults at position $x$ at time $t$, let $k(x)$ be a dispersal kernel describingt the probability of a larva traveling a distance $x$, let $f(n)$ be the recruitment function describing the number of offspring that settle and survive in juvenile population of size $n$, let $R_0$ be the intrinsic growth rate of the population, and let $g(n)$ be the harvesting function describing the number of adults harvested from a population of size $n$.  In the absence of harvesting, the integrodifference model describing the population over time is given by 
 
 \begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)R_0f(n_t(y))dy \label{integro} \end{equation}
-as described in \citet{ZhouKot2011}.  With the addition of harvesting, the model becomes
+as described in (Zhou and Kot 2011).  With the addition of harvesting, the model becomes
 
 \begin{equation} n_{t+1}(x)=\int_{-L/2+ct}^{L/2+ct}k(x-y)R_0g(f(n_t(y)))dy. \label{integro} \end{equation}
 
-In evaluating persistence, we apply the methods of \citet{ZhouKot2011} to the new model, Equation 2.  A traveling pulse is a solution such that population size relative to location within the patch (rather than absolute position) is constant over time, i.e. 
+In evaluating persistence, we apply the methods of Zhou and Kot (2011) to the new model, Equation 2.  A traveling pulse is a solution such that population size relative to location within the patch (rather than absolute position) is constant over time, i.e. 
 
 \begin{equation*}
 n^*(\overline{x}_t)\equiv n^*(x-ct)=n_t(x),   \label{trav} 
@@ -88,7 +88,7 @@ $\lambda$ and $u$ are thus an eigenvalue and eigenfunction of the functional ope
 The biomass in the equilibrium traveling wave depends on the specific functional forms of the harvesting function $g(n)$ and the recruitment function $f(n)$.  However, the persistence of the population only depends on $R_0$, $g'(0)$ and $f'(0)$. In this paper, we only considered a proportional harvesting function, i.e. the amount of adults harvested obeyed $g(n)=(1-h)n$.  For this function, $g'(0)=1-h$.  For the recruitment function we considered, $f'(0)=1$.
 
 \subsection{Separable dispersal kernels \label{sep}}
-~\\It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties \citep{ZhouKot2011}.  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
+~\\It is not immediately obvious that the operator $\psi$ will have any eigenfunctions.  However, Jentzsch's theorem guarantees that there is an eigenfunction $u$, provided that the kernel $k$ satisfies some properties (Zhou and Kot 2011).  Finding the eigenfunctions and eigenvalues is in general a hard problem to solve.  It becomes easier if the kernel $k$ is separable, i.e., there are functions $a_n,b_n$ such that $k(x-y)=\sum_{n=1}^\infty a_n(x)b_n(y)$.  In that case, (\ref{eigen}) becomes
 \begin{align}
 \lambda u(x)&=R_0g'(0)f'(0)\sum_{n=1}^\infty\left( a_n(x)\int_{-L/2}^{L/2}b_n(y-c)u(y)dy\right) \notag
 \\ \Rightarrow \lambda\int_{-L/2}^{L/2}b_k(x-c)u(x)dx&=R_0g'(0)f'(0)\sum_{n=1}^{\infty}\left(\int_{-L/2}^{L/2}b_n(x-c)u(x)dx\right)\left(\int_{-L/2}^{L/2}a_n(y)b_k(y-c)dy\right) \notag
@@ -101,7 +101,7 @@ A_{nk}=\int_{-L/2}^{L/2}a_n(x)b_k(x-c)dx \text{ and } d_k=\int_{-L/2}^{L/2}b_k(x
 \end{equation*}
 Finding the eigenvalues of (\ref{eigen}) then reduces to finding the eigenvalues of the matrix comprised of entires $(A_{nk})_{n,k=1}^\infty$.
 
-To find the equilibrium biomass, we rewrite (\ref{pulse}) using the separable kernel as in \cite{Latore:1998fk}:
+To find the equilibrium biomass, we rewrite (\ref{pulse}) using the separable kernel as in (Latore et al.1998):
 
 \begin{align*}
  n^*(x)&=\int_{-L/2}^{L/2}k(x+c-y)R_0g(f(n^*(y)))dy
@@ -120,7 +120,7 @@ The equations (\ref{recursive}) allows us to find the $m_n$ numerically and we t
 $$k(x-y)=\frac{1}{2\sqrt{D\pi}}e^{\frac{-(x-y)^2}{4D}},$$
 where $D$ is one half the variance of the kernel.
 This is a separable kernel with
-$a_n(x)=b_n(x)=\frac{1}{\sqrt{2n!\sqrt{D\pi}}}e^{-x^2/4D}\left(\frac{x}{\sqrt{2D}}\right)^n$ \citep{Latore:1998fk}.
+$a_n(x)=b_n(x)=\frac{1}{\sqrt{2n!\sqrt{D\pi}}}e^{-x^2/4D}\left(\frac{x}{\sqrt{2D}}\right)^n$ (Latore et al. 1998).
 
 As a first approximation to $k$ we ignore all but the $0^{th}$ terms for $a_n$ and $b_n$ so that Equation (\ref{problem}) becomes
 \begin{align*}
@@ -146,7 +146,7 @@ If we solve for $\lambda$,we find
 \begin{equation*} \lambda=(1-h)R_0\left[\frac{wL\cos(wc)}{4}+\frac{1}{4}\sqrt{\sin^2(wL)-w^2L^2\sin^2(wc)}\right]. \label{cosine} \end{equation*}
 
 
-\citet{ZhouKot2011} solve for the critical speed, $c^*$, at which the population will be driven extinct:
+Zhou and Kot (2011) solve for the critical speed, $c^*$, at which the population will be driven extinct:
 $$c^*=c^*(R_0)=\frac{1}{w}\cos^{-1}\left[\frac{16+R_0^2(1-h)^2(w^2L^2-\sin^2(wL))}{8R_0(1-h)wL}\right].$$
 In our model, we can additionally solve for the critical harvesting rate, $h^*$, at which the population will be driven extinct:
 $$
@@ -205,9 +205,9 @@ where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 
 %\pagebreak
 \subsection{California Current Black Rockfish Parameterization \label{rock}}
-~\\We parameterize our model for black rockfish ($Sebastes melanops$) in the California Current, with MPAs of spacing and width qualitatively similar to those in the Marine Life Projection Act (MLPA), and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
+~\\We parameterize our model for black rockfish (\emph{Sebastes melanops}) in the California Current, with MPAs of spacing and width qualitatively similar to those in the Marine Life Projection Act (MLPA), and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
 
-Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse than no MPA at all (compare Figure \ref{simulation_rockfish}a and \ref{simulation_rockfish}d). 
+Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse than no MPA at all (compare Figure \ref{simulation_rockfish}A and \ref{simulation_rockfish}D). 
 
 \begin{table}[htdp]
 \caption{\label{rockfish_params} Rockfish simulation parameters}
@@ -216,14 +216,14 @@ Our results with this parameterization are qualitatively similar to the results 
 \hline
 Parameter & Value & Source\\
 \hline
-$R_0$ & 2.86 & \citet{white2010decision}, equivalent to $\left(\frac{1}{CRT}\right)$ \\
-$K$ & 1 & \cite{white2010decision} \\
+$R_0$ & 2.86 & , equivalent to $\left(\frac{1}{CRT}\right)$ \\
+$K$ & 1 & White et al. (2010) \\
 $h$ & 0-100\% &\\
-$c$ & 0-200km/decade & \cite{burrows2011pace}\\
-$L$ & 1000km  & \cite{fishbase} \\
-MPA width & 20km & \cite{Gainesetal2010}\\
-Space between MPAs & 76km & \cite{Gainesetal2010}\\
-Dispersal kernal &  Gaussian & \cite{white2010decision}\\
+$c$ & 0-200km/decade & Burrows et al. (2011)\\
+$L$ & 1000km  & Froese (2014) \\
+MPA width & 20km & Gaines et al. (2010b) \\
+Space between MPAs & 76km & Gaines et al. (2010b) \\
+Dispersal kernal &  Gaussian & White et al. (2010)\\
 \hline
 \end{tabular}
 \end{center}
@@ -231,30 +231,32 @@ Dispersal kernal &  Gaussian & \cite{white2010decision}\\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\textwidth]{../../plots/compare_flucts.png}
-\caption{\label{fluctuations} Total population biomass is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.02$. }
-% see bounded\_flux.R for code that made this plot
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.45\textwidth]{../../plots/rockfish_criticalh2.png}
+\includegraphics[width=.45\textwidth]{../../../plots/rockfish_criticalh2.png}
 \caption{ \label{crith_rockfish}
-Lines indicate the critical threshold for persistence as a function of harvest fraction on the y-axis and climate velocity on the x-axis. Model parameterized for black rockfish. }
+The line indicate the critical harvest fraction as a function of climate velocity on the x-axis. Model parameterized for black rockfish. }
  \end{figure}
  
- \begin{figure}[h]
+  \begin{figure}[h]
  \centering
- \includegraphics[width=.75\textwidth]{../../plots/rockfisheqbiomass3.pdf}
+ \includegraphics[width=.75\textwidth]{../../../plots/rockfisheqbiomass3.pdf}
  \caption{ \label{synergy_rockfish}
- (a) Results from a model parameterized for black rockfish. The equilibrium biomass of a black rockfish population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis. (b) Interaction between the two stressors as a function of climate velocity and harvest fraction. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss is small in comparison to the total biomass.
+ (A) Results from a model parameterized for black rockfish. The equilibrium biomass of a black rockfish population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis. (B) Interaction between the two stressors as a function of climate velocity and harvest fraction. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss is small in comparison to the total biomass.
  }
  \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\textwidth]{../../plots/rockfish_sims.pdf}
-\caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis under alternative management strategies as parameterized for black rockfish. (a) The equilibrium biomass for simulations with constant harvest rates. (b) Equilibrium biomass for simulations with threshold management. For threshold management, we set a threshold density below which no fishing is allowed. The threshold ranges between 0 (no fishing allowed) and 1 (all fish taken), with intermediate density thresholds determined as fractions of the maximum population density observed at a given time step before harvesting. We show this on the y-axis. (c) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves is unchanged  (i.e., harvest effort inside reserves is eliminated). (d) Equilibrium biomass for simulations with protected areas in which harvesting pressure is reallocated outside reserves.}
+\includegraphics[width=.75\textwidth]{../../../plots/compare_flucts.png}
+\caption{\label{fluctuations} Total population biomass is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.02$. }
+% see bounded\_flux.R for code that made this plot
+\end{figure}
+ 
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\textwidth]{../../../plots/rockfish_sims.pdf}
+\caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis under alternative management strategies as parameterized for black rockfish. (A) The equilibrium biomass for simulations with constant harvest rates. (B) Equilibrium biomass for simulations with threshold management. For threshold management, we set a threshold density below which no fishing is allowed. The threshold ranges between 0 (no fishing allowed) and 1 (all fish taken), with intermediate density thresholds determined as fractions of the maximum population density observed at a given time step before harvesting. We show this on the y-axis. (C) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves is unchanged  (i.e., harvest effort inside reserves is eliminated). (D) Equilibrium biomass for simulations with protected areas in which harvesting pressure is reallocated outside reserves.}
 \end{figure}
 
 
