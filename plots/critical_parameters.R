@@ -77,6 +77,15 @@ cstar_g<-function(r,sig2,L=1){
 	return(x)
 }
 
+
+cstar_g_big<-function(r,sig2,L=1){
+	if(lambdag(0,r,sig2,L)<1){ #if eigenvalue is less than 1 for c=0, c=0 is the critical speed
+		x=0
+	} else{ #if eigenvalue is greater than 1 for c=0, look for c where eigenvalue = 1
+	x=uniroot(fg,interval=c(0,200),r=r,sig2=sig2,L=L)$root}
+	return(x)
+}
+
 #### analytical expression for critical harvesting level for sinusoidal kernel
 hstar_s<-function(c,r,sig2,L=1){
 	if(is.na(L)){L=1}
@@ -93,6 +102,13 @@ hstar_s<-function(c,r,sig2,L=1){
 ###### numerically find critical harvesting proportion for gaussian kernel
 hstar_g<-function(c,r,sig2,L=1){
 	y=cstar_g(r,sig2,L)
+	if(y<=c){h=0}
+	else{h=1-1/lambdag(c,r,sig2,L)}
+	return(h)
+}
+
+hstar_g_big<-function(c,r,sig2,L=1){
+	y=cstar_g_big(r,sig2,L)
 	if(y<=c){h=0}
 	else{h=1-1/lambdag(c,r,sig2,L)}
 	return(h)

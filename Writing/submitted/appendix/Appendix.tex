@@ -15,8 +15,6 @@
 \usepackage{listings}
 \begin{document}
 
-\renewcommand{\thefigure}{A\arabic{figure}}
- \renewcommand{\thetable}{A\arabic{table}}
  \renewcommand{\thesubsection}{\Alph{subsection}}
 
 \section*{Appendix}
@@ -168,13 +166,6 @@ h^*=1-\frac{2\sqrt{2}\exp\left(\frac{c^{2}}{8D}\right)}{R_0\left[erf\left(\frac{
 Using the Taylor series and the fact that $D=\frac{\sigma^2}{2}$ where $\sigma^2$ is the variance of the exponential kernel,
 \begin{align*}
 h^*&\sim 1-\frac{\sqrt{2\pi}(1+\frac{c^2}{8D}+\frac{c^4}{128D^2})}{R_0\sqrt{\pi}\left[\frac{L-c}{2\sqrt{2D}}-\frac{(L-c)^3}{3(2\sqrt{2D})^3}-\frac{-L-c}{2\sqrt{2D}}+\frac{(-L-c)^3}{3(2\sqrt{2D})^3)}\right]}
-%\\&= 1-\frac{\sqrt{2\pi}(1+\frac{c^2}{8D}+\frac{c^4}{128D^2})}{R_0\left[\frac{2L}{2\sqrt{2D}}+\frac{-L^3+3L^2c-3Lc^2+c^3-L^3-3L^2c-3Lc^2-c^3}{3(2\sqrt{2D})^3}\right]}
-%\\&= 1-\frac{\sqrt{2\pi}(1+\frac{c^2}{8D}+\frac{c^4}{128D^2})}{R_0\left[\frac{L}{\sqrt{2D}}-2\frac{L^3+3Lc^2}{3(2\sqrt{2D})^3}\right]}
-%\\&= 1-\frac{\sqrt{2\pi}(1+\frac{c^2}{8D}+\frac{c^4}{128D^2})}{R_0L\left[\frac{48D-2(L^2+3c^2)}{3(2\sqrt{2D})^3}\right]}
-%\\&= 1-\frac{3*32D\sqrt{D\pi}(1+\frac{c^2}{8D}+\frac{c^4}{128D^2})}{R_0L\left(48D-2(L^2+3c^2)\right)}
-%\\&= 1-\frac{3*32D\sqrt{D\pi}(\frac{128D^2+16c^2D+c^4}{128D^2})}{R_0L\left(48D-2(L^2+3c^2)\right)}
-%\\&= 1-\frac{3\sqrt{\pi}(128D^2+16c^2D+c^4)}{4R_0L\sqrt{D}\left(48D-2(L^2+3c^2)\right)}
-%\\&= 1-\frac{3\sqrt{2\pi}(32\sigma^4+8c^2\sigma^2+c^4)}{4R_0L\sigma\left(24\sigma^2-2(L^2+3c^2)\right)}
 \\&= 1-\frac{1}{R_0}\cdot\frac{3\sqrt{2\pi}}{8L}\frac{(32\sigma^4+8c^2\sigma^2+c^4)}{\sigma\left(12\sigma^2-(L^2+3c^2)\right)}
 \end{align*}
 For the sinusoidal kernel we found 
@@ -184,11 +175,6 @@ h^*=1-\frac{1}{R_0}\cdot\frac{4wL}{w^2L^2-\sin^2(wL)}\left[\cos(wc)-\sqrt{\cos^2
 Using the Taylor series and the fact that $w=\frac{\sqrt{\frac{\pi^2}{4}-2}}{\sigma}$ where $\sigma^2$ is the variance of the sinusoidal kernel,
 \begin{align*}
 h^*&\sim 1-\frac{1}{R_0}\cdot\frac{12wL}{w^4L^4}\left[1-\frac{w^2c^2}{2}-\sqrt{1-w^2c^2-\frac{w^2L^2}{3}}\right]
-%\\&=1-\frac{1}{R_0}\cdot\frac{12}{w^3L^3}\left[1-\frac{w^2c^2}{2}-\sqrt{1-w^2c^2-\frac{w^2L^2}{3}}\right]
-%\\&=1-\frac{1}{R_0}\cdot\frac{12\sigma^3}{L^3(\frac{\pi^2}{4}-2)^{3/2}}\left[1-\frac{(\frac{\pi^2}{4}-2)c^2}{2\sigma^2}-\sqrt{1-\frac{(\frac{\pi^2}{4}-2)c^2}{\sigma^2}-\frac{(\frac{\pi^2}{4}-2)L^2}{3\sigma^2}}\right]
-%\\&=1-\frac{1}{R_0}\cdot\frac{6\sigma}{L^3(\frac{\pi^2}{4}-2)^{3/2}}\left[2\sigma^2-(\frac{\pi^2}{4}-2)c^2-\frac{2}{\sqrt{3}}\sigma\sqrt{3\sigma^2-(\frac{\pi^2}{4}-2)3c^2-(\frac{\pi^2}{4}-2)L^2}\right]
-%\\&=1-\frac{1}{R_0}\cdot\frac{6\sigma}{L^34(\frac{\pi^2}{4}-2)^{3/2}}\left[8\sigma^2-(\pi^2-8)c^2-\frac{4}{\sqrt{3}}\sigma\sqrt{12\sigma^2-(\pi^2-8)3c^2-(\pi^2-8)L^2}\right]
-%\\&=1-\frac{12}{R_0L^3(\pi^2-8)^{3/2}}\cdot\sigma\left[8\sigma^2-(\pi^2-8)c^2-\frac{4}{\sqrt{3}}\sigma\sqrt{12\sigma^2-(\pi^2-8)3c^2-(\pi^2-8)L^2}\right]
 \\&=1-\frac{1}{R_0}\cdot\frac{4\sqrt{3}}{L^3(\pi^2-8)^{3/2}}\cdot\sigma\left[8\sqrt{3}\sigma^2-(\pi^2-8)\sqrt{3}c^2-4\sigma\sqrt{12\sigma^2-(\pi^2-8)(3c^2+L^2)}\right]
 \end{align*}
 In the case of both kernels, the critical harvesting proportion can be approximated by a function that looks like 
@@ -198,69 +184,16 @@ h^*\sim1- \frac{1}{R_0}\cdot p(L)q(\sigma^2,c^2,L^2+3c^2)
 where $p(L)$ is a decreasing function of the length of the viable patch $L$.
 
 %\pagebreak
-\subsection{Protected Area fluctuations \label{MPA}}
-~\\After the simulations come to equilibrium, the fluctuations in total biomass per generation fluctuate more in reserves that are larger and spaced farther apart than simulations in which the reserves that are smaller and more closely spaced (Figure \ref{fluctuations}). The large reserves have a slightly larger average population, however large reserves here can induce fluctuations of biomass even in deterministic simulations. Thus we expect if reproduction was stochastic, large reserves spaced far apart would be more likely to result in extinction of the population than more closely spaced, smaller reserves. We find the same effect regardless of whether or not effort remains constant or is removed from the system. 
+\subsection{California Current Black Rockfish Parameterization \label{rock}}
+~\\We parameterize our model for black rockfish (\emph{Sebastes melanops}) in the California Current, with MPAs of spacing and width qualitatively similar to those in the Marine Life Projection Act (MLPA), and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table A1.
 
+Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure A1) and an essentially additive interaction between the effects of the two stressors on biomass (Figure A2). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse than no MPA at all (compare Figure A4A and A4D). 
 
 %\pagebreak
-\subsection{California Current Black Rockfish Parameterization \label{rock}}
-~\\We parameterize our model for black rockfish (\emph{Sebastes melanops}) in the California Current, with MPAs of spacing and width qualitatively similar to those in the Marine Life Projection Act (MLPA), and with a maximum climate velocity equal to that observed empirically. The parameters and references are provided in Table \ref{rockfish_params}.
-
-Our results with this parameterization are qualitatively similar to the results presented in the main text. In particular, we find the same negative relationship between critical harvesting rate $h^*$ and the climate velocity $c$ (Figure \ref{crith_rockfish}) and an essentially additive interaction between the effects of the two stressors on biomass (Figure \ref{synergy_rockfish}). Additionally, our black rockfish parameterization has the same counterintuitive result that MPAs from which effort is displaced (rather than eliminated) can be worse than no MPA at all (compare Figure \ref{simulation_rockfish}A and \ref{simulation_rockfish}D). 
-
-\begin{table}[htdp]
-\caption{\label{rockfish_params} Rockfish simulation parameters}
-\begin{center}
-\begin{tabular}{c l l}
-\hline
-Parameter & Value & Source\\
-\hline
-$R_0$ & 2.86 & , equivalent to $\left(\frac{1}{CRT}\right)$ \\
-$K$ & 1 & White et al. (2010) \\
-$h$ & 0-100\% &\\
-$c$ & 0-200km/decade & Burrows et al. (2011)\\
-$L$ & 1000km  & Froese (2014) \\
-MPA width & 20km & Gaines et al. (2010b) \\
-Space between MPAs & 76km & Gaines et al. (2010b) \\
-Dispersal kernal &  Gaussian & White et al. (2010)\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=2.9in]{../figures/rockfish_criticalh.pdf}
-\caption{ \label{crith_rockfish}
-The line indicate the critical harvest fraction as a function of climate velocity on the x-axis. Model parameterized for black rockfish. }
- \end{figure}
- 
-  \begin{figure}[h]
- \centering
- \includegraphics[width=6.1in]{../figures/rockfisheqbiomass.pdf}
- \caption{ \label{synergy_rockfish}
- (A) Results from a model parameterized for black rockfish. The equilibrium biomass of a black rockfish population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis. (B) Interaction between the two stressors as a function of climate velocity and harvest fraction. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss is small in comparison to the total biomass.
- }
- \end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=6.1in]{../figures/compare_flucts.png}
-\caption{\label{fluctuations} Total population biomass is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.02$. }
-% see bounded\_flux.R for code that made this plot
-\end{figure}
- 
+\subsection{Protected Area fluctuations \label{MPA}}
+~\\After the simulations come to equilibrium, the fluctuations in total biomass per generation fluctuate more in reserves that are larger and spaced farther apart than simulations in which the reserves that are smaller and more closely spaced (Figure A3). The large reserves have a slightly larger average population, however large reserves here can induce fluctuations of biomass even in deterministic simulations. Thus we expect if reproduction was stochastic, large reserves spaced far apart would be more likely to result in extinction of the population than more closely spaced, smaller reserves. We find the same effect regardless of whether or not effort remains constant or is removed from the system. 
 
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=6.1in]{../figures/rockfish_sims.pdf}
-\caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis under alternative management strategies as parameterized for black rockfish. (A) The equilibrium biomass for simulations with constant harvest rates. (B) Equilibrium biomass for simulations with threshold management. For threshold management, we set a threshold density below which no fishing is allowed. The threshold ranges between 0 (no fishing allowed) and 1 (all fish taken), with intermediate density thresholds determined as fractions of the maximum population density observed at a given time step before harvesting. We show this on the y-axis. (C) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves is unchanged  (i.e., harvest effort inside reserves is eliminated). (D) Equilibrium biomass for simulations with protected areas in which harvesting pressure is reallocated outside reserves.}
-\end{figure}
 
-
-\cleardoublepage
-
-\bibstyle{cbe}
 
 \end{document}

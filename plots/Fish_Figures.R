@@ -53,7 +53,7 @@ ebm <- data[[7]]
 		theme_tufte() + 
 		scale_color_manual(values=c("grey", "dark grey", "black")) + 
 		theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(0,0,0,0),"cm")) + 
-		xlab("Climate velocity") + ylab("Harvested fraction") + 
+		xlab("Climate velocity") + ylab("Harvesting rate") + 
 		theme(axis.line = element_line(colour = 'black')) +
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))+
 		 expand_limits(y = c(0,1), x=c(0,1)) +
@@ -82,7 +82,7 @@ dev.off()
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))+
 		guides(fill = guide_colorbar(barwidth=1, barheight=10, title.position="top", title="Equilibrium\nbiomass")) + 
 		xlab("") + 
-		ylab("Harvested fraction") + 
+		ylab("Harvesting rate") + 
 		labs(title="A")
 
 #### B
@@ -145,7 +145,7 @@ dev.off()
 	consTrue$management = "Few Large Reserves- Constant Effort"
 	fishTrue$managemetn = "Many Small Reserves - Constant Effort"
 	
-	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("Harvested fraction") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
+	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("Harvesting rate") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
 	scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
 
 
@@ -157,7 +157,7 @@ dev.off()
 	plotC <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
 		geom_raster(interpolate=TRUE) + theme_tufte() + 
 		scale_fill_gradient(low="black", high="gray95")  + 
-		labs(title="C") + xlab("") + ylab("Harvested fraction") + 
+		labs(title="C") + xlab("") + ylab("Harvesting rate") + 
 		theme(text=element_text(family="Helvetica", size=10), axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") +
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
 
@@ -166,21 +166,21 @@ dev.off()
 	plotD <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
 		geom_raster(interpolate=TRUE) + theme_tufte() + 
 		scale_fill_gradient(low="black", high="gray95") + 
-		labs(title="D")+ xlab("") + ylab("Harvested fraction") + 
+		labs(title="D")+ xlab("") + ylab("Harvesting rate") + 
 		theme(text=element_text(family="Helvetica", size=10), axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(.0,0,0,0), "cm"), legend.position="none")+
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
 			
 	plotE <- ggplot(fishTrue, aes(x=speed, y = harvest, fill=Equil.pop)) + 
 		geom_raster(interploate=TRUE) + theme_tufte() +
 		scale_fill_gradient(low="black",high="gray95") + 
-		labs(title="E") + xlab("") + ylab("Harvested fraction") + 
+		labs(title="E") + xlab("") + ylab("Harvesting rate") + 
 		theme(text=element_text(family="Helvetica", size=10), axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(.0,0,0,0), "cm"), legend.position="none")+
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
 	
 	plotF <- ggplot(consTrue, aes(x=speed, y = harvest, fill=Equil.pop)) + 
 		geom_raster(interploate=TRUE) + theme_tufte() +
 		scale_fill_gradient(low="black",high="gray95") + 
-		labs(title="F") + xlab("") + ylab("Harvested fraction") + 
+		labs(title="F") + xlab("") + ylab("Harvesting rate") + 
 		theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10), plot.margin=unit(c(.0,0,0,0), "cm")) + 
 		scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))+
 		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nbiomass"))
@@ -203,197 +203,10 @@ pdf(file="Fig3.pdf",width=6.1,height=6.8)
 		grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD,plotE, plotF + theme(legend.position="none")), legend, sub=textGrob("Climate velocity\n",gp=gpar(fontsize=10)), widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 		dev.off()
 
-############## Alternate figure 3 and 4
-# find contour line where population < 0.001 and call extinct, draw all contour lines on same plot. 
-
-	plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
-
-
-	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="right") + scale_y_reverse()
-
-png("Fig3_alt.png",height=6, width=5,units="in",res=300)
-
-legend <- g_legend(plotB)
-lwidth <- sum(legend$width)
-
-grid.arrange(arrangeGrob(plotA, plotB + theme(legend.position="none")), legend, left="\nHarvest", ncol=2, sub = textGrob("Climate velocity", just="bottom"), widths=unit.c(unit(1,"npc") - lwidth, lwidth))
-dev.off()
-
-################ Figure 4
-tomat <- function(x){df = as.matrix(dcast(x, speed ~ harvest, value.var="Equil.pop"))
-	rownames(df) <- df[,1]
-	colnames(df) <- as.numeric(colnames(df))
-	df = df[,c(2:ncol(df))]
-	return(df)}
-
-sim.mat <- tomat(sim)
-x = as.numeric(rownames(sim.mat))
-y = as.numeric(colnames(sim.mat))
-fishYes.mat <- tomat(fishTrue)
-consYes.mat <- tomat(consTrue)
-fishNo.mat <- tomat(fishmpa)
-consNo.mat <- tomat(consmpa)
-
-png(file="alt_fig4.png",width=10,height=5,res=300,units="in")
-	par(mfrow=c(1,2))
-	contour(x,y,sim.mat, nlev=1, level=0.001, labels="", lwd=2,bty="n",main="A",xlab="speed",ylab="Harvest")
-	contour(x,y,fishYes.mat, nlevel=1, level=0.001, labels="", col="grey",add=T,lwd=2)
-	contour(x,y,fishNo.mat, nlevel=1, level=0.001, labels="", col="grey",add=T,lty=2,lwd=2)
-	
-	contour(x,y,sim.mat, nlev=1, level=0.001, labels="", lwd=2,bty="n",main="B")
-	
-	contour(x,y,consYes.mat, nlevel=1, level=0.001, labels="",col="grey",add=T,lwd=2)
-	contour(x,y,consNo.mat, nlevel=1, level=0.001, labels="",col="grey",add=T,lty=2,lwd=2)
-	legend("topright",legend=c("reserves present\n(harvest proportional)", "reserves absent", "reserves present\n(harvest constant)"), lwd=2, lty=c(2, 1, 1), col = c("grey","black","grey"),bty="n",title="exitinction threshold for:")
-dev.off()
-
-######################
-
-
-# other way using convex hulls for contour for fills -- doesn't work because of consmpa constant survival
-
-poly <- function(df){
-	new_df <- data.frame(speed = df$speed[which(df$Equil.pop>0.001)], harvest = df$harvest[which(df$Equil.pop>0.001)])
-	chull_df <- chull(new_df)
-	return(list(new_df, chull_df))
-}
-
-sim.p <- poly(sim)
-plot(sim.p[[1]],col="white",ylim=c(0,.2),xlim=c(0,0.5))
-polygon(sim.p[[1]][sim.p[[2]],],col=alpha("grey",0.5),bor=F)
-
-fY.p <- poly(fishTrue)
-polygon(fY.p[[1]][fY.p[[2]],],col=alpha("grey",0.5),bor=F)
-
-fN.p <- poly(fishmpa)
-polygon(fN.p[[1]][fN.p[[2]],], col=alpha("grey",0.5),bor=F)
-
-cY.p <- poly(consTrue)
-polygon(cY.p[[1]][cY.p[[2]],],col=alpha("grey",0.5),bor=F)
 
 ############## Appendix
 
-#### Additional harvest simulations: compensation
-
 source("append_data.R")
-
-
-# data
-	fishmpa = fish_TRUE
-	consmpa = cons_TRUE
-
-	consmpa$management = rep("Few Large MPAs", nrow(consmpa))
-	fishmpa$management = rep("Many Small MPAs", nrow(fishmpa))
-	
-	plotA_fish <-ggplot(fishmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
-		geom_raster(interpolate=TRUE) + theme_tufte() + 
-		scale_fill_gradient(low="black", high="gray95")  + 
-		labs(title="A") + xlab("") + ylab("") + 
-		theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
-
-
-	
-	plotA_cons <- ggplot(consmpa, aes(x=speed, y = harvest, fill = Equil.pop)) + 
-		geom_raster(interpolate=TRUE) + theme_tufte() + 
-		scale_fill_gradient(low="black", high="gray95") + 
-		labs(title="B")+ xlab("") + ylab("") + 
-		theme(legend.position="right", text=element_text(family="Helvetica", size = 10),plot.margin=unit(c(.0,0,0,0),"cm")) + 
-		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
-			
-	
-# grabbing the legend from the last plot
-
-legend <- g_legend(plotA_cons)
-lwidth <- sum(legend$width)
-
-png(file="figA_mpa.png",width=6,height=6,res=300,units="in")
-		grid.arrange(arrangeGrob(plotA_fish,plotA_cons + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
-		dev.off()
-
-# checking there's a difference between fish and cons MPA
-
-diff_mpa <- mpas2
-diff_mpa$Equil.pop <- mpas2$Equil.pop-mpas$Equil.pop
-
-ggplot(diff_mpa, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # very little
-
-# what about harvest re_allocated
-
-diff_TRUE <- consmpa
-diff_TRUE$Equil.pop <- consmpa$Equil.pop - fishmpa$Equil.pop
-
-ggplot(diff_TRUE, aes(x=speed, y = harvest, fill=Equil.pop)) + geom_tile() # looks the same
-
-# what about between harvest re-compensated
-
-consTrue <- data[[5]]# not sure why there are NAs, making them 0
-consTrue$Equil.pop[is.na(consTrue$Equil.pop)] <- 0
-fishTrue <- data[[6]]
-
-#compare cons without effort reallocated and effort removed
-diff_cons <- mpas2
-diff_cons$Equil.pop <- diff_cons$Equil.pop - consTrue$Equil.pop
-
-ggplot(diff_cons, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # no difference. 
-
-diff_fish <- mpas
-diff_fish$Equil.pop <- diff_fish$Equil.pop - fishTrue$Equil.pop
-ggplot(diff_fish, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile()
-
-# generate plot for appendix using reallocated effort
-
-	consTrue$management = rep("Few Large MPAs", nrow(consTrue))
-	fishTrue$management = rep("Many Small MPAs", nrow(fishTrue))
-
-plotA <- ggplot(sim, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("") + theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") 
-
-
-	plotB <- ggplot(threshz, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95") + labs(title="B")+ xlab("") + ylab("")+ theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(0,0,0,0),"cm"),legend.position="none") + scale_y_reverse()
-
-
-	
-	plotC <-ggplot(fishTrue, aes(x=speed, y = harvest, fill = Equil.pop)) + 
-		geom_raster(interpolate=TRUE) + theme_tufte() + 
-		scale_fill_gradient(low="black", high="gray95")  + 
-		labs(title="C") + xlab("") + ylab("") + 
-		theme(text=element_text(family="Helvetica", size=10), plot.margin=unit(c(.0,0,0,0),"cm"),legend.position="none") 
-
-
-	
-	plotD <- ggplot(consTrue, aes(x=speed, y = harvest, fill = Equil.pop)) + 
-		geom_raster(interpolate=TRUE) + theme_tufte() + 
-		scale_fill_gradient(low="black", high="gray95") + 
-		labs(title="D")+ xlab("") + ylab("") + 
-		theme(legend.position="right", text=element_text(family="Helvetica", size = 10),plot.margin=unit(c(.0,0,0,0),"cm")) + 
-		guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))
-			
-	
-# grabbing the legend from the last plot
-
-library(gridExtra)
-g_legend<-function(a.gplot){
-tmp <- ggplot_gtable(ggplot_build(a.gplot))
-leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-legend <- tmp$grobs[[leg]]
-return(legend)}
-
-legend <- g_legend(plotD)
-lwidth <- sum(legend$width)
-
-pdf(file="fig3a.pdf",width=8,height=6)
-		grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend, left ="\nHarvest", sub="Climate velocity\n", widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
-		dev.off()
-		
-# differences between reallocate and sim
-#compare cons without effort reallocated and effort removed
-diff_cons <- sim
-diff_cons$Equil.pop <- sim$Equil.pop - consTrue$Equil.pop
-
-ggplot(diff_cons, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile() # no difference. 
-
-diff_fish <- sim
-diff_fish$Equil.pop <- fishTrue$Equil.pop - sim$Equil.pop
-ggplot(diff_fish, aes(x=speed, y=harvest, fill=Equil.pop)) + geom_tile()
 
 ## plot rockfish simulations ----
 library(fields)
@@ -406,13 +219,15 @@ rockMPA_na <- read.csv('MPArock_NA_2015-02-09.csv')
 thresh_noMPA <- read.csv('Thresh_2015-02-09.csv')
 
 # change speeds units
-noThresh$speed <- noThresh$speed * 1000
-rockMPA_eff$speed <- rockMPA_eff$speed * 1000
-rockMPA_na$speed <- rockMPA_na$speed * 1000
-thresh_noMPA$speed <- thresh_noMPA$speed * 1000
+L=1000;
+gen_time=7;
+noThresh$speed <- noThresh$speed * L/gen_time*10
+rockMPA_eff$speed <- rockMPA_eff$speed * L/gen_time*10
+rockMPA_na$speed <- rockMPA_na$speed * L/gen_time*10
+thresh_noMPA$speed <- thresh_noMPA$speed * L/gen_time*10
 
 
-plotA <- ggplot(noThresh, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("Harvested fraction") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
+plotA <- ggplot(noThresh, aes(x=speed, y = harvest, fill = Equil.pop)) + geom_raster(interpolate=TRUE) + theme_tufte() + scale_fill_gradient(low="black", high="gray95")  + labs(title="A") + xlab("") + ylab("Harvesting rate") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
 	scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
 
 
@@ -425,7 +240,7 @@ plotB <- ggplot(thresh_noMPA, aes(x=speed, y = ord_thresh, fill = Equil.pop)) + 
 plotC <-ggplot(rockMPA_na, aes(x=speed, y = harvest, fill = Equil.pop)) + 
   geom_raster(interpolate=TRUE) + theme_tufte() + 
   scale_fill_gradient(low="black", high="gray95")  + 
-  labs(title="C") + xlab("") + ylab("Harvested fraction") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
+  labs(title="C") + xlab("") + ylab("Harvesting rate") + theme(text=element_text(family="Helvetica", size=10),axis.title=element_text(size=10),plot.title=element_text(size=10), plot.margin=unit(c(0,0,0,0),"cm"), legend.position="none") +
 	scale_x_continuous(expand = c(0, 0))+scale_y_continuous(expand=c(0,0))
 
 rockMPA_eff$Equil.pop[which(is.na(rockMPA_eff$Equil.pop))] <- 0
@@ -433,7 +248,7 @@ rockMPA_eff$Equil.pop[which(is.na(rockMPA_eff$Equil.pop))] <- 0
 plotD <- ggplot(rockMPA_eff, aes(x=speed, y = harvest, fill = Equil.pop)) + 
   geom_raster(interpolate=TRUE) + theme_tufte() + 
   scale_fill_gradient(low="black", high="gray95") + 
-  labs(title="D")+ xlab("") + ylab("Harvested fraction") + 
+  labs(title="D")+ xlab("") + ylab("Harvesting rate") + 
   theme(legend.position="right", text=element_text(family="Helvetica", size = 10),axis.title=element_text(size=10),plot.title=element_text(size=10),plot.margin=unit(c(.0,0,0,0),"cm")) + 
   guides(fill = guide_colorbar(barwidth = 1, barheight = 18, title.position="top", title="Equilibrium\nBiomass"))+scale_x_continuous(expand = c(0, 0))+scale_y_continuous(expand=c(0,0))
 
@@ -450,6 +265,6 @@ g_legend<-function(a.gplot){
 legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
-pdf(file="rockfish_sims.pdf",width=8,height=6)
-grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend,  sub=textGrob("Climate velocity (km/year)\n",gp=gpar(fontsize=10)), widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+pdf(file="FigA4.pdf",width=8,height=6)
+grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend,  sub=textGrob("Climate velocity (km/decade)\n",gp=gpar(fontsize=10)), widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 dev.off()
