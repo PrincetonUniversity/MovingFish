@@ -10,7 +10,6 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{brush_style}
 \usepackage{setspace}
 \usepackage{lineno}
 \usepackage{listings}
@@ -72,7 +71,7 @@ n_t(x)&=n^*(\overline{x}_t)+\xi_t(x) \notag
 \end{align}
 
 
-If we assume $\xi_t(x)=\lambda^tu(x-ct)$ for some $\lambda\in\R$ and $u:[-L/2,L/2]\to\R$, then the perturbation grows in time if and only if $\lambda >1$.  Using Equation (\ref{perturb}), we can rewrite $\xi_{t+1}(x)$,
+If we assume $\xi_t(x)=\lambda^tu(x-ct)$ for some $\lambda\in\mathbb{R}$ and $u:[-L/2,L/2]\to\mathbb{R}$, then the perturbation grows in time if and only if $\lambda >1$.  Using Equation (\ref{perturb}), we can rewrite $\xi_{t+1}(x)$,
 \begin{align*}
 \lambda u(x-ct-c)&=R_0g'(0)f'(0)\int_{-L/2+ct}^{L/2+ct}k(x-y)u(y-ct)dy
 \\ \\\Rightarrow \lambda u(\overline{x})&=R_0g'(0)f'(0)\int_{-L/2}^{L/2}k(\overline{x}+c-\overline{y})u(\overline{y})dy
@@ -231,14 +230,14 @@ Dispersal kernal &  Gaussian & White et al. (2010)\\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.45\textwidth]{../../../plots/rockfish_criticalh.pdf}
+\includegraphics[width=2.9in]{../figures/rockfish_criticalh.pdf}
 \caption{ \label{crith_rockfish}
 The line indicate the critical harvest fraction as a function of climate velocity on the x-axis. Model parameterized for black rockfish. }
  \end{figure}
  
   \begin{figure}[h]
  \centering
- \includegraphics[width=.75\textwidth]{../../../plots/rockfisheqbiomass.pdf}
+ \includegraphics[width=6.1in]{../figures/rockfisheqbiomass.pdf}
  \caption{ \label{synergy_rockfish}
  (A) Results from a model parameterized for black rockfish. The equilibrium biomass of a black rockfish population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis. (B) Interaction between the two stressors as a function of climate velocity and harvest fraction. The heat map indicates the interaction measure $S$, i.e., the loss in biomass in the doubly stressed population in excess of the sum of the losses caused by each stressor individually ($E_{hc}-E_h-E_c$). $S$ of $0$ indicates additive interaction of the stressors. The excess loss is small in comparison to the total biomass.
  }
@@ -246,7 +245,7 @@ The line indicate the critical harvest fraction as a function of climate velocit
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\textwidth]{../../../plots/compare_flucts.png}
+\includegraphics[width=6.1in]{../figures/compare_flucts.png}
 \caption{\label{fluctuations} Total population biomass is on the y axis, and generation is on the x axis. These simulations were run with climate velocity $ = 0.1$, and a proportional harvest rate $= 0.02$. }
 % see bounded\_flux.R for code that made this plot
 \end{figure}
@@ -255,7 +254,7 @@ The line indicate the critical harvest fraction as a function of climate velocit
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\textwidth]{../../../plots/rockfish_sims.pdf}
+\includegraphics[width=6.1in]{../figures/rockfish_sims.pdf}
 \caption{\label{simulation_rockfish} The equilibrium biomass of the population as a function of the climate velocity on the x-axis and the harvest fraction on the y-axis under alternative management strategies as parameterized for black rockfish. (A) The equilibrium biomass for simulations with constant harvest rates. (B) Equilibrium biomass for simulations with threshold management. For threshold management, we set a threshold density below which no fishing is allowed. The threshold ranges between 0 (no fishing allowed) and 1 (all fish taken), with intermediate density thresholds determined as fractions of the maximum population density observed at a given time step before harvesting. We show this on the y-axis. (C) Equilibrium biomass for simulations with protected areas where harvesting pressure outside reserves is unchanged  (i.e., harvest effort inside reserves is eliminated). (D) Equilibrium biomass for simulations with protected areas in which harvesting pressure is reallocated outside reserves.}
 \end{figure}
 

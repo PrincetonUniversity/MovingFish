@@ -62,7 +62,7 @@ ebm <- data[[7]]
 # png("Fig1.png",height=3,width=4,units="in",res=300)
 	# print(plot1)
 	# dev.off() 
-	pdf(file="Fig1.pdf",width=6.1,height=3)
+	pdf(file="Fig1.pdf",width=2.9,height=2)
 print(plot1)
 dev.off()
 	
@@ -124,8 +124,8 @@ plot2b <- ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 #### Together
 # png("Fig2.png",height=3, width=8,units="in",res=300)
 # grid.arrange(plot2a, plot2b, ncol=2, sub = textGrob("Climate velocity", gp=gpar(fontsize=10),just="bottom"))
-dev.off() 
-pdf(file="Fig2.pdf",width=6.1,height=3)
+# dev.off() 
+pdf(file="Fig2.pdf",width=6.1,height=2.6)
 grid.arrange(plot2a, plot2b, ncol=2, sub=textGrob("Climate velocity",gp=gpar(fontsize=10),just='bottom'))
 dev.off() 
 ################################################################### Figure 3
@@ -451,5 +451,5 @@ legend <- g_legend(plotD)
 lwidth <- sum(legend$width)
 
 pdf(file="rockfish_sims.pdf",width=8,height=6)
-grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend,  sub=textGrob("Climate velocity (km/decade)\n",gp=gpar(size=10)), widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
+grid.arrange(arrangeGrob(plotA, plotB , plotC,plotD + theme(legend.position="none")), legend,  sub=textGrob("Climate velocity (km/year)\n",gp=gpar(fontsize=10)), widths=unit.c(unit(1, "npc") - lwidth,lwidth),ncol=2)
 dev.off()

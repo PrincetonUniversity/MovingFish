@@ -6,7 +6,8 @@ pfNA <- read.csv("popfishnoThreshNA.csv")
 pfEf <- read.csv("popfishnoThreshyes.csv")
 pn <- read.csv("popnullnoThreshNA.csv")
 
-png(file="compare_flucts.png", height=6,width=6,units="in",res=300)
+# png(file="compare_flucts.png", height=6,width=6,units="in",res=300)
+pdf(file='compare_flucts.pdf',height=6,width=6.1)
 plot(pcNA[1:200,], type='l',ylim=c(1000,2200),lwd=2,bty="n",xlab="Generation", ylab="Total population size")
 lines(pcEf,type='l',col="black",lwd=2,lty=9)
 

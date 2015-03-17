@@ -49,7 +49,7 @@ rockfishplot1 <- ggplot(htoplot, aes(x=speed, y = h)) +
 		xlab("Climate velocity (km/year)") + ylab("Harvested fraction") 
 
 # png("rockfish_criticalh.png",height=3,width=4,units="in",res=300)	
-pdf(file="rockfish_criticalh.pdf",width=2.9,height=3)
+pdf(file="rockfish_criticalh.pdf",width=2.9,height=2)
 print(rockfishplot1)
 dev.off()
 # png("rockfish_criticalh.png",height=3, width=4,units='in',res=300)
@@ -106,8 +106,8 @@ rockfishsynplot <- ggplot(melt_syn, aes(x=Speed, y = Harvest, fill=Synergy)) +
 	theme(panel.grid.major=element_blank(), panel.grid.minor=element_blank()) + labs(title="B")
 
 # #### Together
-pdf("rockfisheqbiomass.pdf",height=3, width=6.1)
-grid.arrange(rockfishebmplot, rockfishsynplot, ncol=2, sub = textGrob("Climate velocity (km/year)", just="bottom"))
+pdf("rockfisheqbiomass.pdf",height=2.6, width=6.1)
+grid.arrange(rockfishebmplot, rockfishsynplot, ncol=2, sub = textGrob("Climate velocity (km/year)", just="bottom",gp=gpar(fontsize=10)))
 dev.off() 
 # png("rockfisheqbiomass.png",height=3, width=8,units='in',res=300)
 # grid.arrange(rockfishebmplot, rockfishsynplot, ncol=2, sub = textGrob("Climate velocity  (km/year)", just="bottom"))
